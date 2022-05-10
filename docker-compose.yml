@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  servicemysql:
+    container_name: mysql-expediente
+    image: mysql
+    ports:
+      - 3000:3306
+    volumes:
+      - volume-mysql-expediente:/var/lib/mysql
+    networks:
+      - sistema-expediente-notas
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+
+  servicephpmyadmin:
+    container_name: phpmyadmin-expediente
+    image: phpmyadmin
+    ports:
+      - 8085:80
+    networks:
+      - sistema-expediente-notas
+    environment:
+      PMA_HOST: 192.168.1.9
+      PMA_PORT: 3000
+
+
+
+volumes:
+  volume-mysql-expediente:
+  volume-phpmyadmin-expediente:
+  
+
+networks:
+  sistema-expediente-notas:
+    driver: bridge
+
