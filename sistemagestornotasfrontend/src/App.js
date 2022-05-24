@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import { Login } from "Pages/Login"
+import { Login } from "Components/Login"
 import { UserContextProvider } from "Context/UserContext";
 import { Home } from 'Pages/Home';
 

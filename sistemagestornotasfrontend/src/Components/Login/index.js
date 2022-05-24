@@ -9,11 +9,11 @@ function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorInput, setErrorInput] = useState(false);
     const { login, isLogged, isLoginLoading, isLoginError, messageError }  = useUser();
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(isLogged);
         if(isLogged) {
             navigate('/');
         }
@@ -22,9 +22,12 @@ function Login() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        login({username, password});
-        console.log(username, password);
-        console.log(isLoginError);
+        if(username !== "" && password !== "") {
+            setErrorInput(false);
+            login({username, password});
+        } else {
+            setErrorInput(true);
+        }
     }
 
     const changeUsername = (e) =>{
@@ -70,6 +73,7 @@ function Login() {
                     />
                 </div>
                 {isLoginError && <ParraphopError message={messageError} />}
+                {errorInput && <ParraphopError message="Error hay campos vacios" />}
                 <div className = "form__container">
                     <button className='form__button' id = "loginButton" 
                         onClick={handleClick}

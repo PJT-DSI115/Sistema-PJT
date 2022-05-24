@@ -1,4 +1,4 @@
-import 'Pages/Login/index.css';
+import '../Login/index.css';
 function ParraphopError({ message }) {
     return (
         <div className="form__container--error">
