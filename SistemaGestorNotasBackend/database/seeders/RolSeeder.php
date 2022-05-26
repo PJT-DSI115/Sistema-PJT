@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class RolSeeder extends Seeder
 {
@@ -17,15 +18,18 @@ class RolSeeder extends Seeder
     {
         DB::table('rols')->insert([
             'codigo_rol' => '1',
-            'nombre_rol' => 'Administrador'
+            'nombre_rol' => 'Administrador',
+            'created_at' => Carbon::now()
         ]);
         DB::table('rols')->insert([
             'codigo_rol' => '2',
-            'nombre_rol' => 'Docente'
+            'nombre_rol' => 'Docente',
+            'created_at' => Carbon::now()
         ]);
         DB::table('rols')->insert([
             'codigo_rol' => '3',
-            'nombre_rol' => 'Alumno'
+            'nombre_rol' => 'Alumno',
+            'created_at' => Carbon::now()
         ]);
     }
 }
