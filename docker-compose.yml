@@ -4,7 +4,7 @@ services:
     container_name: mysql-expediente
     image: mysql
     ports:
-      - 3000:3306
+      - 3003:3306
     volumes:
       - volume-mysql-expediente:/var/lib/mysql
     networks:
@@ -22,7 +22,7 @@ services:
       - sistema-expediente-notas
     environment:
       PMA_HOST: 192.168.1.9
-      PMA_PORT: 3000
+      PMA_PORT: 3003
 
 
 
