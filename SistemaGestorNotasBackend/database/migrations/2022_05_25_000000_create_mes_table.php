@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('registro_docente_cursos', function (Blueprint $table) {
+        Schema::create('mes', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo_mes', 5)->unique()->nullable(false);
+            $table->string('nombre_mes', 20)->nullable(false);
             $table->timestamps();
-            $table->string("rol", 15)->nullable($value = false);
-            $table->foreignId('id_nivel_curso')->references('id')->on('curso_nivels');
-            $table->foreignId('id_docente')->references('id')->on('profesors');
-            $table->foreignId('id_periodo')->references('id')->on('periodos');
-
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registro_docente_cursos');
+        Schema::dropIfExists('mes');
     }
 };

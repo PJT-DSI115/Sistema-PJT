@@ -19,8 +19,7 @@ return new class extends Migration
             $table->dateTime("fecha_inscripcion_carga")->nullable($value = false);
             $table->foreignId("id_alumno")->references("id")->on("alumnos");
             $table->foreignId("id_periodo")->references("id")->on("periodos");
-            $table->foreignId("id_nivel")->references("id")->on("nivels");
-            $table->foreignId("id_curso")->references("id")->on("cursos");
+            $table->foreignId("id_curso_nivel")->references("id")->on("curso_nivels");
         });
     }
 

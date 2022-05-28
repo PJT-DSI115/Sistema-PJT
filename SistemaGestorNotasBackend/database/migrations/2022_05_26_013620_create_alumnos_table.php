@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string("nombre_encargado_alumno", 100)->nullable($value = false);
             $table->string("nie_alumno", 12)->nullable($value = false);
             $table->date("fecha_nacimiento_alumno")->nullable($value = false);
-            $table->foreignId("id_tipo_alumno")->references("id")->on("tipo_alumnos");
+            $table->foreignId("id_categoria_alumno")->references("id")->on("categoria_alumnos");
             $table->foreignId("id_user")->references("id")->on("users");
         });
     }

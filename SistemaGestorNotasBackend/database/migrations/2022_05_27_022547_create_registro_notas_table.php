@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_alumnos', function (Blueprint $table) {
+        Schema::create('registro_notas', function (Blueprint $table) {
             $table->id();
+            $table->decimal('nota', 9, 2)->nullable(true);
+            $table->foreignId('id_linea_actividad')->references('id')->on('linea_actividads');
+            $table->foreignId('id_curso_nivel_mes')->references('id')->on('curso_nivel_mes');
+            $table->foreignId('id_carga_academica')->references('id')->on('carga_academicas');
             $table->timestamps();
-            $table->string("codigo_tipo_alumno", 5)->nullable($value = false)->unique();
-            $table->string("nombre_tipo_alumno", 50)->nullable($value = false);
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_alumnos');
+        Schema::dropIfExists('registro_notas');
     }
 };

@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('registro_docente_cursos', function (Blueprint $table) {
+        Schema::create('linea_actividads', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("rol", 15)->nullable($value = false);
-            $table->foreignId('id_nivel_curso')->references('id')->on('curso_nivels');
-            $table->foreignId('id_docente')->references('id')->on('profesors');
-            $table->foreignId('id_periodo')->references('id')->on('periodos');
-
+            $table->string('nombre_linea_actividad', 10)->nullable(true);
+            $table->foreignId('id_actividad')->references('id')->on('actividads');
         });
     }
 
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('registro_docente_cursos');
+        Schema::dropIfExists('linea_actividads');
     }
 };
