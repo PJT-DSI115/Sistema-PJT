@@ -17,48 +17,75 @@ class NivelSeeder extends Seeder
     public function run()
     {
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N3',
-            'nombre_nivel' => 'Nivel 3',
+            'id' => 1,
+            'codigo_nivel' => 'NI',
+            'nombre_nivel' => 'NIVEL 1',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N4',
-            'nombre_nivel' => 'Nivel 4',
+            'id' => 2,
+            'codigo_nivel' => 'NII',
+            'nombre_nivel' => 'NIVEL 2',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N5',
-            'nombre_nivel' => 'Nivel 5',
+            'id' => 3,
+            'codigo_nivel' => 'NIII',
+            'nombre_nivel' => 'NIVEL 3',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N6',
-            'nombre_nivel' => 'Nivel 6',
+            'id' => 4,
+            'codigo_nivel' => 'NIV',
+            'nombre_nivel' => 'NIVEL 4',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N7',
-            'nombre_nivel' => 'Nivel 7',
+            'id' => 5,
+            'codigo_nivel' => 'NV',
+            'nombre_nivel' => 'NIVEL 5',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N8',
-            'nombre_nivel' => 'Nivel 8',
+            'id' => 6,
+            'codigo_nivel' => 'NVI',
+            'nombre_nivel' => 'NIVEL 6',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N9',
-            'nombre_nivel' => 'Nivel 9',
+            'id' => 7,
+            'codigo_nivel' => 'NVII',
+            'nombre_nivel' => 'NIVEL 7',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N10',
-            'nombre_nivel' => 'Nivel 10',
+            'id' => 8,
+            'codigo_nivel' => 'NVIII',
+            'nombre_nivel' => 'NIVEL 8',
             'created_at' => Carbon::now()
         ]);
         DB::table('nivels')->insert([
-            'codigo_nivel' => 'N11',
-            'nombre_nivel' => 'Nivel 11',
+            'id' => 9,
+            'codigo_nivel' => 'NIX',
+            'nombre_nivel' => 'NIVEL 9',
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('nivels')->insert([
+            'id' => 10,
+            'codigo_nivel' => 'GRA',
+            'nombre_nivel' => 'GRUPO OLIMPICO A',
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('nivels')->insert([
+            'id' => 11,
+            'codigo_nivel' => 'GRB',
+            'nombre_nivel' => 'GRUPO OLIMPICO B',
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('nivels')->insert([
+            'id' => 12,
+            'codigo_nivel' => 'GRC',
+            'nombre_nivel' => 'GRUPO OLIMPICO C',
             'created_at' => Carbon::now()
         ]);
     }
