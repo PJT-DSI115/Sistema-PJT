@@ -6,7 +6,7 @@ import Context from "Context/UserContext";
 import { loginService } from 'Service/loginService';
 
 function useUser() {
-    const { jwt, setJWT } = useContext(Context);
+    const { jwt, setJWT, nombreRol, setNombreRol, idRol, setIdRol } = useContext(Context);
     const [state, setState] = useState({loading: false, error: false});
     const [messageError, setMessageError] = useState("");
 
@@ -20,23 +20,32 @@ function useUser() {
                 setMessageError(data.message);
             } else {
                 window.sessionStorage.setItem('jwt', data.jwt);
+                window.sessionStorage.setItem('nombreRol', data.nombreRol);
+                window.sessionStorage.setItem('idRol', data.idRol);
                 setJWT(data.jwt);
+                setIdRol(data.idRol);
+                setNombreRol(data.nombreRol);
                 setState({loading: false, error: false});
             }
-            console.log("estado del error", state.error);
         })
-    }, [setJWT, state]);
+    }, [setJWT, setIdRol, setNombreRol]);
 
     const logout = useCallback(() => {
 
         setJWT(null);
+        setIdRol(null);
+        setNombreRol(null);
         window.sessionStorage.removeItem('jwt');
+        window.sessionStorage.removeItem('nombreRol');
+        window.sessionStorage.removeItem('idRol');
 
-    }, [setJWT])
+    }, [setJWT, setIdRol, setNombreRol]);
 
     return {
         logout,
         login,
+        idRol,
+        nombreRol,
         isLogged: Boolean(jwt),
         isLoginLoading: state.loading,
         isLoginError: state.error,

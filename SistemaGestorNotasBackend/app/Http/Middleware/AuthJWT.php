@@ -6,6 +6,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Closure;
 use DomainException;
+use Error;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
@@ -31,7 +32,6 @@ class AuthJWT
                 ->header('Content-Type', 'application/json');
         }
 
-
         $key = env("SECRET_KEY");
         try
         {
@@ -53,7 +53,7 @@ class AuthJWT
                 ->header('Content-Type', 'application/json');
         }
 
-        if($role != $decoded->role) {
+        if($user->rol->nombre_rol != $decoded->nombreRole) {
             $errorResponse = $this->getMessageDescription("Forbidden", 403, "Permissions denied");
             return response($errorResponse, 403)
                 ->header('Content-Type', 'application/json');

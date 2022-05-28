@@ -19,7 +19,6 @@ class LoginController extends Controller
         $username = $request->post('username');
         $password = $request->post('password');
         $user = User::where('username', $username)->get();
-        error_log("Este es el rol");
 
         if($user->isEmpty()) {
             $responseMessage["message"] = "The username or password is invalid";
@@ -35,10 +34,10 @@ class LoginController extends Controller
         $payload = [
             "user" => $username,
             "role" => $user[0]->rol->id_role,
+            "nombreRole" => $user[0]->rol->nombre_rol,
             "idUser" => $user[0]->id,
         ];
-       error_log($user[0]->rol->id_role);
-       error_log($user[0]->rol->nombre_rol);
+        error_log($user[0]->id);
 
         $jwt = JWT::encode($payload, env("SECRET_KEY"), 'HS256');
 
