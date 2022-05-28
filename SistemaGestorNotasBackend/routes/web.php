@@ -21,6 +21,6 @@ Route::get('/', function () {
 
 Route::get('/hello-word', function(Request $request) {
     return "Hola mundo";
-})->middleware('authJwt:prueba');
+})->middleware('authJwt:Administrador');
 
 Route::post('/login', [LoginController::class, 'login']);

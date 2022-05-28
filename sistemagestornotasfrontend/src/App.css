@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "PoppinsStandard";
+  src: url('./assets/fonts/poppins/Poppins-Regular.ttf');
+}
 .App {
   text-align: center;
 }

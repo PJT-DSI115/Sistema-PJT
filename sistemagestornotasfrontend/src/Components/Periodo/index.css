@@ -1,0 +1,14 @@
+
+.main {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+
+.table-custom {
+    margin-top: 30px !important;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
