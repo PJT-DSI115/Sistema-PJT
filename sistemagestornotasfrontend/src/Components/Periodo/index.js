@@ -1,30 +1,90 @@
-import { usePeriodo } from 'Hooks/usePeriodo';
-
-import {useEffect} from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+
 import { Formulario } from './formulario';
+import { usePeriodo } from 'Hooks/usePeriodo';
+import { AlertMessage } from './alertMessage';
+import { PeriodTable } from './periodTable';
 import Modal from 'Components/Modal';
 
 import "./index.css";
 
 function Periodo() {
-
-    const { periodo, loading, errorPermission, 
-		storePeriod, errorSave, setErrorSave } = usePeriodo();
 	const [showModal, setShowModal] = useState(false);
+
+    const { periodo, errorPermission, 
+		storePeriod, errorSave, setErrorSave, updatePeriod, 
+        saveSuccess, setLoading, changeState} = usePeriodo({showModal});
+    const [childrenModal, setChildrenModal] =  useState(null);
+    const [heightC, setHeigtC] = useState("");
+    const [widthC, setWidthC] = useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
-		console.log(errorSave, "error ");
         if(errorPermission) {
             navigate('/error403');
         }
-    })
+    },[]);
+
 
 	const handleClick = () => {
+        setHeigtC("320px");
+        setWidthC("600px");
+        setChildrenModal(
+            <Formulario onClose = {onClose}
+                onStore = {storePeriod}
+                errorSave = {errorSave}
+                saveSuccess = { saveSuccess }
+                loading = { setLoading }
+            />
+        )
 		setShowModal(true);
 	}
+
+    const handleClickDelete = (id) => {
+        setHeigtC("200px");
+        setWidthC("600px");
+        const periodoActive = periodo[id];
+        const dataUpdate = {
+            "periodActive": false,
+            "id": periodoActive.id
+        }
+        setChildrenModal(
+            <AlertMessage 
+                title = "Cierre de periodo" 
+                descripction = "Desea cerrar el periodo evaluativo actual" 
+                onClose = { onClose }
+                onEvent = { changeState }
+                dataUpdate = { dataUpdate }
+            />
+        )
+        setShowModal(true)
+    }
+
+    const verifiedPeriodActive = () => {
+        return periodo.some((peri) =>  peri.activo_periodo === 1 );
+    }
+
+    const handleClickUpdate = (id) => {
+        setHeigtC("320px");
+        setWidthC("600px");
+        const periodUpdate = periodo[id];
+        const dataUpdate = {
+            "fechaFin": periodUpdate.fecha_fin_periodo,
+            "fechaInicio": periodUpdate.fecha_inicio_periodo,
+            "id": periodUpdate.id
+        }
+        setChildrenModal(
+            <Formulario 
+                onStore = {updatePeriod}
+                dataUpdate = {dataUpdate}
+                saveSuccess = { saveSuccess }
+                onClose = { onClose }
+                loading = { setLoading }
+            />
+        )
+        setShowModal(true);
+    }
 
 	const onClose = () => {
 		setShowModal(false);
@@ -34,60 +94,39 @@ function Periodo() {
     return (
         <div className="main">
 			{
-				showModal ? <Modal onClose={onClose}>
-					<Formulario onClose = {onClose}
-						onStore = {storePeriod}
-						errorSave = {errorSave}
-					/>
-					</Modal>: ""
+				showModal ? 
+                    <Modal 
+                        heightC = {heightC}
+                        widthC = {widthC}
+                    >
+                        {childrenModal}
+					</Modal> : 
+                ""
 			}
             <h1 
 				className = "text-lg font-bold mt-10"
 			>Periodos</h1>
             <div>
-                <button 
-                    className="rounded-lg bg-lime-600 px-10 py-1 
-					text-gray-100 cursor-pointer hover:bg-line-800
-					mt-10"
-					onClick={handleClick}
-                >
-					Registrar
-				</button>
+                
+                {
+                    !verifiedPeriodActive() ? 
+                    <button 
+                        className="rounded-lg bg-lime-600 px-10 py-1 
+                        text-gray-100 cursor-pointer hover:bg-line-800
+                        mt-10"
+                        onClick={handleClick}
+                    >
+                        Registrar
+                    </button>
+                    : ""
+                }
             </div>
-            <table 
-				className= "table-custom"
-			>
-                <thead>
-                    <tr>
-                        <th>Codigo Periodo</th>
-                        <th>Fecha Inicio Periodo</th>
-                        <th>Fecha Fin Periodo</th>
-						<th>Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        periodo.map( ({id, activo_periodo, 
-                            codigo_periodo, fecha_inicio_periodo, 
-                            fecha_fin_periodo}) => {
-                            return (
-                                <tr key = {id}>
-                                    <th>{codigo_periodo}</th>
-                                    <th>{fecha_inicio_periodo}</th>
-                                    <th>{fecha_fin_periodo}</th>
-									<th>
-										<button>Editar</button>
-									</th>
-                                </tr>
-
-                            );
-                        })
-                    }
-                </tbody>
-            </table>
+            <PeriodTable 
+                handleClickDelete = { handleClickDelete }
+                handleClickUpdate = { handleClickUpdate }
+                periodo = {periodo}
+            />
         </div>
     );
-
 }
-
 export { Periodo };

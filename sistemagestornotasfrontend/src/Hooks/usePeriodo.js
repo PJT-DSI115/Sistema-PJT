@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from 'react'; 
 
-import {getAllPeriod, storeOnePeriod} from 'Service/periodoService';
+import {getAllPeriod, storeOnePeriod, updateOnePeriodo, 
+    changeStatePeriod} from 'Service/periodoService';
 import Context from 'Context/UserContext';
 
 
-function usePeriodo() {
+function usePeriodo({showModal}) {
 
     const { jwt } = useContext(Context);
 
@@ -12,6 +13,7 @@ function usePeriodo() {
     const [loading, setLoading] = useState(false);
     const [errorPermission, setErrorPermission] = useState(false);
     const [errorSave, setErrorSave] = useState(false);
+    const [saveSuccess, setSaveSuccess] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -22,16 +24,39 @@ function usePeriodo() {
                     setErrorPermission(true);
                 }
             }else {
+                data.forEach((da, index) => {
+                    da.index = index
+                    return data;
+                }) 
                 setPeriodo(data);
                 setLoading(false);
             }
         })
+    }, [jwt, setErrorPermission, setLoading, setPeriodo, showModal])
 
-    }, [jwt, setErrorPermission, setLoading, setPeriodo])
+    const getPeriod = () => {
+        setLoading(true);
+        getAllPeriod({ jwt })
+        .then((data) => {
+            if(data.status) {
+                if(data.status === 401) {
+                    setErrorPermission(true);
+                }
+            }else {
+                data.forEach((da, index) => {
+                    da.index = index
+                    return data;
+                }) 
+                setPeriodo(data);
+                setLoading(false);
+            }
+        });
+
+    }
 
 
     const storePeriod = ({data}) => {
-
+        setLoading(true);
         storeOnePeriod({data, jwt})
         .then(data => {
             if(data.status === 500) {
@@ -43,21 +68,86 @@ function usePeriodo() {
                 return;
             }
             setErrorPermission(false);
-            setErrorSave(false);
+            setSaveSuccess(true);
             return data.json()
         })
         .then(data => {
-            console.log(data);
+            if(data.message === 'Ok') {
+                setLoading(false)
+                setSaveSuccess(true);
+            }
         });
     };
+
+    const updatePeriod = ({data}) => {
+        setLoading(true);
+        updateOnePeriodo({data, jwt})
+        .then(data => {
+            if(data.status === 500) {
+                setSaveSuccess(false);
+                setErrorSave(true);
+                return;
+            }
+            if(data.status === 401) {
+                setSaveSuccess(false);
+                setErrorPermission(true);
+                return;
+            }
+            setErrorPermission(false);
+            setErrorSave(false);
+            setSaveSuccess(true);
+            return data.json();
+        })
+        .then(data => {
+            if(data.message === 'Ok') {
+                setLoading(false);
+                setSaveSuccess(true);
+            }
+        })
+    }
+
+    const changeState = ({ data }) => {
+
+        changeStatePeriod({ data, jwt })
+        .then(data => {
+
+            if(data.status === 500) {
+                setSaveSuccess(false);
+                setErrorSave(true);
+                return;
+            }
+            if(data.status === 401) {
+                setSaveSuccess(false);
+                setErrorPermission(true);
+                return;
+            }
+            setErrorPermission(false);
+            setErrorSave(false);
+            setSaveSuccess(true);
+            return data.json();
+        })
+        .then(data => {
+            if(data.message === 'Ok') {
+                setLoading(false);
+                setSaveSuccess(true);
+            }
+        })
+    }
     
+
     return {
         periodo,
         loading,
         errorPermission,
         storePeriod,
         errorSave,
-        setErrorSave
+        setErrorSave,
+        updatePeriod,
+        saveSuccess,
+        setLoading,
+        setPeriodo,
+        getPeriod,
+        changeState
     }
 
 }

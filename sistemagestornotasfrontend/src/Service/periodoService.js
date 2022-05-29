@@ -9,7 +9,6 @@ function getAllPeriod({ jwt }) {
             }
         })
         .then(response => {
-            console.log(response);
             return response.json();
         })
         .then(data => {
@@ -19,7 +18,6 @@ function getAllPeriod({ jwt }) {
 }
 
 const storeOnePeriod = ({ data , jwt}) => {
-
     return (
         fetch(`${ENDPOINT}/periodos/store`, {
             method: 'POST',
@@ -34,4 +32,33 @@ const storeOnePeriod = ({ data , jwt}) => {
 
 }
 
-export { getAllPeriod, storeOnePeriod }; 
+const updateOnePeriodo = ({ data, jwt }) => {
+    return (
+        fetch(`${ENDPOINT}/periodos/update/${data.id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response)
+    )
+}
+
+const changeStatePeriod = ({ data, jwt }) => {
+    return(
+        fetch(`${ENDPOINT}/periodos/changeState/${data.id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwt}`
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response =>response)
+    );
+
+}
+
+export { getAllPeriod, storeOnePeriod, updateOnePeriodo, changeStatePeriod }; 

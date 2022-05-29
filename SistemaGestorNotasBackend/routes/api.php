@@ -3,7 +3,6 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\PeriodoController;
-use App\Models\Periodo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +28,13 @@ Route::get('/nivels/{codigoNivel}', [NivelController::class, 'show']);
 Route::post('/nivels/store', [NivelController::class, 'store']);
 
 
-Route::post('/periodos/store', [PeriodoController::class, 'store'])
-->middleware('authJwt:Administrador');
-Route::get('/periodos/index', [PeriodoController::class, 'index'])
-->middleware('authJwt:Administrador');
+Route::post('/periodos/store', [PeriodoController::class, 'storePeriod'])
+    ->middleware('authJwt:Administrador');
+Route::get('/periodos/index', [PeriodoController::class, 'indexPeriod'])
+    ->middleware('authJwt:Administrador');
+
+Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeriod'])
+    ->middleware('authJwt:Administrador');
+
+Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
+    ->middleware('authJwt:Administrador');
