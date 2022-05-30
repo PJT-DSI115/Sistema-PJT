@@ -19,7 +19,7 @@ class LoginController extends Controller
         $username = $request->post('username');
         $password = $request->post('password');
         $user = User::where('username', $username)->get();
-
+        error_log($user);
         if($user->isEmpty()) {
             $responseMessage["message"] = "The username or password is invalid";
             return response($responseMessage, 401);
