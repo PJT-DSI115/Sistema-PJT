@@ -1,5 +1,6 @@
 import { ENDPOINT } from 'Config/EndPoint';
 
+
 function getAllPeriod({ jwt }) {
     return (
         fetch(`${ENDPOINT}/periodos/index`, {
