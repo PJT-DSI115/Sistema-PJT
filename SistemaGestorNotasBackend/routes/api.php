@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/nivels', [NivelController::class, 'index'])
+Route::get('/nivels/index', [NivelController::class, 'index'])
     ->middleware('authJwt:Administrador');
 Route::get('/nivels/{codigoNivel}', [NivelController::class, 'show']);
 Route::post('/nivels/store', [NivelController::class, 'store']);
