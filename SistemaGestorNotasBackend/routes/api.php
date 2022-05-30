@@ -41,5 +41,11 @@ Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeri
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
     ->middleware('authJwt:Administrador');
 
-Route::get('/registroDocenteCurso', [RegistroDocenteCursoController::class, 'prueba']);
-Route::get('/registroDocenteCurso/index', [RegistroDocenteCursoController::class, 'indexPrueba']);
+Route::post('/registroDocenteCurso/storeRegister', 
+    [RegistroDocenteCursoController::class, 'storeRegisterProfessor']);
+
+
+
+Route::get('/prueba', [RegistroDocenteCursoController::class, 'prueba']);
+
+
