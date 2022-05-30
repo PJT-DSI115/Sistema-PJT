@@ -1,0 +1,14 @@
+.Curso-Nivel{
+   padding: 20px;
+}
+
+.Nivel-List_container{
+   width: fit-content;
+   margin: 20px auto;
+}
+
+.Curso-List_container{
+   width: 75%;
+   padding: 50px 10px;
+   margin: 20px auto;
+}

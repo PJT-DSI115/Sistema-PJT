@@ -1,0 +1,19 @@
+.Niveles-select{
+    border: 2px solid #64a5f581;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    background-color: #359e87;
+    text-align: center;
+}
+
+.Niveles-select:focus{
+    outline: none;
+}
+
+.select-option{
+    color: #fff ;
+    font-size: 15px;
+    background-color: rgba(39, 90, 90, 0.527) ;
+}
