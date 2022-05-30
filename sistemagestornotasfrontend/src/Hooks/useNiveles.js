@@ -50,4 +50,12 @@ function useNivel() {
         });
 
     }
+
+    return {
+        nivel,
+        loading,
+        getNivel
+    }
 }
+
+export {useNivel};
