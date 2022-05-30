@@ -3,6 +3,8 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\RegistroDocenteCursoController;
+use App\Http\Controllers\CursoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +41,18 @@ Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeri
 
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
     ->middleware('authJwt:Administrador');
+
+Route::post('/registroDocenteCurso/storeRegister', 
+    [RegistroDocenteCursoController::class, 'storeRegisterProfessor']);
+
+
+
+Route::get('/prueba', [RegistroDocenteCursoController::class, 'prueba']);
+
+
+//Routes Curso.
+
+Route::get('/cursos/index', [CursoController::class, 'index']);
+Route::post('/cursos/store', [CursoController::class, 'store']);
+Route::put('/cursos/update/{curso}', [CursoController::class, 'update']);
+Route::delete('/cursos/delete/{id}', [CursoController::class, 'destroy']);
