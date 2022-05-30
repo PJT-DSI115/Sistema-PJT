@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NivelController;
 use App\Http\Controllers\PeriodoController;
+use App\Http\Controllers\RegistroDocenteCursoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +39,6 @@ Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeri
 
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
     ->middleware('authJwt:Administrador');
+
+Route::get('/registroDocenteCurso', [RegistroDocenteCursoController::class, 'prueba']);
+Route::get('/registroDocenteCurso/index', [RegistroDocenteCursoController::class, 'indexPrueba']);

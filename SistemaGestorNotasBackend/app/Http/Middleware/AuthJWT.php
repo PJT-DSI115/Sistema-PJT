@@ -6,7 +6,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Closure;
 use DomainException;
-use Error;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Illuminate\Http\Request;
