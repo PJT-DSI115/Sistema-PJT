@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.css";
+import "./CursoCard.css";
 import { Link } from "react-router-dom";
 
 function CursoCard() {
