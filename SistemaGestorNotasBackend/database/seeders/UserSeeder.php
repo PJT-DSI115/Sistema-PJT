@@ -23,5 +23,12 @@ class UserSeeder extends Seeder
             'id_role' => 1,
             'created_at' => Carbon::now()
         ]);
+
+        DB::table('users')->insert([
+            'username' => 'eduardo',
+            'password' => Hash::make('password'),
+            'id_role' => 1,
+            'created_at' => Carbon::now()
+        ]);
     }
 }
