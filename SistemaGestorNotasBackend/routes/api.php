@@ -5,6 +5,7 @@ use App\Http\Controllers\NivelController;
 use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\RegistroDocenteCursoController;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\CursoNivelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,7 +48,7 @@ Route::post('/registroDocenteCurso/storeRegister',
 
 
 
-Route::get('/prueba', [RegistroDocenteCursoController::class, 'prueba']);
+Route::get('/cursos/{id}', [CursoNivelController::class, 'getCursosByNivel']);
 
 
 //Routes Curso.

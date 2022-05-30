@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CursoNivel;
 use App\Service\RegistroDocenteCursosService;
 use Illuminate\Http\Request;
 
@@ -26,11 +25,5 @@ class RegistroDocenteCursoController extends Controller
 
         return $responseJson;
 
-    }
-
-    public function prueba() {
-        error_log("Prueba");
-        $cursoNivel = CursoNivel::where('id_nivel', 1)->with(['curso', 'nivel'])->get();
-        return $cursoNivel;
     }
 }
