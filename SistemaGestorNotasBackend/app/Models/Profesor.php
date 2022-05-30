@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Profesor extends Model
 {
     use HasFactory;
+
+    public function registroDocenteCurso() {
+        
+        return $this->hasMany(RegistroDocenteCurso::class, 'id_docente');
+    }
 }

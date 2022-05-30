@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Nivel extends Model
 {
     use HasFactory;
+
+    public function cursoNivel() {
+        return $this->hasMany(Nivel::class, 'id_nivel');
+    }
 }
