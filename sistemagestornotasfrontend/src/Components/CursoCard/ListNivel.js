@@ -1,3 +1,4 @@
+import './css/ListNivel.css';
 
 function ListNivel({ nivel, handleChange }) {
 
@@ -6,9 +7,11 @@ function ListNivel({ nivel, handleChange }) {
         className="Niveles-select"
         onChange={handleChange}
         >
-          <option value="0"></option>
+          <option 
+            value="0"
+            className='select-option'></option>
         {nivel.map((nl) => (
-          <option key={nl.id} value={nl.id}>
+          <option key={nl.id} value={nl.id} className='select-option'>
             {nl.nombre_nivel}
           </option>
         ))}

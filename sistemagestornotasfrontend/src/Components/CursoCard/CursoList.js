@@ -1,7 +1,7 @@
 import { CursoCard } from "./CursoCard";
+import './css/CursoList.css';
 
 const CursoList = ({cursoNivel}) =>{
-
 
     function mostrarCursos(){
         return(
@@ -9,6 +9,7 @@ const CursoList = ({cursoNivel}) =>{
             cursoNivel.map(cn => (
                 <CursoCard
                     key={cn.id}
+                    id_curso_nivel={cn.id}
                     nombre={cn.curso.nombre_curso}
                     nivel={cn.nivel.nombre_nivel}
                 />

@@ -1,12 +1,15 @@
 import React from "react";
-import "./CursoCard.css";
 import { Link } from "react-router-dom";
+import "./css/CursoCard.css";
 
-function CursoCard({nombre, nivel}) {
+function CursoCard({id_curso_nivel, nombre, nivel}) {
+
   return (
-    <Link to="#">
+    <Link to={`/card/${id_curso_nivel}`}>
       <div className="Card">
-        <div className="Card-title">{nombre}</div>
+        <div className="Card-title">
+          {nombre}
+        </div>
         <div className="Card-description">{nivel}</div>
       </div>
     </Link>

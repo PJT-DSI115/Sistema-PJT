@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNivel } from "Hooks/useNiveles";
 import CursoList from "./CursoList";
 import { ListNivel } from 'Components/CursoCard/ListNivel'
 import { useCursoNivel } from 'Hooks/useCursoNivel';
+
+import "./css/index.css";
 
 function CursosNivel() {
 
     const { nivel, loading } = useNivel();
     const {cursoNivel, getCursosNivel} = useCursoNivel();
     const [idNivel, setIdNivel] = useState(0);
-
-
 
     async function handleChange(e){
         setIdNivel(e.target.value);
@@ -21,8 +21,8 @@ function CursosNivel() {
   return (
   
     <div className="Curso-Nivel">
-        <ListNivel handleChange={ handleChange } nivel = {nivel} />
-        {idNivel > 0?<CursoList cursoNivel = { cursoNivel  }/>:""}
+        <div className="Nivel-List_container"><ListNivel handleChange={ handleChange } nivel = {nivel} /></div>
+        <div className="Curso-List_container">{idNivel > 0?<CursoList cursoNivel = { cursoNivel  }/>:""}</div>
     </div>
   
   );
