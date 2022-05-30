@@ -29,11 +29,11 @@ function useNivel() {
                 setLoading(false);
             }
         })
-    }, [jwt, setErrorPermission, setLoading, setNivel])
+    }, [])
 
     const getNivel = () => {
         setLoading(true);
-        getAllPeriod({ jwt })
+        getAllNivels({ jwt })
         .then((data) => {
             if(data.status) {
                 if(data.status === 401) {
@@ -44,7 +44,7 @@ function useNivel() {
                     da.index = index
                     return data;
                 }) 
-                setPeriodo(data);
+                setNivel(data);
                 setLoading(false);
             }
         });

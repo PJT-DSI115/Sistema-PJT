@@ -2,12 +2,12 @@ import React from "react";
 import "./CursoCard.css";
 import { Link } from "react-router-dom";
 
-function CursoCard() {
+function CursoCard({nombre, nivel}) {
   return (
     <Link to="#">
       <div className="Card">
-        <div className="Card-title">MATEMATICA - MAT</div>
-        <div className="Card-description">NIVEL 1</div>
+        <div className="Card-title">{nombre}</div>
+        <div className="Card-description">{nivel}</div>
       </div>
     </Link>
   );
