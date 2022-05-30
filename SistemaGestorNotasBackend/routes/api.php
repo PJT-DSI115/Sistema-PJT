@@ -45,9 +45,11 @@ Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'chang
 Route::post('/registroDocenteCurso/storeRegister', 
     [RegistroDocenteCursoController::class, 'storeRegisterProfessor']);
 
+Route::get('/registroDocenteCurso/showRegister', 
+    [RegistroDocenteCursoController::class, 'getRegisterByIdPeriodAndByIdNivelCurso']);
 
 
-Route::get('/prueba', [RegistroDocenteCursoController::class, 'prueba']);
+
 
 
 //Routes Curso.

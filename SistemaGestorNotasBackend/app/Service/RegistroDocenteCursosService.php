@@ -16,7 +16,7 @@ class RegistroDocenteCursosService {
     public function registroDocente($data) {
 
         $responseValidate = ValidateJsonRequest::validateJsonRequestRegistroDocenteCurso($data);
-        if(count($responseValidate) >= 0) {
+        if(count($responseValidate) > 0) {
             return $responseValidate;
         }
 
