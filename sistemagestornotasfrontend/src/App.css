@@ -3,3 +3,6 @@
   src: url('./assets/fonts/poppins/Poppins-Regular.ttf');
 }
 
+.App{
+  height: 100vh;
+}

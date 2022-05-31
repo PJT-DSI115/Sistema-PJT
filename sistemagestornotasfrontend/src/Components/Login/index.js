@@ -37,7 +37,7 @@ function Login() {
   };
 
   return (
-    <div className="main">
+    <div className="login-container">
       <form className="form">
         <h1 className="form__title">INICIAR SESION</h1>
         <div className="form__info">
