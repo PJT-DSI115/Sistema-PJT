@@ -27,7 +27,7 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
                                 className = "px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                             >{periodo.codigo_periodo}</th>
                             <td className = "px-6 py-4">{periodo.fecha_inicio_periodo}</td>
-                            <td className = "px-6 py-4">{periodo. fecha_fin_periodo}</td>
+                            <td className = "px-6 py-4">{periodo.fecha_fin_periodo}</td>
                             <td className = "px-6 py-4">
                                 {
                                         periodo.activo_periodo ? 

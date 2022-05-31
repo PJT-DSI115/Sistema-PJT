@@ -15,7 +15,7 @@ class CursoController extends Controller
      */
     public function index()
     {
-        //Mostrar todos los cursos.
+        error_log("Entra aqui");
         return Curso::all();
     }
 
@@ -27,6 +27,7 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
+        error_log("prueba");
         //Guardar cursos.
         $codigoCurso = $request->post('codigo_curso');
         $nombreCurso = $request->post('nombre_curso');
@@ -50,7 +51,7 @@ class CursoController extends Controller
      */
     public function show($id)
     {
-        //
+        error_log("Esta es una prueba para el show");
     }
 
     /**

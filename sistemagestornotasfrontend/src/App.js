@@ -6,6 +6,7 @@ import { Home } from 'Pages/Home';
 import { Error403 } from 'Pages/Error403';
 import { Periodo } from 'Components/Periodo';
 import { CursosNivel } from 'Components/CursoCard';
+import { Curso } from 'Components/Curso';
 
 import { AssignTeacher } from 'Components/assignTeacher';
 
@@ -25,6 +26,8 @@ function App() {
                         </Route>
                     </Route>
 					<Route path='/card' element = {<CursosNivel />} />
+					<Route path = '/curso' element = { <Curso /> } />
+
 				</Routes>
 			</div>
 		</UserContextProvider>

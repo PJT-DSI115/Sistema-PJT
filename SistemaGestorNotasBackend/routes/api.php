@@ -54,8 +54,7 @@ Route::get('/cursos/{id}', [CursoNivelController::class, 'getCursosByNivel']);
 
 
 //Routes Curso.
-
-Route::get('/cursos/index', [CursoController::class, 'index']);
-Route::post('/cursos/store', [CursoController::class, 'store']);
-Route::put('/cursos/update/{curso}', [CursoController::class, 'update']);
-Route::delete('/cursos/delete/{id}', [CursoController::class, 'destroy']);
+Route::get('/curso/index', [CursoController::class, 'index']);
+Route::post('/curso/store', [CursoController::class, 'store']);
+Route::put('/curso/update/{curso}', [CursoController::class, 'update']);
+Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
