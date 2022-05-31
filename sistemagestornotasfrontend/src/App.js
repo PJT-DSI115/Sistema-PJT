@@ -21,8 +21,8 @@ function App() {
 					<Route path='/periodo' element = {<Periodo />} />
 
                     <Route path = '/asignarProfesor'  >
-                        <Route path = ":periodo" >
-                            <Route path = ":nivelCurso" element = { <AssignTeacher /> } />
+                        <Route path = ":idPeriodo" >
+                            <Route path = ":idCursoNivel" element = { <AssignTeacher /> } />
                         </Route>
                     </Route>
 					<Route path='/card' element = {<CursosNivel />} />

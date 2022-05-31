@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodoController;
 use App\Http\Controllers\RegistroDocenteCursoController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\CursoNivelController;
+use App\Http\Controllers\DocenteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,3 +59,7 @@ Route::get('/curso/index', [CursoController::class, 'index']);
 Route::post('/curso/store', [CursoController::class, 'store']);
 Route::put('/curso/update/{curso}', [CursoController::class, 'update']);
 Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
+
+
+
+Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
