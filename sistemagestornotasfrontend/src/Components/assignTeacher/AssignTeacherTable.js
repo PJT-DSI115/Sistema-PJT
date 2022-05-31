@@ -1,5 +1,5 @@
 
-function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
+function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
 
     return (
         <table 
@@ -9,40 +9,36 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
             className = "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
             <tr>
-                <th scope = "col" className = "px-6 py-3">Codigo Periodo</th>
-                <th scope = "col" className = "px-6 py-3">Fecha Inicio Periodo</th>
-                <th scope = "col" className = "px-6 py-3">Fecha Fin Periodo</th>
+                <th scope = "col" className = "px-6 py-3">Nombre docente</th>
+                <th scope = "col" className = "px-6 py-3">Dui</th>
+                <th scope = "col" className = "px-6 py-3">Rol</th>
                 <th scope = "col" className = "px-6 py-3">Accion</th>
             </tr>
         </thead>
         <tbody>
             {
-                periodo.map( (periodo) => {
+                register.map( (register) => {
                     return (
-                        <tr key = {periodo.id} 
+                        <tr key = {register.id} 
                             className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 py-10"
                         >
                             <th 
                                 scope = "row"
                                 className = "px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
-                            >{periodo.codigo_periodo}</th>
-                            <td className = "px-6 py-4">{periodo.fecha_inicio_periodo}</td>
-                            <td className = "px-6 py-4">{periodo.fecha_fin_periodo}</td>
+                            >
+                                {register.profesor.nombre_profesor}
+                            </th>
+                            <td className = "px-6 py-4">{register.profesor.dui_profesor}</td>
+                            <td className = "px-6 py-4">{register.rol}</td>
                             <td className = "px-6 py-4">
-                                {
-                                        periodo.activo_periodo ? 
-                                        <>
                                         <button 
                                             className = "formCustom__button mx-2"
-                                            onClick = {() => handleClickUpdate(periodo.index)}
+                                            onClick = {() => handleClickUpdate(register.index)}
                                         >Editar</button> 
                                         <button 
                                             className = "formCustom__button formCustom__button--red"
-                                            onClick = {() => handleClickDelete(periodo.index)}
+                                            onClick = {() => handleClickDelete(register.index)}
                                         >Cerrar</button> 
-                                    </>
-                                    : ""
-                                }
                             </td>
                         </tr>
 
@@ -55,4 +51,4 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
 
 }
 
-export {PeriodTable};
+export {AssignTeacheTable};

@@ -1,9 +1,8 @@
 import { ENDPOINT } from 'Config/EndPoint';
 
 function getAllRegisterByNivelCursoAndPeriodo({ idPeriodo, idCursoNivel, jwt }) {
-
     return (
-        fetch(`${ENDPOINT}/api/registroDocenteCurso/showRegister?idCursoNivel=${idCursoNivel}&idPeriodo=${idPeriodo}`, {
+        fetch(`${ENDPOINT}/registroDocenteCurso/showRegister?idNivelCurso=${idCursoNivel}&idPeriodo=${idPeriodo}`, {
             method: 'GET',
             headers: {
                 'Authorization': jwt ? `Bearer ${jwt}` : ""
@@ -12,7 +11,6 @@ function getAllRegisterByNivelCursoAndPeriodo({ idPeriodo, idCursoNivel, jwt }) 
         .then(response => response)
     );
 }
-
 
 function storeRegister({ data, jwt }) {
     return (

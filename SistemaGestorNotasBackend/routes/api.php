@@ -8,6 +8,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\CursoNivelController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\LineaActividadController;
+use App\Http\Controllers\DocenteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,11 +52,10 @@ Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'chang
     ->middleware('authJwt:Administrador');
 
 //Routes Curso.
-
-Route::get('/cursos/index', [CursoController::class, 'index']);
-Route::post('/cursos/store', [CursoController::class, 'store']);
-Route::put('/cursos/update/{curso}', [CursoController::class, 'update']);
-Route::delete('/cursos/delete/{id}', [CursoController::class, 'destroy']);
+Route::get('/curso/index', [CursoController::class, 'index']);
+Route::post('/curso/store', [CursoController::class, 'store']);
+Route::put('/curso/update/{curso}', [CursoController::class, 'update']);
+Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
 
 //Routes Actividad.
 
@@ -83,3 +83,6 @@ Route::post('/registroDocenteCurso/storeRegister',
 
 Route::get('/registroDocenteCurso/showRegister', 
     [RegistroDocenteCursoController::class, 'getRegisterByIdPeriodAndByIdNivelCurso']);
+
+Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
+
