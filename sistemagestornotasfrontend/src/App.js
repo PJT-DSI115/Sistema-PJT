@@ -6,14 +6,16 @@ import { Home } from 'Pages/Home';
 import { Error403 } from 'Pages/Error403';
 import { Periodo } from 'Components/Periodo';
 import { CursosNivel } from 'Components/CursoCard';
+import { Footer } from "Components/Footer";
 import { Curso } from 'Components/Curso';
-
 import { AssignTeacher } from 'Components/assignTeacher';
+import { Header } from 'Components/Header';
 
 function App() {
 	return (
 		<UserContextProvider>
 			<div className='App'>
+				<Header/>
 				<Routes>
 					<Route path = "/Login" element = {<Login />} />
 					<Route path= '/' element = {<Home/>} />
@@ -29,6 +31,7 @@ function App() {
 					<Route path = '/curso' element = { <Curso /> } />
 
 				</Routes>
+				<Footer/>
 			</div>
 		</UserContextProvider>
 	);

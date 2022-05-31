@@ -3,7 +3,6 @@ import { useNivel } from "Hooks/useNiveles";
 import CursoList from "./CursoList";
 import { ListNivel } from 'Components/CursoCard/ListNivel'
 import { useCursoNivel } from 'Hooks/useCursoNivel';
-
 import "./css/index.css";
 
 function CursosNivel() {

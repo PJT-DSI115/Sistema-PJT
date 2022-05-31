@@ -1,6 +1,7 @@
-.main{
+.login-container{
     position: relative;
     text-align: center;
+    height: 65%;
 }
 
 .form{
@@ -8,18 +9,18 @@
     display: grid;
     align-items: center;
     width: 30%;
-    height: 50%;
+    height: 70%;
+    top: 20%;
+    left: 34%;
     border-radius: 20px;
-    border: 3px solid #064EA5;
-    top: 100px;
-    left: 35%;
+    border: 3px solid #064ea5ad;
     background-color: #fff;
 }
 
 .form__title{
     font-size: 20px;
     font-weight: 700;
-    color: #064EA5;
+    color: #4d5d71b9;
 }
 
 .form__label{
@@ -32,7 +33,7 @@
 
 .form__container{
     border-radius: 10px;
-    border: 2px solid #64a5f581;
+    border: 2px solid #064ea5ad;
     padding: 5px 0px;
     width: 80%;
     margin: 10px auto;
@@ -48,15 +49,17 @@
 }
 
 .form__button{
-    background-color: #064EA5;
+    background-color: #064ea5ad;
     color: #fff;
     border-radius: 10px;
     padding: 10px 25px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 480px) {
     .form{
-        left: 20px;
-        width: 90%;
+       width: 90%;
+       left: 5.5%;
     }
 }
