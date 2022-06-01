@@ -5,14 +5,17 @@ function ListOptions () {
 
     const values = [
         {
+            id: 1,
             nombre: "Card",
             ruta: "/card"
         },
         {
+            id: 2,
             nombre: "Periodo",
             ruta: "/periodo"
         },
         {
+            id: 3,
             nombre: "Ruta 3",
             ruta: "/card"
         }
@@ -20,8 +23,8 @@ function ListOptions () {
 
     return(
         values.map(rut =>(
-            <Link to={rut.ruta}>
-                <li className="NavBar-item">{rut.nombre}</li>
+            <Link to={rut.ruta} key = { rut.id }>
+                <li className="NavBar-item" >{rut.nombre}</li>
             </Link>
         ))
     );

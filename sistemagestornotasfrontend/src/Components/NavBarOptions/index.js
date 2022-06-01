@@ -4,11 +4,11 @@ import { ListOptions } from "./ListOptions";
 
 function NavBarOptions(){
     return(
-        <div className="NavBar-right">
+        <nav className="NavBar-right">
             <ul className="NavBar-list">
                 <ListOptions />
             </ul>
-        </div>
+        </nav>
     );
 }
 
