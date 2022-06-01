@@ -5,7 +5,7 @@ import {getAllPeriod, storeOnePeriod, updateOnePeriodo,
 import Context from 'Context/UserContext';
 
 
-function usePeriodo({showModal}) {
+function usePeriodo() {
 
     const { jwt } = useContext(Context);
 
@@ -14,11 +14,13 @@ function usePeriodo({showModal}) {
     const [errorPermission, setErrorPermission] = useState(false);
     const [errorSave, setErrorSave] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
+    const [updateData, setUpdateData] = useState(false);
 
     useEffect(() => {
         setLoading(true);
         getAllPeriod({ jwt })
         .then((data) => {
+            console.log(data);
             if(data.status) {
                 if(data.status === 401) {
                     setErrorPermission(true);
@@ -32,7 +34,7 @@ function usePeriodo({showModal}) {
                 setLoading(false);
             }
         })
-    }, [jwt, setErrorPermission, setLoading, setPeriodo, showModal])
+    }, [jwt, setErrorPermission, setLoading, setPeriodo, updateData])
 
     const getPeriod = () => {
         setLoading(true);
@@ -75,6 +77,7 @@ function usePeriodo({showModal}) {
             if(data.message === 'Ok') {
                 setLoading(false)
                 setSaveSuccess(true);
+                setUpdateData(!updateData);
             }
         });
     };
@@ -102,6 +105,7 @@ function usePeriodo({showModal}) {
             if(data.message === 'Ok') {
                 setLoading(false);
                 setSaveSuccess(true);
+                setUpdateData(!updateData);
             }
         })
     }
@@ -130,6 +134,7 @@ function usePeriodo({showModal}) {
             if(data.message === 'Ok') {
                 setLoading(false);
                 setSaveSuccess(true);
+                setUpdateData(!updateData);
             }
         })
     }
