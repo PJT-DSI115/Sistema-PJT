@@ -104,9 +104,9 @@ function Periodo() {
                 ""
 			}
             <h1 
-				className = "text-lg font-bold mt-10"
+				className = "text-lg font-bold mt-10 text-center"
 			>Periodos</h1>
-            <div>
+            <div className= "buttonRegisterContainer">
                 
                 {
                     !verifiedPeriodActive() ? 

@@ -39,7 +39,7 @@ function AssignTeacher() {
             <h1 
                 className= "text-lg font-bold text-center mt-10"
             >Asignación de profesores</h1>
-            <div>
+            <div className="buttonRegisterContainer">
                 <button 
                     className="rounded-lg bg-lime-600 px-10 py-1 
                     text-gray-100 cursor-pointer hover:bg-line-800
