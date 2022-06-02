@@ -21,8 +21,8 @@ class ValidateJsonRequest {
             return MessageResponse::messageDescriptionError('Error',
             'El valor idDocente es requerido');
         }
+
         return [];
     }
-
 }
 

@@ -12,6 +12,14 @@ class MessageResponse {
             "dateMessage" => Carbon::now()
         ];
     }
+
+    public static function returnResponse($responseBool) {
+        if($responseBool) {
+            return MessageResponse::messageDescriptionError("Ok", "Save Success");
+        } else {
+            return MessageResponse::messageDescriptionError("Error", "Save failed");
+        }
+    }
 }
 
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\CursoNivelController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
+use App\Models\RegistroDocenteCurso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -84,5 +85,12 @@ Route::post('/registroDocenteCurso/storeRegister',
 Route::get('/registroDocenteCurso/showRegister', 
     [RegistroDocenteCursoController::class, 'getRegisterByIdPeriodAndByIdNivelCurso']);
 
+Route::delete('/registroDocenteCurso/delete/{registroDocenteCurso}', 
+    [RegistroDocenteCursoController::class, 'deleteRegisterDocenteCurso']);
+
+Route::put('/registroDocenteCurso/update/{registroDocenteCurso}', 
+    [RegistroDocenteCursoController::class, 'updateRegisterDocenteCurso']);
+
 Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
+
 
