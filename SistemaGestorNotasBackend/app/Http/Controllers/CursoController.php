@@ -15,7 +15,7 @@ class CursoController extends Controller
      */
     public function index()
     {
-        error_log("Entra aqui");
+        
         return Curso::all();
     }
 
@@ -27,12 +27,13 @@ class CursoController extends Controller
      */
     public function store(Request $request)
     {
-        error_log("prueba");
+        $json = $request->json()->all();
+        error_log("pruebaStore");
         //Guardar cursos.
-        $codigoCurso = $request->post('codigo_curso');
-        $nombreCurso = $request->post('nombre_curso');
-
-        error_log($codigoCurso);
+        $codigoCurso = $json['codigo_curso'];
+        $nombreCurso = $json['nombre_curso'];
+        
+        error_log($request->post('codigo_curso'));
         error_log($nombreCurso);
 
         $curso = new Curso();
@@ -64,9 +65,12 @@ class CursoController extends Controller
     public function update(Request $request, Curso $curso)
     {
         //Actualizar.
-        $curso->codigo_curso = $request->post('codigo_curso');
-        $curso->nombre_curso = $request->post('nombre_curso');
-
+        $json = $request->json()->all();
+        error_log("Entra aqui");
+        error_log($json['codigo_curso']);    
+        $curso->codigo_curso = $json['codigo_curso'];
+        $curso->nombre_curso = $json['nombre_curso'];
+        error_log($request->post('codigo_curso'));
         $responseBool = $curso->update();
         return $this->returnResponse($responseBool);
     }

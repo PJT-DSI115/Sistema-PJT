@@ -2,11 +2,6 @@
 
 namespace App\Service;
 
-use App\Models\Curso;
-use App\Models\CursoNivel;
-use App\Models\Periodo;
-use App\Models\Nivel;
-use App\Models\Profesor;
 use App\Models\RegistroDocenteCurso;
 use Carbon\Carbon;
 use App\Utils\ValidateJsonRequest;
@@ -33,12 +28,23 @@ class RegistroDocenteCursosService {
             return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 3 docentes");
         }
 
-        $searchRegistroDocenteCursoMentor = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
-            ->where('id_periodo', $idPeriodo)->where('rol', 'mentor')->get();
+        if($rol == "mentor") {
+            $searchRegistroDocenteCursoMentor = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
+                ->where('id_periodo', $idPeriodo)->where('rol', 'mentor')->get();
 
-        if( count($searchRegistroDocenteCursoMentor) > 1 ) {
-            return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 1 mentor");
+            if( count($searchRegistroDocenteCursoMentor) >= 1 ) {
+                return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 1 mentor");
+            }
         }
+
+
+        $searchDocente = RegistroDocenteCurso::where('id_docente', $idDocente)->get();
+        error_log($searchDocente);
+        if( count($searchDocente) >= 1 ) {
+            return MessageResponse::messageDescriptionError("Error", "No se puede dos veces el mismo maestro");
+        }
+
+        
 
         $registroDocenteCurso = new RegistroDocenteCurso;
         $registroDocenteCurso->id_docente = $idDocente;
@@ -46,10 +52,19 @@ class RegistroDocenteCursosService {
         $registroDocenteCurso->id_periodo = $idPeriodo;
         $registroDocenteCurso->rol = $rol;
         $registroDocenteCurso->created_at = Carbon::now();
-        $registroDocenteCurso->save();
+        $responseBolean = $registroDocenteCurso->save();
+
+        return MessageResponse::returnResponse($responseBolean);
 
 
-        return MessageResponse::messageDescriptionError("Ok", "Guardado con exito");
+    }
+
+
+    public function updateRegisterDocenteCurso($jsonRequest, $registroDocenteCurso) {
+        $responseValidate = ValidateJsonRequest::validateJsonRequestRegistroDocenteCurso($jsonRequest);
+        if(count($responseValidate) > 0) {
+            return $responseValidate;
+        }
 
 
     }
