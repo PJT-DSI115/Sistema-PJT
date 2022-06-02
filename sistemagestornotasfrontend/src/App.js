@@ -7,7 +7,7 @@ import { Error403 } from 'Pages/Error403';
 import { Periodo } from 'Components/Periodo';
 import { CursosNivel } from 'Components/CursoCard';
 import { Footer } from "Components/Footer";
-import { Curso } from 'Components/Curso';
+import { Actividad } from "Components/Actividad";
 import { AssignTeacher } from 'Components/assignTeacher';
 import { Header } from 'Components/Header';
 
@@ -28,7 +28,7 @@ function App() {
                         </Route>
                     </Route>
 					<Route path='/card' element = {<CursosNivel />} />
-					<Route path = '/curso' element = { <Curso /> } />
+					<Route path = '/actividad' element = { <Actividad /> } />
 
 				</Routes>
 				<Footer/>

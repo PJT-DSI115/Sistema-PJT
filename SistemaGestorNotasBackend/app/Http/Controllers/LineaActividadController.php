@@ -28,7 +28,7 @@ class LineaActividadController extends Controller
     public function store(Request $request)
     {
         $linea_actividad = new LineaActividad;
-        $linea_actividad->nombre_linea_actividad = $request->post("codigo_linea_actividad");
+        $linea_actividad->codigo_linea_actividad = $request->post("codigo_linea_actividad");
         $linea_actividad->nombre_linea_actividad = $request->post("nombre_linea_actividad");
         $linea_actividad->id_actividad = $request->post("id_actividad");
 

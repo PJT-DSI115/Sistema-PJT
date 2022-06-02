@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class LineaActividad extends Model
 {
     use HasFactory;
+
+    public function actividad()
+    {
+        return $this->belongsTo(Actividad::class, 'id_actividad');
+    }
+
+
 }
