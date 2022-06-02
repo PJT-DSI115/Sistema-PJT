@@ -6,8 +6,8 @@ function ListOptions () {
     const values = [
         {
             id: 1,
-            nombre: "Card",
-            ruta: "/card"
+            nombre: "Actividad",
+            ruta: "/actividad"
         },
         {
             id: 2,
