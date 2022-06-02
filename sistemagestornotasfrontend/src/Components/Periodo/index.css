@@ -1,7 +1,6 @@
 .main {
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 100vh;
 }
 
 .table-custom {
@@ -85,3 +84,8 @@
     font-family: PoppinsStandard;
 }
 
+
+.buttonRegisterContainer {
+    text-align: center;
+
+}

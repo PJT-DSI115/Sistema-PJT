@@ -9,7 +9,7 @@ function ListNivel({ nivel, handleChange }) {
         >
           <option 
             value="0"
-            className='select-option'></option>
+            className='select-option'>Seleccione un nivel</option>
         {nivel.map((nl) => (
           <option key={nl.id} value={nl.id} className='select-option'>
             {nl.nombre_nivel}

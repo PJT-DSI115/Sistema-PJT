@@ -10,6 +10,7 @@ use App\Models\Profesor;
 use App\Models\RegistroDocenteCurso;
 use Carbon\Carbon;
 use App\Utils\ValidateJsonRequest;
+use App\Utils\MessageResponse;
 class RegistroDocenteCursosService {
 
 
@@ -21,38 +22,35 @@ class RegistroDocenteCursosService {
         }
 
         $idPeriodo = $data['idPeriodo'];
-        $idNivel = $data['idNivel'];
         $rol = $data['rol'];
         $idDocente = $data['idDocente'];
-        $idCurso = $data['idCurso'];
+        $idNivelCurso = $data['idNivelCurso'];
 
+        
+        $searchRegistroDocenteCurso = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
+            ->where('id_periodo', $idPeriodo)->get();
+        if( count($searchRegistroDocenteCurso) > 3 ) {
+            return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 3 docentes");
+        }
 
-        $periodo = Periodo::find($idPeriodo);
-        $nivel = Nivel::find($idNivel);
-        $docente = Profesor::find($idDocente);
-        $curso = Curso::find($idCurso);
+        $searchRegistroDocenteCursoMentor = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
+            ->where('id_periodo', $idPeriodo)->where('rol', 'mentor')->get();
 
-        $nivelCurso = CursoNivel::where('id_curso', '=', $idCurso)
-            ->where('id_nivel', '=', $idNivel)->first();
-        error_log($nivelCurso);
-
+        if( count($searchRegistroDocenteCursoMentor) > 1 ) {
+            return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 1 mentor");
+        }
 
         $registroDocenteCurso = new RegistroDocenteCurso;
         $registroDocenteCurso->id_docente = $idDocente;
-        $registroDocenteCurso->id_nivel_curso = $nivelCurso->id;
+        $registroDocenteCurso->id_nivel_curso = $idNivelCurso;
         $registroDocenteCurso->id_periodo = $idPeriodo;
         $registroDocenteCurso->rol = $rol;
         $registroDocenteCurso->created_at = Carbon::now();
-
         $registroDocenteCurso->save();
 
 
-        return [
-            "periodo" => $periodo,
-            "nivel" => $nivel,
-            "docente" => $docente,
-            "curso" => $curso
-        ];
+        return MessageResponse::messageDescriptionError("Ok", "Guardado con exito");
+
 
     }
 

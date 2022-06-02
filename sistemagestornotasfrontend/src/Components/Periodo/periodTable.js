@@ -1,8 +1,21 @@
 
 function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
 
+
+    const handleClickTable = (e) => {
+
+        if(e.target.getAttribute('op') === 'edit') {
+            handleClickUpdate(e.target.getAttribute('index'));
+        }
+        if(e.target.getAttribute('op') === 'close'){
+
+            handleClickDelete(e.target.getAttribute('index'))
+        }
+    }
+
     return (
         <table 
+            onClick={handleClickTable}
             className= "table-custom text-sm text-left text-gray-500 dark:text-gray-400"
         >
         <thead
@@ -33,12 +46,14 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
                                         periodo.activo_periodo ? 
                                         <>
                                         <button 
+                                            op = "edit"
+                                            index = { periodo.index }
                                             className = "formCustom__button mx-2"
-                                            onClick = {() => handleClickUpdate(periodo.index)}
                                         >Editar</button> 
                                         <button 
+                                            index = { periodo.index }
+                                            op = "close"
                                             className = "formCustom__button formCustom__button--red"
-                                            onClick = {() => handleClickDelete(periodo.index)}
                                         >Cerrar</button> 
                                     </>
                                     : ""

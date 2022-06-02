@@ -10,11 +10,11 @@ import Modal from 'Components/Modal';
 import "./index.css";
 
 function Periodo() {
-	const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const { periodo, errorPermission, 
-		storePeriod, errorSave, setErrorSave, updatePeriod, 
-        saveSuccess, setLoading, changeState} = usePeriodo({showModal});
+        storePeriod, errorSave, setErrorSave, updatePeriod, 
+        saveSuccess, setLoading, changeState} = usePeriodo();
     const [childrenModal, setChildrenModal] =  useState(null);
     const [heightC, setHeigtC] = useState("");
     const [widthC, setWidthC] = useState("");
@@ -24,10 +24,10 @@ function Periodo() {
         if(errorPermission) {
             navigate('/error403');
         }
-    },[]);
+    },[errorPermission, navigate]);
 
 
-	const handleClick = () => {
+    const handleClick = () => {
         setHeigtC("320px");
         setWidthC("600px");
         setChildrenModal(
@@ -38,8 +38,8 @@ function Periodo() {
                 loading = { setLoading }
             />
         )
-		setShowModal(true);
-	}
+        setShowModal(true);
+    }
 
     const handleClickDelete = (id) => {
         setHeigtC("200px");
@@ -86,27 +86,27 @@ function Periodo() {
         setShowModal(true);
     }
 
-	const onClose = () => {
-		setShowModal(false);
-		setErrorSave(false);
-	}
+    const onClose = () => {
+        setShowModal(false);
+        setErrorSave(false);
+    }
 
     return (
         <div className="main">
-			{
-				showModal ? 
+            {
+                showModal ? 
                     <Modal 
                         heightC = {heightC}
                         widthC = {widthC}
                     >
                         {childrenModal}
-					</Modal> : 
+                    </Modal> : 
                 ""
-			}
+            }
             <h1 
-				className = "text-lg font-bold mt-10"
-			>Periodos</h1>
-            <div>
+                className = "text-lg font-bold mt-10 text-center"
+            >Periodos</h1>
+            <div className= "buttonRegisterContainer">
                 
                 {
                     !verifiedPeriodActive() ? 
