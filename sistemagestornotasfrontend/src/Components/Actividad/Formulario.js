@@ -1,14 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { actividadData } from "Service/actividadData";
 import './css/Formulario.css';
 
 const Formulario = ({
   onClose,
   onStore,
-  errorSave,
-  dataUpdate,
-  saveSucces,
+  errorResponse,
+  errorDescription,
   loading,
+  setLoading,
+  dataUpdate
 }) => {
   const [dataForm, setDataFrom] = useState(() => {
     return dataUpdate
@@ -30,8 +31,6 @@ const Formulario = ({
         };
   });
 
-  const [messageError, setMessageError] = useState("");
-
   const handleChange = (e) => {
     setDataFrom({
       ...dataForm,
@@ -52,28 +51,13 @@ const Formulario = ({
   };
 
 
-  const handleSubmit = (e) => {
-    loading(true);
-    if (
-      dataForm.nombre_actividad === "" ||
-      dataForm.codigo_actividad === "" ||
-      dataForm.porcentaje_actividad === ""
-    ) {
-      setMessageError("No puede dejar campos vacíos");
-    } else {
-      setMessageError("");
-      if (dataUpdate) {
-        dataForm.id = dataUpdate.id;
-      }
-      const data = dataForm;
-      onStore({ data });
-      onClose();
-      if (errorSave) {
-        setMessageError("No se pudo guardar la actividad");
-      }
-      if (saveSucces) {
-        setMessageError("Guardado con exito");
-      }
+  const handleSubmit = () => {
+    onStore({data:dataForm})
+    console.log(errorResponse);
+    console.log(errorDescription)
+    if(errorResponse){
+      console.log(errorResponse)
+      //onClose();
     }
   };
 
@@ -132,7 +116,7 @@ const Formulario = ({
             onKeyDown={handleKeyUp}
           />
         </div>
-        <div>{<p className="formCustom__error">{messageError}</p>}</div>
+        <div>{<p className="formCustom__error">{errorDescription}</p>}</div>
         <div className="form-group btns">
           <button
             type="button"

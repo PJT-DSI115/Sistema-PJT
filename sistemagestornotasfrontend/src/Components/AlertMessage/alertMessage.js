@@ -1,22 +1,21 @@
-
+import './index.css';
 function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate }) {
-
     return (
-        <div >
-            <h2 className = "formCustom__title">{ title }</h2>
-            <p className = "alertMessage">{ descripction }</p>
+        <div className='Alert-message-container'>
+            <h2 className = "Alert-message-title">{ title }</h2>
+            <p className = "Alert-message-description">{ descripction }</p>
             
-            <div className = "formCustom__container--button">
+            <div className = "Alert-message-btns">
                 <button 
                     onClick = { () => {
                             onEvent({ data: dataUpdate }) 
                             onClose()
                         }
                     }
-                    className = "formCustom__button"
+                    className = "Alert-message-btn"
                 >Aceptar</button>
                 <button 
-                    className = "formCustom__button formCustom__button--red"
+                    className = "Alert-message-btn Alert-message-btn-red"
                     onClick = { onClose }
                 >
                     Cancelar
