@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Formulario } from './formulario';
 import { usePeriodo } from 'Hooks/usePeriodo';
-import { AlertMessage } from './alertMessage';
+import { AlertMessage } from '../AlertMessage/alertMessage';
 import { PeriodTable } from './periodTable';
 import Modal from 'Components/Modal';
 

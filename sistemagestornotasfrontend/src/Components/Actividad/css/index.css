@@ -1,0 +1,32 @@
+.Actividad-container{
+    height: 80%;
+    padding: 50px 20px;
+}
+
+.Actividad-title{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.Actividad-grid{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+}
+
+.Actividad-btn{
+    width: fit-content;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #287463;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.5s;
+}
+
+.Actividad-btn:hover{
+    background-color: #18493e;
+}

@@ -41,9 +41,9 @@ const updateActividad = ({data, jwt}) =>{
     );
 }
 
-const deleteActividad = ({id, jwt}) => {
+const deleteActividad = ({data, jwt}) => {
     return(
-        fetch(`${ENDPOINT}/actividad/${id}`, {
+        fetch(`${ENDPOINT}/actividad/${data.id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${jwt}`
