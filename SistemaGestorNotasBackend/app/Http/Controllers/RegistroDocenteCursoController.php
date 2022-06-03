@@ -46,12 +46,8 @@ class RegistroDocenteCursoController extends Controller
         Request $request
     ) {
         $jsonRequest = $request->json()->all();
-        $boolResponse = $this->registroDocenteCursosService
+        return $this->registroDocenteCursosService
                              ->updateRegisterDocenteCurso($jsonRequest, $registroDocenteCurso);
-
-        return MessageResponse::returnResponse($boolResponse);
-
-
     }
 
 }

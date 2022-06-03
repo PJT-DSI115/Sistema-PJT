@@ -1,19 +1,43 @@
 import { useState } from 'react';
 
+import { useParams } from 'react-router-dom';
 
 import { rolesDocente } from 'Service/RoleTeacher';
 import { useDocente } from 'Hooks/useDocente';
 
-function FormRegister( { dataUpdate, messageError, onClose, title } ) {
+function FormRegister( { dataUpdate, onEvent, onClose, title } ) {
 
-    const [docente, setDocente] = useState( () =>  dataUpdate ? dataUpdate.docente: "" );
-    const [rolDocente, setRolDocente] = useState( () => dataUpdate ? dataUpdate.rol: "" );
     const { docentes } = useDocente();
-    console.log(docentes);
+    const  { idPeriodo, idCursoNivel }  = useParams();
+    const [docente, setDocente] = useState( () =>  dataUpdate ? dataUpdate.idDocente: "" );
+    const [rolDocente, setRolDocente] = useState( () => dataUpdate ? dataUpdate.rol: "");
 
-    const handleSubmit = () => {
+    const [messageError, setMessageError] = useState("");
 
+
+    const handleSubmit =  (e) => {
+        e.preventDefault();
+        const data = {
+            "idNivelCurso": idCursoNivel,
+            "idPeriodo": idPeriodo,
+            "rol": rolDocente,
+            "idDocente": docente,
+            "id": dataUpdate ? dataUpdate.id: ""
+        }
+        if(rolDocente === "" && docente === "") {
+        } else {
+            onEvent({ data })
+                .then(data => {
+                    if(data.type === "Error") {
+                        setMessageError(data.descripcion);
+                    }
+                    if(data.type === "Ok") {
+                        setMessageError("");
+                    }
+                });
+        }
     }
+
 
     const onChangeRolSelect = (e) => {
         setRolDocente(e.target.value)
@@ -32,7 +56,7 @@ function FormRegister( { dataUpdate, messageError, onClose, title } ) {
             <div className = "formCustom__container">
                 <label className = "formCustom__label">Docente</label>
                 <select value={docente} onChange = { onChangeDocente } className = "formCustom__input">
-                    <option disabled>--Selected--</option>
+                    <option disabled value = "">--Selected--</option>
                     {
                         docentes.map( (docente) => (
                             <option value = { docente.id } key = {docente.id}> { docente.nombre_profesor }</option>
@@ -43,7 +67,7 @@ function FormRegister( { dataUpdate, messageError, onClose, title } ) {
             <div className = "formCustom__container">
                 <label className = "formCustom__label">Rol</label>
                 <select value = { rolDocente } onChange = {onChangeRolSelect} className = "formCustom__input">
-                    <option disabled>--Selected--</option>
+                    <option disabled value = "">--Selected--</option>
                     {
                         rolesDocente.map( (rol) => (
                             <option value = { rol.value } key = { rol.id }>{rol.nombre}</option>
@@ -60,7 +84,6 @@ function FormRegister( { dataUpdate, messageError, onClose, title } ) {
             </div>
             <div className = "formCustom__container--button">
                 <button
-
                     onClick={handleSubmit}
                     className = "formCustom__button"
                 >Aceptar</button>

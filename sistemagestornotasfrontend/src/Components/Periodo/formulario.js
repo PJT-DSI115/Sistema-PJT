@@ -12,7 +12,6 @@ function Formulario({onClose, onStore, errorSave, dataUpdate, saveSuccess, loadi
     const dateStartRef = useRef(null);
     const dateEndRef = useRef(null);
 
-    const navigate = useNavigate();
 
 
     const handleChangeDateStart = (e) => {

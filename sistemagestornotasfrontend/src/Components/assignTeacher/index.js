@@ -1,21 +1,139 @@
-
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
+import Context from 'Context/UserContext';
 import { AssignTeacheTable } from './AssignTeacherTable';
-import { useRegisterProfesorCursoNivel } from 'Hooks/useRegisterProfesorCursoNivel';
 import { FormRegister } from './FormRegister';
+import { AlertMessage } from 'Components/Periodo/alertMessage';
 import  Modal  from 'Components/Modal';
+import { getAllRegisterByNivelCursoAndPeriodo,
+    storeRegister,
+    deleteRegister,
+    updateRegister
+} from 'Service/registerProfesorCursoNivelService';
 
 
 function AssignTeacher() {
-
     const  { idPeriodo, idCursoNivel }  = useParams();
-    const { register } = useRegisterProfesorCursoNivel({ idPeriodo, idCursoNivel });
+
     const [showModal, setShowModal] = useState(false);
+    const [register, setRegister] = useState([]);
+    const { jwt } = useContext(Context);
+    const [errorLogic, setErrorLogic] = useState(false);
+    const [messageErrorLogic, setMessageErrorLogic] = useState("");
+
+
     const [heightC, setHeigtC] = useState("");
     const [widthC, setWidthC] = useState("");
     const [children, setChildren] = useState("");
+
+    useEffect(() => {
+        getData();
+
+    }, [])
+
+
+    const updateRegisterDocenteCurso = ({ data }) => {
+        return (updateRegister({data, jwt})
+            .then(response => {
+                if(response.status === 401, response.status === 500, response.status === 403) {
+                    setErrorLogic(true);
+                    return
+                }
+                return response.json();
+            })
+            .then(data => {
+                if(data.message === "Error") {
+                    return {
+                        "type" : data.message,
+                        "descripcion": data.descripcionMessage
+                    }
+                }
+                if(data.message === "Ok") {
+                    getData();
+                    onClose();
+                    return {
+                        "type": data.message,
+                        "descripcion": data.descripcionMessage
+                    };
+                }
+            })
+        );
+        
+
+    }
+
+    const storeRegisterDocenteCurso = ({ data }) => {
+        return (storeRegister({data, jwt})
+        .then(response => response.json())
+            .then(dataResponse => {
+                if(dataResponse.message === "Error") {
+                    setErrorLogic(true);
+                    setMessageErrorLogic(dataResponse.descripcionMessage);
+                    return {
+                        "type": dataResponse.message,
+                        "descripcion": dataResponse.descripcionMessage
+                    }
+                }
+                if(dataResponse.message === 'Ok') {
+                    getData();
+                    onClose();
+                    return {
+                        "type": data.message,
+                        "descripcion": data.descripcionMessage
+                    }
+                }
+            }))
+    }
+
+    const deleteRegisterDocenteCurso = ( { data } ) => {
+        const id = data.id
+        return (deleteRegister({ id , jwt })
+        .then(response => {
+            if(response.status === 401 || response.status === 403 || response.status === 500) {
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data.message === "Error") {
+                return {
+                    "type": data.message,
+                    "descripcion": data.descripcionMessage
+                }
+            }
+            if(data.message === "Ok") {
+                getData();
+                return {
+                    "type": data.message,
+                    "descripcion": data.descripcionMessage
+                }
+            }
+        }));
+    }
+
+    const getData = () => {
+        getAllRegisterByNivelCursoAndPeriodo({ idPeriodo, idCursoNivel, jwt })
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                data.forEach((data, index) => {
+                    data['index'] = index;
+                    return data
+                });
+                setRegister(data);
+            })
+
+    }
+
+    const verifiedButton = () => {
+        if(register.length >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     const onClose = () => {
         setShowModal(false);
@@ -28,8 +146,50 @@ function AssignTeacher() {
             <FormRegister 
                 title={ "Registro docente curso" }
                 onClose = { onClose }
+                onEvent = { storeRegisterDocenteCurso }
+
                 />
         );
+        setShowModal(true);
+
+    }
+
+    const handleClickDelete = (id) => {
+        setHeigtC("200px");
+        setWidthC("600px");
+        const data = {
+            id: register[id].id
+        }
+        setChildren(
+            <AlertMessage 
+                title =  "Eliminar Docente"
+                descripction =  "Desea eliminar al docente de este curso"
+                onClose={onClose}
+                onEvent = { deleteRegisterDocenteCurso }
+                dataUpdate = {data}
+            />
+        )
+        setShowModal(true);
+    }
+
+    const handleClickUpdate = (id) => {
+        const registerTemp = register[id];
+        const data = {
+            idDocente: registerTemp.profesor.id,
+            rol: registerTemp.rol,
+            id: registerTemp.id
+        }
+        setHeigtC("400px");
+        setWidthC("600px");
+        setChildren( 
+            <FormRegister
+                title = { "Editar docente curso" }
+                onClose = { onClose }
+                dataUpdate = { data }
+                onEvent = { updateRegisterDocenteCurso }
+            />
+        );
+
         setShowModal(true);
 
     }
@@ -40,6 +200,8 @@ function AssignTeacher() {
                 className= "text-lg font-bold text-center mt-10"
             >Asignación de profesores</h1>
             <div className="buttonRegisterContainer">
+            {
+                !verifiedButton() ?
                 <button 
                     className="rounded-lg bg-lime-600 px-10 py-1 
                     text-gray-100 cursor-pointer hover:bg-line-800
@@ -47,9 +209,11 @@ function AssignTeacher() {
                     onClick={handleClickRegister}
                 >
                     Registrar
-                </button>
+                </button> : ""
+
+            }
             </div>
-            <AssignTeacheTable register={ register } />
+            <AssignTeacheTable register={ register }  handleClickDelete = { handleClickDelete} handleClickUpdate = { handleClickUpdate} />
 
             { showModal && <Modal heightC = {heightC} widthC = { widthC } children = {children} />}
             

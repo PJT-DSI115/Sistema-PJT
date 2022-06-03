@@ -51,7 +51,7 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
                                             className = "formCustom__button mx-2"
                                         >Editar</button> 
                                         <button 
-                                            index = { periodo.index }
+                                        index = { periodo.index }
                                             op = "close"
                                             className = "formCustom__button formCustom__button--red"
                                         >Cerrar</button> 
