@@ -1,8 +1,16 @@
 
 function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
-
+    const handleClickTable = (e) => {
+        if(e.target.getAttribute('op') === 'edit') {
+            handleClickUpdate(e.target.getAttribute('index'));
+        }
+        if(e.target.getAttribute('op') === 'delete') {
+            handleClickDelete(e.target.getAttribute('index'));
+        }
+    }
     return (
         <table 
+            onClick = { handleClickTable }
             className= "table-custom text-sm text-left text-gray-500 dark:text-gray-400"
         >
         <thead
@@ -32,13 +40,15 @@ function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
                             <td className = "px-6 py-4">{register.rol}</td>
                             <td className = "px-6 py-4">
                                         <button 
+                                            op = "edit"
+                                            index = { register.index }
                                             className = "formCustom__button mx-2"
-                                            onClick = {() => handleClickUpdate(register.index)}
                                         >Editar</button> 
                                         <button 
+                                            op = "delete"
+                                            index = {register.index}
                                             className = "formCustom__button formCustom__button--red"
-                                            onClick = {() => handleClickDelete(register.index)}
-                                        >Cerrar</button> 
+                                        >Eliminar</button> 
                             </td>
                         </tr>
 
