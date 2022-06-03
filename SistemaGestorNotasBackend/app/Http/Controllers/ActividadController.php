@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actividad;
+use App\Models\LineaActividad;
 use App\Utils\MessageResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -33,8 +34,16 @@ class ActividadController extends Controller
         $actividad->porcentaje_actividad = $request->post("porcentaje_actividad");
         $actividad->id_curso_nivel = $request->post("id_curso_nivel");
         $actividad->id_periodo = $request->post("id_periodo");
-
+        $cant = (int)$request->post('numero_actividades');
         $response = $actividad->save();
+        for($i=1; $i<=$cant; $i++){
+            $linea_actividad = new LineaActividad;
+            $linea_actividad->codigo_linea_actividad = $request->post("codigo_actividad").(string)$i;
+            $linea_actividad->nombre_linea_actividad = $request->post("nombre_actividad").(string)$i;
+            $linea_actividad->id_actividad = $actividad->id;
+            $actividad->lineaActividad()->save($linea_actividad);
+        }
+
         return $this->returnResponse($response);
     }
 
@@ -88,4 +97,10 @@ class ActividadController extends Controller
         }
 
     }
+
+  /*  public function getActividadByCursoNivelPeriodo($curso_nivel, $periodo){
+        
+        $actividad = Actividad
+
+    }*/
 }
