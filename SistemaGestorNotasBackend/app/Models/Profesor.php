@@ -13,4 +13,9 @@ class Profesor extends Model
         
         return $this->hasMany(RegistroDocenteCurso::class, 'id_docente');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
 }
