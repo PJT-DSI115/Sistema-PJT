@@ -37,14 +37,14 @@ class LoginController extends Controller
             "nombreRole" => $user[0]->rol->nombre_rol,
             "idUser" => $user[0]->id,
         ];
-        error_log($user[0]->id);
 
         $jwt = JWT::encode($payload, env("SECRET_KEY"), 'HS256');
 
         $credentials = [
             "jwt" => $jwt,
             "nombreRol" => $user[0]->rol->nombre_rol,
-            "idRol" => $user[0]->rol->id
+            "idRol" => $user[0]->rol->id,
+            'id' => $user[0]->id
         ];
         return $credentials;
     }
