@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +17,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'id' => 1,
             'username' => 'jason',
             'password' => Hash::make('password'),
             'id_role' => 1,
@@ -25,9 +25,18 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'id' => 2,
             'username' => 'eduardo',
             'password' => Hash::make('password'),
             'id_role' => 1,
+            'created_at' => Carbon::now()
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 3,
+            'username' => 'juan',
+            'password' => Hash::make('password'),
+            'id_role' => 2,
             'created_at' => Carbon::now()
         ]);
     }

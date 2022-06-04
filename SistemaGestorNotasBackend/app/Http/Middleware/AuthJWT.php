@@ -37,7 +37,6 @@ class AuthJWT
             $decoded = JWT::decode((string)$headerArray, new Key($key, 'HS256'));
 
         } catch(DomainException $domainException) {
-            error_log($domainException);
             $errorResponse = $this->getMessageDescription("Error", 500,
             "Error ");
             return response($errorResponse, 401)
@@ -52,22 +51,20 @@ class AuthJWT
                 ->header('Content-Type', 'application/json');
         }
 
-        if($user->rol->nombre_rol != $decoded->nombreRole) {
+        if($user->rol->nombre_rol != $role) {
             $errorResponse = $this->getMessageDescription("Forbidden", 403, "Permissions denied");
             return response($errorResponse, 403)
                 ->header('Content-Type', 'application/json');
             
         }
 
-        $request->setJson($user);
-
-        return $next($request, $user);
+        return $next($request);
     }
 
     /**
-     * @param string $type                  Type for message 
-     * @param int $statusCode               Status code HTTP
-     * @param string $messageDescription    Description for message
+     * @var string $type                  Type for message 
+     * @var int $statusCode               Status code HTTP
+     * @var string $messageDescription    Description for message
      * @return array $messageDescription
     */
     private function getMessageDescription($type, $statusCode, $messageDescription) {

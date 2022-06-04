@@ -19,13 +19,15 @@ class ProfesorSeeder extends Seeder
             'nombre_profesor' => 'Juan Antonio',
             'apellido_profesor' => 'Rivera',
             'fecha_nacimiento_profesor' => '1970-05-27',
-            'dui_profesor' => '12345678-1'
+            'dui_profesor' => '12345678-1',
+            'id_user' => 3
         ]);
         DB::table('profesors')->insert([
             'nombre_profesor' => 'Carlor Eduardo',
             'apellido_profesor' => 'Gonzales',
             'fecha_nacimiento_profesor' => '1960-05-27',
-            'dui_profesor' => '12345679-1'
+            'dui_profesor' => '12345679-1',
+            'id_user' => 2
         ]);
         DB::table('profesors')->insert([
             'nombre_profesor' => 'Veronica Raquel',

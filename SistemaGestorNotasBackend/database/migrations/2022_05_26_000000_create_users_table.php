@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->string('password');
-            $table->foreignId("id_role")->references("id")->on("rols")->nullable($value = false);
+            $table->foreignId("id_role")->references("id")->on("rols")->nullable(false);
             $table->timestamps();
         });
     }
