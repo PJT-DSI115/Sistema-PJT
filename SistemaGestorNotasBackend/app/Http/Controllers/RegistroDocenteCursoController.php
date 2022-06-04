@@ -8,6 +8,8 @@ use App\Utils\MessageResponse;
 use App\Service\RegistroDocenteCursosService;
 use Illuminate\Http\Request;
 
+use App\Utils\AuthJwtUtils;
+use Illuminate\Support\Facades\DB;
 
 class RegistroDocenteCursoController extends Controller
 {
@@ -48,6 +50,20 @@ class RegistroDocenteCursoController extends Controller
         $jsonRequest = $request->json()->all();
         return $this->registroDocenteCursosService
                              ->updateRegisterDocenteCurso($jsonRequest, $registroDocenteCurso);
+    }
+
+
+    public function getAllRegisterByDocentePeriodoCursoNivel(Request $request) {
+
+        $jwt = AuthJwtUtils::getSubStringHeaderAuthorization($request->header('Authorization'));
+        $user = AuthJwtUtils::getUserForJWT($jwt);
+        $docente = $user->professor;
+        $idPeriodo = $request->get('idPeriodo');
+
+        $responseNivels = $this->registroDocenteCursosService
+            ->getAllRegisterByDocente($docente->id, $idPeriodo);
+
+        return $responseNivels;
     }
 
 }

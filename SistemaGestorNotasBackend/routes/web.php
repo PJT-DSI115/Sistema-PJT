@@ -19,8 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/hello-word', function(Request $request) {
-    return "Hola mundo";
-})->middleware('authJwt:Administrador');
 
 Route::post('/login', [LoginController::class, 'login']);

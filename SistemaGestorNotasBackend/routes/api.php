@@ -12,6 +12,7 @@ use App\Http\Controllers\DocenteController;
 use App\Models\RegistroDocenteCurso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Utils\AuthJwtUtils;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,5 +93,9 @@ Route::put('/registroDocenteCurso/update/{registroDocenteCurso}',
     [RegistroDocenteCursoController::class, 'updateRegisterDocenteCurso']);
 
 Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
+
+
+Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class, 'getAllRegisterByDocentePeriodoCursoNivel'])
+    ->middleware('authJwt:Docente');
 
 

@@ -6,6 +6,7 @@ use App\Models\RegistroDocenteCurso;
 use Carbon\Carbon;
 use App\Utils\ValidateJsonRequest;
 use App\Utils\MessageResponse;
+use Illuminate\Support\Facades\DB;
 class RegistroDocenteCursosService {
 
 
@@ -67,6 +68,39 @@ class RegistroDocenteCursosService {
     }
 
 
+    public function getAllRegisterByDocente($idDocente, $idPeriodo) {
+        $responseNivels = [];
+
+        $nivelsForDocentes = DB::table('registro_docente_cursos')
+            ->select('nivels.nombre_nivel', 'nivels.id')
+            ->join('curso_nivels', 'curso_nivels.id', '=', 'registro_docente_cursos.id_nivel_curso')
+            ->join('nivels', 'nivels.id', '=', 'curso_nivels.id_nivel')
+            ->where('registro_docente_cursos.id_docente', '=', $idDocente)
+            ->where('registro_docente_cursos.id_periodo', '=', $idPeriodo)
+            ->groupBy('nivels.id')
+            ->get();
+
+        foreach($nivelsForDocentes as $nivels) {
+            $responseNivels[$nivels->nombre_nivel] = DB::table('registro_docente_cursos')
+            ->select('nivels.nombre_nivel', 
+                'nivels.id as idNivel', 
+                'curso_nivels.id as idCursoNivel', 
+                'cursos.id as idCurso',
+                'cursos.nombre_curso'
+            )
+            ->join('curso_nivels', 'registro_docente_cursos.id_nivel_curso', '=', 'curso_nivels.id')
+            ->join('cursos', 'curso_nivels.id_curso', '=', 'cursos.id')
+            ->join('nivels', 'curso_nivels.id_nivel', '=', 'nivels.id')
+            ->where('registro_docente_cursos.id_docente', '=', $idDocente)
+            ->where('registro_docente_cursos.id_periodo', '=', $idPeriodo)
+            ->where('nivels.id', '=', $nivels->id)
+            ->get();
+        }
+        return $responseNivels;
+
+    }
+
+
     private function validateLogicRegisterDocentes($idPeriodo, $idNivelCurso, $idDocente, $rol, $type) {
         $countMentor = 2;
         if($type == "save") {
@@ -87,7 +121,8 @@ class RegistroDocenteCursosService {
             }
         }
 
-        $searchDocente = RegistroDocenteCurso::where('id_docente', $idDocente)->get();
+        $searchDocente = RegistroDocenteCurso::where('id_docente', $idDocente)
+            ->where('id_nivel_curso', $idNivelCurso)->where('id_periodo', $idPeriodo)->get();
         if( count($searchDocente) >= $countMentor) {
             return MessageResponse::messageDescriptionError("Error", "No se puede dos veces el mismo maestro");
         }
