@@ -2,7 +2,7 @@ import { useCurso } from 'Hooks/useCurso';
 import { useState, useEffect, useContext } from 'react'; 
 import {CursoTable} from './CursoTable';
 import {FormularioCurso} from './FormularioCurso';
-import { AlertMessage } from 'Components/Periodo/alertMessage';
+import { AlertMessage } from 'Components/AlertMessage/alertMessage';
 import Modal from 'Components/Modal';
 
 function Curso() {

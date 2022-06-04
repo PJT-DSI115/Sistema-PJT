@@ -61,10 +61,11 @@ Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
 
 //Routes Actividad.
 
-Route::get('/actividad', [ActividadController::class, 'index']);
-Route::get('/actividad/{id}', [ActividadController::class, 'show']);
-Route::post('/actividad', [ActividadController::class, 'store']);
-Route::post('/actividad/update/{actividad}', [ActividadController::class, 'update']);
+Route::get('/actividad', [ActividadController::class, 'indexActividad']);
+Route::get('/actividad/{id}', [ActividadController::class, 'showActividad']);
+Route::post('/actividad', [ActividadController::class, 'storeActividad']);
+Route::put('/actividad/{actividad}', [ActividadController::class, 'updateActividad']);
+Route::delete('/actividad/{actividad}', [ActividadController::class, 'destroyActividad']);
 
 //Routes LineaActividad.
 
