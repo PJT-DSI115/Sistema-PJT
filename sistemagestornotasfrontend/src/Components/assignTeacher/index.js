@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import Context from 'Context/UserContext';
 import { AssignTeacheTable } from './AssignTeacherTable';
 import { FormRegister } from './FormRegister';
-import { AlertMessage } from 'Components/Periodo/alertMessage';
+import { AlertMessage } from 'Components/AlertMessage/alertMessage';
 import  Modal  from 'Components/Modal';
 import { getAllRegisterByNivelCursoAndPeriodo,
     storeRegister,
