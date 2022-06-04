@@ -60,11 +60,14 @@ Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
 
 //Routes Actividad.
 
-Route::get('/actividad', [ActividadController::class, 'indexActividad']);
-Route::get('/actividad/{id}', [ActividadController::class, 'showActividad']);
-Route::post('/actividad', [ActividadController::class, 'storeActividad']);
-Route::put('/actividad/{actividad}', [ActividadController::class, 'updateActividad']);
-Route::delete('/actividad/{actividad}', [ActividadController::class, 'destroyActividad']);
+Route::get('/actividad', [ActividadController::class, 'indexActividad'])
+    ->middleware('authJwt:Administrador');
+Route::post('/actividad', [ActividadController::class, 'storeActividad'])
+    ->middleware('authJwt:Administrador');
+Route::put('/actividad/{actividad}', [ActividadController::class, 'updateActividad'])
+    ->middleware('authJwt:Administrador');
+Route::delete('/actividad/{actividad}', [ActividadController::class, 'destroyActividad'])
+    ->middleware('authJwt:Administrador');
 
 //Routes LineaActividad.
 

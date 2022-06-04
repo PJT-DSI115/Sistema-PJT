@@ -1,5 +1,11 @@
 import './index.css';
-function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate }) {
+function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate, loading }) {
+
+    const handleDelete = () =>{
+        console.log(dataUpdate);
+        onEvent({ data: dataUpdate });
+    }
+
     return (
         <div className='Alert-message-container'>
             <h2 className = "Alert-message-title">{ title }</h2>
@@ -7,13 +13,9 @@ function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate }) {
             
             <div className = "Alert-message-btns">
                 <button 
-                    onClick = { () => {
-                            onEvent({ data: dataUpdate }) 
-                            onClose()
-                        }
-                    }
+                    onClick = { handleDelete }
                     className = "Alert-message-btn"
-                >Aceptar</button>
+                >{loading?'Eliminando...':'Aceptar'}</button>
                 <button 
                     className = "Alert-message-btn Alert-message-btn-red"
                     onClick = { onClose }
