@@ -8,96 +8,95 @@ import Modal from "../Modal";
 import "./css/index.css";
 
 const Actividad = () => {
-  const navigate = useNavigate();
-
   const [showModal, setShowModal] = useState(false);
-  const [childrenModal, setChildrenModal] = useState(null);
+  const [isForm, setIsForm] = useState(false);
   const [heightC, setHeigtC] = useState("");
   const [widthC, setWidthC] = useState("");
+  const [idDel, setIdDel] = useState(null);
+  const navigate = useNavigate();
 
   const {
     actividad,
-    storeActivity,
-    deleteActivity,
-    error,
-    errorResponse,
-    errorDescription,
+    guardarActividad,
+    borrarActividad,
+    actualizarActividad,
     loading,
-    setLoading,
-    updateData
+    errorBool,
+    errorMessage,
+    saveSuccess,
   } = useActividad();
 
-  /*useEffect(() => {
-    if (error) {
+  useEffect(() => {
+    if (errorBool) {
       navigate("/error403");
     }
-  }, [error, navigate]);*/
+    if(saveSuccess){
+      onClose();
+    }
+  }, [errorBool, navigate, saveSuccess]);
+
+  const handleSubmit = (d) => {
+    guardarActividad({ data: d });
+  };
+
+  const handleUpdate = (d) =>{
+    actualizarActividad({ data:d })
+  }
+
+  const onClose = () =>{
+    setShowModal(false);
+  }
 
   const handlePost = () => {
     setHeigtC("350px");
     setWidthC("580px");
-    setChildrenModal(
-      <Formulario
-        onClose={onClose}
-        onStore={storeActivity}
-        errorResponse={errorResponse}
-        errorDescription={errorDescription}
-        loading={loading}
-        setLoading={setLoading}
-      />
-    );
+    setIsForm(true);
     setShowModal(true);
+    setIdDel(null);
   };
 
   const handleClickDelete = (id) => {
     setHeigtC("200px");
     setWidthC("530px");
-    const dataUpdate = {
-      id: actividad[id].id,
-    };
-    setChildrenModal(
-      <AlertMessage
-        title="Eliminar actividad"
-        descripction="¿Desea eliminar la actividad?"
-        onClose={onClose}
-        onEvent={deleteActivity}
-        dataUpdate={dataUpdate}
-      />
-    );
+    setIsForm(false);
+    setIdDel(id);
     setShowModal(true);
   };
 
-  /*const handleClickUpdate = (id) =>{
-    setHeigtC("200px");
+  const handleClickUpdate = (id) =>{
+    setHeigtC("300px");
     setWidthC("530px");
-    const dataUpdate = {
-      id: actividad[id].id,
-      nombre_actividad: actividad[id].nombre_actividad,
-      codigo_actividad: actividad[id].codigo_actividad,
-      porcentaje_actividad: actividad[id].porcentaje_actividad,
-      id_curso_nivel: actividad[id].id_curso_nivel,
-      id_periodo: actividad[id].id_periodo,
-      numero_actividades: actividad[id].numero_actividades
-    };
-    <Formulario
-        onClose={onClose}
-        onStore={}
-        errorResponse={errorResponse}
-        errorDescription={errorDescription}
-        loading={loading}
-        setLoading={setLoading}
-      />
-  }*/
-
-  const onClose = () => {
-    setShowModal(false);
-  };
+    setIdDel(id);
+    setIsForm(true);
+    setShowModal(true);
+  }
 
   return (
     <div className="Actividad-container">
       {showModal ? (
-        <Modal heightC={heightC} widthC={widthC}>
-          {childrenModal}
+        <Modal
+          heightC={heightC}
+          widthC={widthC}
+        >
+          {isForm ? (
+            <Formulario
+              onClose={onClose}
+              onStore={handleSubmit}
+              onUpdate={handleUpdate}
+              loading={loading}
+              errorMessage={errorMessage}
+              dataUpdate={actividad[idDel]}
+            />
+          ) : (
+            <AlertMessage
+              title="Eliminar actividad"
+              descripction="¿Desea eliminar la actividad?"
+              onClose={onClose}
+              onEvent={borrarActividad}
+              dataUpdate={{ id: actividad[idDel].id }}
+              loading={loading}
+            />
+          )}
         </Modal>
       ) : (
         ""
@@ -110,6 +109,7 @@ const Actividad = () => {
         <TablaActividad
           actividades={actividad}
           handleClickDelete={handleClickDelete}
+          handleClickUpdate={handleClickUpdate}
         />
       </div>
     </div>

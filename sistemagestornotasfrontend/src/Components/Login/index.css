@@ -1,19 +1,18 @@
 .login-container{
-    position: relative;
-    text-align: center;
-    height: 65%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
 }
 
 .form{
-    position: absolute;
     display: grid;
     align-items: center;
-    width: 30%;
-    height: 70%;
-    top: 20%;
-    left: 34%;
+    text-align: center;
+    height: 80%;
+    width: 350px;
     border-radius: 20px;
-    border: 3px solid #064ea5ad;
+    border: 3px solid #287463;
     background-color: #fff;
 }
 
@@ -33,7 +32,7 @@
 
 .form__container{
     border-radius: 10px;
-    border: 2px solid #064ea5ad;
+    border: 2px solid #287463;
     padding: 5px 0px;
     width: 80%;
     margin: 10px auto;
@@ -49,7 +48,7 @@
 }
 
 .form__button{
-    background-color: #064ea5ad;
+    background-color: #287463;
     color: #fff;
     border-radius: 10px;
     padding: 10px 25px;

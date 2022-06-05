@@ -1,8 +1,8 @@
 import { ENDPOINT } from "Config/EndPoint";
 
-const getAllActividad = ({jwt}) =>{
+const getAllActividad = ({data, jwt}) =>{
     return (
-        fetch(`${ENDPOINT}/actividad`, {
+        fetch(`${ENDPOINT}/actividad/${data.idPeriodo}/${data.idCursoNivel}`, {
             method: 'GET',
             headers: {
                 'Authorization': jwt ? `Bearer ${jwt}` : ""
