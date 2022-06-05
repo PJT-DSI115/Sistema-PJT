@@ -104,8 +104,8 @@ function Periodo() {
                 ""
             }
             <h1 
-                className = "text-lg font-bold mt-10 text-center"
-            >Periodos</h1>
+                className = "text-lg font-bold mt-10 text-center periodo-title"
+            >Gestión de periodos</h1>
             <div className= "buttonRegisterContainer">
                 
                 {
@@ -113,7 +113,7 @@ function Periodo() {
                     <button 
                         className="rounded-lg bg-lime-600 px-10 py-1 
                         text-gray-100 cursor-pointer hover:bg-line-800
-                        mt-10"
+                        mt-10 btn-periodo"
                         onClick={handleClick}
                     >
                         Registrar

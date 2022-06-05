@@ -61,7 +61,7 @@ Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
 
 //Routes Actividad.
 
-Route::get('/actividad', [ActividadController::class, 'indexActividad'])
+Route::get('/actividad/{id_periodo}/{id_curso_nivel}', [ActividadController::class, 'indexActividad'])
     ->middleware('authJwt:Administrador');
 Route::post('/actividad', [ActividadController::class, 'storeActividad'])
     ->middleware('authJwt:Administrador');

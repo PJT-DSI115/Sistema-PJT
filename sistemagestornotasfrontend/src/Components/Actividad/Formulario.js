@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { actividadData } from "Service/actividadData";
 import "./css/Formulario.css";
 
@@ -10,6 +11,9 @@ const Formulario = ({
   errorMessage,
   dataUpdate,
 }) => {
+  
+  const {idPeriodo, idCursoNivel} = useParams();
+
   const [dataForm, setDataFrom] = useState(() => {
     return dataUpdate
       ? {
@@ -25,13 +29,11 @@ const Formulario = ({
           nombre_actividad: "",
           codigo_actividad: "",
           porcentaje_actividad: "",
-          id_curso_nivel: "1",
-          id_periodo: "1",
+          id_curso_nivel: idCursoNivel,
+          id_periodo: idPeriodo,
           numero_actividades: "",
         };
   });
-
-  
 
   const handleChange = (e) => {
     setDataFrom({

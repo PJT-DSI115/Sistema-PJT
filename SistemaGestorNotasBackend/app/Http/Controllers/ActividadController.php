@@ -18,9 +18,9 @@ class ActividadController extends Controller
     }
 
 
-    public function indexActividad()
+    public function indexActividad($id_periodo, $id_curso_nivel)
     {
-       return $this->actividadService->traerActividades();
+       return $this->actividadService->traerActividades($id_periodo, $id_curso_nivel);
     }
 
    

@@ -1,7 +1,6 @@
 import { useContext, useCallback, useState } from "react";
-
 import Context from "Context/UserContext";
-
+import { useNavigate } from "react-router-dom";
 
 import { loginService } from 'Service/loginService';
 
@@ -9,6 +8,7 @@ function useUser() {
     const { jwt, setJWT, nombreRol, setNombreRol, idRol, setIdRol } = useContext(Context);
     const [state, setState] = useState({loading: false, error: false});
     const [messageError, setMessageError] = useState("");
+    const navigate = useNavigate();
 
     const login = useCallback(({ username, password }) => {
         setState({loading: true, error: false});
@@ -31,14 +31,13 @@ function useUser() {
     }, [setJWT, setIdRol, setNombreRol]);
 
     const logout = useCallback(() => {
-
         setJWT(null);
         setIdRol(null);
         setNombreRol(null);
         window.sessionStorage.removeItem('jwt');
         window.sessionStorage.removeItem('nombreRol');
         window.sessionStorage.removeItem('idRol');
-
+        navigate('/login');
     }, [setJWT, setIdRol, setNombreRol]);
 
     return {

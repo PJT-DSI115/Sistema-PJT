@@ -15,9 +15,6 @@ function App() {
   return (
     <UserContextProvider>
       <div className="App">
-        <div className="App-right">
-          <Sidebar />
-        </div>
         <div className="App-left">
           <div className="App-container">
             <Routes>
@@ -25,7 +22,6 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/error403" element={<Error403 />} />
               <Route path="/periodo" element={<Periodo />} />
-
               <Route path="/asignarProfesor">
                 <Route path=":idPeriodo">
                   <Route path=":idCursoNivel" element={<AssignTeacher />} />
@@ -40,6 +36,9 @@ function App() {
             </Routes>
           </div>
           <Footer />
+        </div>
+        <div className="App-right">
+          <Sidebar />
         </div>
       </div>
     </UserContextProvider>

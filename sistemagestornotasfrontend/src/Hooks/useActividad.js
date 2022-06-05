@@ -6,6 +6,7 @@ import {
   deleteActividad,
 } from "../Service/ActividadService";
 import Context from "Context/UserContext";
+import { useParams } from "react-router-dom";
 
 function useActividad() {
   const { jwt } = useContext(Context);
@@ -14,10 +15,16 @@ function useActividad() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [errorBool, setErrorBool] = useState(null);
   const [saveSuccess, setSaveSuccess] = useState(null);
+  const {idPeriodo, idCursoNivel} = useParams();
+
+  const dataParams = {
+    idPeriodo: idPeriodo,
+    idCursoNivel: idCursoNivel
+  }
 
   useEffect(() => {
     setLoading(true);
-    getAllActividad({ jwt }).then((data) => {
+    getAllActividad({ data: dataParams , jwt }).then((data) => {
       if (data.status) {
         if (data.status === 500 || data.status === 401 || data.status === 403) {
           setErrorBool(true);

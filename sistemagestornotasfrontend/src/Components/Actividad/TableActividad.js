@@ -49,7 +49,7 @@ const TablaActividad = ({ actividades, handleClickDelete, handleClickUpdate }) =
                   {actividad.codigo_actividad}
                 </th>
                 <td className="px-6 py-4">{actividad.nombre_actividad}</td>
-                <td className="px-6 py-4">{parseInt(actividad.porcentaje_actividad)}</td>
+                <td className="px-6 py-4">{parseInt(actividad.porcentaje_actividad)} %</td>
                 <td className="px-6 py-4">{actividad.numero_actividades}</td>
                 <td className="px-6 py-4 td-grid">
                   <button

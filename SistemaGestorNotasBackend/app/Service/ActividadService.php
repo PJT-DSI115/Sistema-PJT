@@ -10,9 +10,10 @@ use Carbon\Carbon;
 
 class ActividadService {
 
-    public function traerActividades () {
+    public function traerActividades ($id_periodo, $id_curso_nivel) {
 
-        $actividades = Actividad::all();
+        $actividades = Actividad::where('id_periodo', $id_periodo)
+            ->where('id_curso_nivel', $id_curso_nivel)->get();
         foreach($actividades as $actividad){
             $linea_actividad = $actividad->lineaActividad()->get()->count();
             $actividad['numero_actividades'] = $linea_actividad;
@@ -21,7 +22,6 @@ class ActividadService {
     }
 
     public function registrarActividad ($data){
-        error_log($data);
         $responseValidate = ValidateJsonRequest::validateJasonRequestActividad($data);
         if(count($responseValidate) > 0){
             return $responseValidate;
