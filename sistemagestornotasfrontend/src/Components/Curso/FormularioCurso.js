@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 
 function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, saveSuccess})
 {
-    console.log(dataUpdate);
     const [nombreCurso,SetNombreCurso] = useState( () => {
         return dataUpdate ? dataUpdate.nombre_curso : ""
     });
@@ -26,7 +25,6 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
     function handleChangeNombreCurso(e){
 
         SetNombreCurso(e.target.value);
-        console.log(nombreCurso);
     }
 
     function handleChangeCodigoCurso(e){

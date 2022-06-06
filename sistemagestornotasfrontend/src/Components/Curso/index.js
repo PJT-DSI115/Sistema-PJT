@@ -78,7 +78,6 @@ function Curso() {
             "codigo_curso": cursoUpdate.codigo_curso,
             "id": cursoUpdate.id
         }
-        console.log(dataUpdate);
         setChildrenModal(
             <FormularioCurso
                 onStore = {updateCurso}
@@ -96,12 +95,25 @@ function Curso() {
 		setErrorServer(false);
 	}//Fin de la función. */
 
-    console.log("cursos", cursos);
-    console.log(errorServer, "error");
-
     return (
-        <div>
-            <h1 className = "text-lg font-bold mt-10">Cursos</h1>
+        <div className = "main">
+            <h1 
+                className = "text-lg font-bold mt-10 text-center periodo-title"
+            >Gestión de Cursos</h1>
+            <div className="buttonRegisterContainer mt-5">
+                {
+                    !verifiedCurso() ? 
+                    <button 
+                        className="Actividad-btn rounded-lg bg-lime-600 px-10 py-1 
+                        text-gray-100 cursor-pointer hover:bg-line-800
+                        mt-10"
+                        onClick={handleClick}
+                    >
+                        Registrar Curso
+                    </button>
+                    : ""
+                }
+            </div>
 
             <CursoTable cursos={cursos} handleClickDelete={handleClickDelete} 
                         handleClickUpdate={handleClickUpdate}>
@@ -116,20 +128,6 @@ function Curso() {
                 :''
             }
 
-            <div>
-                {
-                    !verifiedCurso() ? 
-                    <button 
-                        className="rounded-lg bg-lime-600 px-10 py-1 
-                        text-gray-100 cursor-pointer hover:bg-line-800
-                        mt-10"
-                        onClick={handleClick}
-                    >
-                        Registrar Curso
-                    </button>
-                    : ""
-                }
-            </div>
 
         </div>
     )

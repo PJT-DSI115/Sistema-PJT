@@ -10,9 +10,10 @@ use Carbon\Carbon;
 
 class ActividadService {
 
-    public function traerActividades () {
+    public function traerActividades ($id_periodo, $id_curso_nivel) {
 
-        $actividades = Actividad::all();
+        $actividades = Actividad::where('id_periodo', $id_periodo)
+            ->where('id_curso_nivel', $id_curso_nivel)->get();
         foreach($actividades as $actividad){
             $linea_actividad = $actividad->lineaActividad()->get()->count();
             $actividad['numero_actividades'] = $linea_actividad;
@@ -21,7 +22,6 @@ class ActividadService {
     }
 
     public function registrarActividad ($data){
-
         $responseValidate = ValidateJsonRequest::validateJasonRequestActividad($data);
         if(count($responseValidate) > 0){
             return $responseValidate;
@@ -49,6 +49,14 @@ class ActividadService {
         
         if($numero_actividades > 10){
             return MessageResponse::messageDescriptionError('Error', 'No puede ingresar más de 10 actividades');
+        }
+
+        $porcentajeList = Actividad::where('id_curso_nivel', $id_curso_nivel)
+            ->where('id_periodo', $id_periodo)
+            ->sum('porcentaje_actividad');
+        $porcentaje_total = $porcentaje_actividad + $porcentajeList;
+        if($porcentaje_total > 100){
+            return MessageResponse::messageDescriptionError('Error', 'El porcentaje total no debe ser mayor a 100%');
         }
 
         $actividad = new Actividad;
@@ -89,7 +97,9 @@ class ActividadService {
         $porcentaje_actividad = $data['porcentaje_actividad'];
 
         $responseBoolean = 0;
-        $responseCodigo = Actividad::where("codigo_actividad", "!=", $actividad->codigo_actividad)->get();
+        $responseCodigo = Actividad::where("codigo_actividad", "!=", $actividad->codigo_actividad)
+            ->where('id_curso_nivel', $actividad->id_curso_nivel)
+            ->where('id_periodo', $actividad->id_periodo)->get();
         for($i=0; $i<count($responseCodigo); $i++){
             if($responseCodigo[$i]->codigo_actividad === $codigo_actividad){
                 $responseBoolean++;
@@ -98,6 +108,15 @@ class ActividadService {
         
         if($responseBoolean > 0){
             return MessageResponse::messageDescriptionError('Error', 'La actividad ya existe, seleccione otra');
+        }
+
+        $porcentajeList = Actividad::where('id_curso_nivel', $actividad->id_curso_nivel)
+            ->where('id_periodo', $actividad->id_periodo)
+            ->where('codigo_actividad', '!=', $actividad->codigo_actividad)
+            ->sum('porcentaje_actividad');
+        $porcentaje_total = $porcentaje_actividad + $porcentajeList;
+        if($porcentaje_total > 100){
+            return MessageResponse::messageDescriptionError('Error', 'El porcentaje total no debe ser mayor a 100%');
         }
 
         $actividad->nombre_actividad = $nombre_actividad;

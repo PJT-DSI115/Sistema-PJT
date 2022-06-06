@@ -104,16 +104,16 @@ function Periodo() {
                 ""
             }
             <h1 
-                className = "text-lg font-bold mt-10 text-center"
-            >Periodos</h1>
-            <div className= "buttonRegisterContainer">
+                className = "text-lg font-bold mt-10 text-center periodo-title"
+            >Gestión de periodos</h1>
+            <div className= "buttonRegisterContainer mt-5">
                 
                 {
                     !verifiedPeriodActive() ? 
                     <button 
-                        className="rounded-lg bg-lime-600 px-10 py-1 
+                        className="Actividad-btn rounded-lg bg-lime-600 px-10 py-1 
                         text-gray-100 cursor-pointer hover:bg-line-800
-                        mt-10"
+                        mt-10 btn-periodo"
                         onClick={handleClick}
                     >
                         Registrar

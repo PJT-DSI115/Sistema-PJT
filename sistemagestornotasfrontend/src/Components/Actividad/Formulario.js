@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { actividadData } from "Service/actividadData";
-import './css/Formulario.css';
+import "./css/Formulario.css";
 
 const Formulario = ({
   onClose,
   onStore,
-  errorResponse,
-  errorDescription,
+  onUpdate,
   loading,
-  setLoading,
-  dataUpdate
+  errorMessage,
+  dataUpdate,
 }) => {
+  
+  const {idPeriodo, idCursoNivel} = useParams();
+
   const [dataForm, setDataFrom] = useState(() => {
     return dataUpdate
       ? {
+          id: dataUpdate.id,
           nombre_actividad: dataUpdate.nombre_actividad,
           codigo_actividad: dataUpdate.codigo_actividad,
-          porcentaje_actividad: dataUpdate.porcentaje_actividad,
+          porcentaje_actividad: parseInt(dataUpdate.porcentaje_actividad),
           id_curso_nivel: dataUpdate.id_curso_nivel,
           id_periodo: dataUpdate.id_periodo,
           numero_actividades: "",
@@ -25,8 +29,8 @@ const Formulario = ({
           nombre_actividad: "",
           codigo_actividad: "",
           porcentaje_actividad: "",
-          id_curso_nivel: "1",
-          id_periodo: "1",
+          id_curso_nivel: idCursoNivel,
+          id_periodo: idPeriodo,
           numero_actividades: "",
         };
   });
@@ -40,57 +44,59 @@ const Formulario = ({
 
   const handleSelect = (e) => {
     if (e.target.value === "") {
-        return;
+      return;
     } else {
       setDataFrom({
         ...dataForm,
-        nombre_actividad: actividadData[e.target.value].nombre,
-        codigo_actividad: actividadData[e.target.value].codigo,
+        nombre_actividad: actividadData[e.target.selectedOptions[0].getAttribute('dbindex')].nombre,
+        codigo_actividad: actividadData[e.target.selectedOptions[0].getAttribute('dbindex')].codigo,
       });
     }
   };
 
+  const setData = () => {
+    return actividadData.map((data, index) => {
+      return (
+        <option key={data.id} value={data.codigo} dbindex={index}>
+          {data.nombre}
+        </option>
+      );
+    });
+  };
 
-  const handleSubmit = () => {
-    onStore({data:dataForm})
-    console.log(errorResponse);
-    console.log(errorDescription)
-    if(errorResponse){
-      console.log(errorResponse)
-      //onClose();
+  const handleKeyUp = (e) => {
+    const code = e.charCode ? e.charCode : e.keyCode;
+    if ((code >= 48 && code <= 57) || code === 8) {
+      return;
+    } else {
+      e.preventDefault();
+      return;
     }
   };
 
-  const setData = () => {
-    return actividadData.map((data, index) => (
-      <option key={data.id} value={index}>
-        {data.nombre}
-      </option>
-    ));
+  const handleSubmit = () => {
+    console.log(dataForm);
+    onStore(dataForm);
   };
 
-  const handleKeyUp = e =>{
-      const code = (e.charCode) ? e.charCode : e.keyCode;
-      if((code >= 48 && code <= 57 ) || code === 8){
-          return
-      }
-      else {
-        e.preventDefault();
-        return
-      }
-  }
+  const handleUpdate = () => {
+    onUpdate(dataForm);
+  };
 
   return (
     <div className="Actividad-form-container">
-      <h1 className="Actividad-form-title">Registro de actividad</h1>
+      <h1 className="Actividad-form-title">
+        {!dataUpdate ? "Registrar actividad" : "Editar actividad"}
+      </h1>
       <form className="Form-actividad">
         <div className="form-group">
           <select
             name="nombre_actividad"
             className="form-input"
             onChange={handleSelect}
+            defaultValue={dataUpdate ? `${dataForm.codigo_actividad}` : ""}
           >
-            <option value={""}>Seleccione un tipo</option>
+            <option value="" dbindex="">Seleccione un tipo</option>
             {setData()}
           </select>
         </div>
@@ -106,24 +112,26 @@ const Formulario = ({
           />
         </div>
         <div className="form-group">
-          <input
-            type="text"
-            name="numero_actividades"
-            className="form-input"
-            placeholder="Número de actividades"
-            value={dataForm.numero_actividades}
-            onChange={handleChange}
-            onKeyDown={handleKeyUp}
-          />
+          {!dataUpdate && (
+            <input
+              type="text"
+              name="numero_actividades"
+              className="form-input"
+              placeholder="Número de actividades"
+              value={dataForm.numero_actividades}
+              onChange={handleChange}
+              onKeyDown={handleKeyUp}
+            />
+          )}
         </div>
-        <div>{<p className="formCustom__error">{errorDescription}</p>}</div>
+        {errorMessage && <p className="formCustom__error">{errorMessage}</p>}
         <div className="form-group btns">
           <button
             type="button"
             className="btn-form btn-sub"
-            onClick={handleSubmit}
+            onClick={!dataUpdate ? handleSubmit : handleUpdate}
           >
-            Guardar
+            {loading ? "Cargando..." : "Guardar"}
           </button>
           <button type="button" className="btn-form btn-can" onClick={onClose}>
             Cancelar

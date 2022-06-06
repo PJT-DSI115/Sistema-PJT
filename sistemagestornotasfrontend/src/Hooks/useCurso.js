@@ -49,7 +49,6 @@ function useCurso({showModal}) {
                 else{
                     data.forEach( (cu, index) => {
                         cu.index= index;
-                        console.log(index);
                         return data;
                     })
                     setCursos(data);

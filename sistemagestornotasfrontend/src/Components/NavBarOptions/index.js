@@ -4,7 +4,7 @@ import { ListOptions } from "./ListOptions";
 
 function NavBarOptions(){
     return(
-        <nav className="NavBar-right">
+        <nav className="NavBar-container">
             <ul className="NavBar-list">
                 <ListOptions />
             </ul>

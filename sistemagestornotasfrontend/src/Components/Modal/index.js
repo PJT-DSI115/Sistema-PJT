@@ -1,8 +1,6 @@
 import  ReactDOM  from "react-dom";
 import './index.css';
 
-
-
 function Modal({ children, heightC, widthC}) {
     const heightCustom = {
         height: heightC,

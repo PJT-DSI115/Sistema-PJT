@@ -20,7 +20,6 @@ function usePeriodo() {
         setLoading(true);
         getAllPeriod({ jwt })
         .then((data) => {
-            console.log(data);
             if(data.status) {
                 if(data.status === 401) {
                     setErrorPermission(true);
