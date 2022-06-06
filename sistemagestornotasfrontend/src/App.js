@@ -10,6 +10,7 @@ import { Footer } from "Components/Footer";
 import { Actividad } from "Components/Actividad";
 import { AssignTeacher } from 'Components/assignTeacher';
 import { Header } from 'Components/Header';
+import { ListadocursoDocente } from 'Components/ListadoCursosDocente';
 
 function App() {
 	return (
@@ -25,6 +26,10 @@ function App() {
                     <Route path = '/asignarProfesor'  >
                         <Route path = ":idPeriodo" >
                             <Route path = ":idCursoNivel" element = { <AssignTeacher /> } />
+                        </Route>
+                    </Route>
+                    <Route path = '/listadoCursosDocente'  >
+                        <Route path = ":idPeriodo" element = { <ListadocursoDocente /> }>
                         </Route>
                     </Route>
 					<Route path='/card' element = {<CursosNivel />} />

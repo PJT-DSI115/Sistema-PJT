@@ -5,7 +5,7 @@ import "./css/CursoCard.css";
 function CursoCard({id_curso_nivel, nombre, nivel}) {
 
   return (
-    <Link to={`/card/${id_curso_nivel}`}>
+    <Link to={`card/${id_curso_nivel}`}>
       <div className="Card">
         <div className="Card-title">
           {nombre}

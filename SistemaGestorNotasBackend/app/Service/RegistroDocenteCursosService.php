@@ -70,6 +70,9 @@ class RegistroDocenteCursosService {
 
     public function getAllRegisterByDocente($idDocente, $idPeriodo) {
         $responseNivels = [];
+        $arrayPadre = [];
+        $arrayValue = [];
+        $arrayHijo = [];
 
         $nivelsForDocentes = DB::table('registro_docente_cursos')
             ->select('nivels.nombre_nivel', 'nivels.id')
@@ -81,12 +84,15 @@ class RegistroDocenteCursosService {
             ->get();
 
         foreach($nivelsForDocentes as $nivels) {
-            $responseNivels[$nivels->nombre_nivel] = DB::table('registro_docente_cursos')
+            $arrayHijo["nombre"] = $nivels->nombre_nivel;
+            $a = DB::table('registro_docente_cursos')
             ->select('nivels.nombre_nivel', 
+                'registro_docente_cursos.id as idRegistroCurso',
                 'nivels.id as idNivel', 
                 'curso_nivels.id as idCursoNivel', 
                 'cursos.id as idCurso',
-                'cursos.nombre_curso'
+                'cursos.nombre_curso',
+                'nivels.nombre_nivel'
             )
             ->join('curso_nivels', 'registro_docente_cursos.id_nivel_curso', '=', 'curso_nivels.id')
             ->join('cursos', 'curso_nivels.id_curso', '=', 'cursos.id')
@@ -95,8 +101,10 @@ class RegistroDocenteCursosService {
             ->where('registro_docente_cursos.id_periodo', '=', $idPeriodo)
             ->where('nivels.id', '=', $nivels->id)
             ->get();
+            $arrayHijo['values'] = $a;
+            array_push($arrayPadre, $arrayHijo);
         }
-        return $responseNivels;
+        return $arrayPadre;
 
     }
 

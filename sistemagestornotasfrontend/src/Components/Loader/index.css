@@ -8,6 +8,12 @@
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top:0;
+    margin:auto;
 }
 
 @keyframes rotation {

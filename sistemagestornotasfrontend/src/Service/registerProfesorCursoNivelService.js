@@ -53,5 +53,23 @@ const updateRegister = ( { data, jwt } ) => {
     
 }
 
+const getAllRegisterByDocente = ({ jwt, idPeriodo }) => {
+    return (
+        fetch(`${ENDPOINT}/getAllCursosNivelByDocente?idPeriodo=${idPeriodo}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}` : ""
+            }
+        })
+        .then(response => response)
+    );
+}
 
-export { getAllRegisterByNivelCursoAndPeriodo, storeRegister, deleteRegister, updateRegister };
+
+export {
+    getAllRegisterByNivelCursoAndPeriodo, 
+    storeRegister, 
+    deleteRegister, 
+    updateRegister ,
+    getAllRegisterByDocente
+};
