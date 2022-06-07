@@ -57,7 +57,13 @@ class NivelController extends Controller
     {
         //Eliminar Nivel.
         $nivel = Nivel::destroy($id);
-        return $nivel;
+        if($nivel == 1)
+        {
+            return $this->returnResponse(true);
+        }else{
+            return $this->returnResponse(false);
+        }
+        
     }
 
     // public function store(Request $request) {

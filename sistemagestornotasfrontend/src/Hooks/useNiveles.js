@@ -131,8 +131,8 @@ function useNivel({showModal}) {
         })
 
         .then( (data) => {
-            if(data.message === 'OK'){
-                console.log("Entra");
+            if(data.message === 'Ok'){
+                //console.log("Entra");
                 onClose();
                 setLoading(false);
                 setSaveSuccess(true);

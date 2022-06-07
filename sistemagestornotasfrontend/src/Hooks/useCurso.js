@@ -75,7 +75,7 @@ function useCurso({showModal}) {
             return data.json();
         })
         .then(data => {
-            if(data.message === 'OK'){
+            if(data.message === 'Ok'){
                 setLoading(false);
                 setSaveSuccess(true);
             }
