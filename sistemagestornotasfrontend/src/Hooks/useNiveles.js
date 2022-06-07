@@ -132,6 +132,7 @@ function useNivel({showModal}) {
 
         .then( (data) => {
             if(data.message === 'OK'){
+                console.log("Entra");
                 onClose();
                 setLoading(false);
                 setSaveSuccess(true);
