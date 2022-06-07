@@ -109,7 +109,7 @@ function useNivel({showModal}) {
         })
     }
 
-    const deleteNivel = ({data}) =>{
+    const deleteNivel = ({data, onClose} ) =>{
         deleteNiveles({data, jwt})
         .then (data => {
             if(data.status === 500){
@@ -132,8 +132,10 @@ function useNivel({showModal}) {
 
         .then( (data) => {
             if(data.message === 'OK'){
+                onClose();
                 setLoading(false);
                 setSaveSuccess(true);
+
             }
         })
     }
