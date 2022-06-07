@@ -1,35 +1,28 @@
 import { useState, useRef } from 'react';
 
-function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, saveSuccess})
+function FormularioNivel({onClose, loading, dataUpdate, onStore, errorSave, saveSuccess})
 {
-    const [nombreCurso,SetNombreCurso] = useState( () => {
-        return dataUpdate ? dataUpdate.nombre_curso : ""
+    const [nombreNivel,setNombreNivel] = useState( () => {
+        return dataUpdate ? dataUpdate.nombre_nivel : ""
     });
 
-    const [codigoCurso,setCodigoCurso] = useState( () => {
-        return dataUpdate ? dataUpdate.codigo_curso : ""
+    const [codigoNivel,setCodigoNivel] = useState( () => {
+        return dataUpdate ? dataUpdate.codigo_nivel : ""
     });
-
-    /* const [dateNombreCurso, setDateNombreCurso]  = useState(() => {
-        return dataUpdate ? dataUpdate.nombre_curso : ""
-    });
-    const [dateCodigoCurso, setdateCodigoCurso] = useState(() => {
-        return dataUpdate ? dataUpdate.codigo_curso : ""
-    }); */
 
     const [messageError, setMessageError] = useState("");
-    const dateNombreCursoRef = useRef(null);
-    const dateCodigoCursoRef = useRef(null);
+    const dateNombreNivelRef = useRef(null);
+    const dateCodigoNivelRef = useRef(null);
 
     //Funciones.
-    function handleChangeNombreCurso(e){
+    function handleChangeNombreNivel(e){
 
-        SetNombreCurso(e.target.value);
+        setNombreNivel(e.target.value);
     }
 
-    function handleChangeCodigoCurso(e){
+    function handleChangeCodigoNivel(e){
 
-        setCodigoCurso(e.target.value);
+        setCodigoNivel(e.target.value);
     }
 
     function handleSubmit(e){
@@ -37,20 +30,20 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
         e.preventDefault();
         printErrorInput();
         //Inicio del if.
-        if(nombreCurso === "" || codigoCurso === "")  {
+        if(nombreNivel === "" || codigoNivel === "")  {
             setMessageError("Los campos indicados, son obligatorios");
         }//Fin del if
          else {//Inicio del else.
             setMessageError("");
             const data = {
-                "nombre_curso": nombreCurso,
-                "codigo_curso": codigoCurso
+                "nombre_nivel": nombreNivel,
+                "codigo_nivel": codigoNivel
             }
             data.id = dataUpdate ? dataUpdate.id: "";
             onStore({data});
             onClose();
             if(errorSave) {
-                setMessageError("No se ha podido guardar el Nuevo Curso");
+                setMessageError("No se ha podido guardar el Nuevo Nivel");
             }
             if(saveSuccess) {
                 setMessageError("Guardado con éxito");
@@ -59,16 +52,16 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
     }
 
     const printErrorInput = ()=>{
-        if(nombreCurso === "") {
-            dateNombreCursoRef.current.style.border = "solid 1px red";
+        if(nombreNivel === "") {
+            dateNombreNivelRef.current.style.border = "solid 1px red";
         } else {
-            dateNombreCursoRef.current.style.border = "";
+            dateNombreNivelRef.current.style.border = "";
         }
 
-        if(codigoCurso === "") {
-            dateCodigoCursoRef.current.style.border = "solid 1px red";
+        if(codigoNivel === "") {
+            dateCodigoNivelRef.current.style.border = "solid 1px red";
         } else {
-            dateCodigoCursoRef.current.style.border = "";
+            dateCodigoNivelRef.current.style.border = "";
         }
     }
 
@@ -77,27 +70,27 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
         <form
             className = "formCustom"
         >
-            <h2 className = "formCustom__title">Registrar Nuevo Curso</h2>
+            <h2 className = "formCustom__title">Registrar Nuevo Nivel</h2>
 
             <div className = "formCustom__container">
-                    <label className = "formCustom__label">Código del Curso</label>
+                    <label className = "formCustom__label">Código del Nivel</label>
                     <input
                         className = "formCustom__input"
                         type= "text"
-                        onChange={handleChangeCodigoCurso}
-                        ref = { dateCodigoCursoRef }
-                        value = { codigoCurso }
+                        onChange={handleChangeCodigoNivel}
+                        ref = { dateCodigoNivelRef }
+                        value = { codigoNivel }
                     />
             </div>
 
             <div className = "formCustom__container">
-                <label className = "formCustom__label">Nombre del Curso</label>
+                <label className = "formCustom__label">Nombre del Nivel</label>
                 <input
                     className = "formCustom__input"
                     type= "text"
-                    onChange={handleChangeNombreCurso}
-                    ref = { dateNombreCursoRef }
-                    value = { nombreCurso }
+                    onChange={handleChangeNombreNivel}
+                    ref = { dateNombreNivelRef }
+                    value = { nombreNivel }
                 />
             </div>
             
@@ -124,4 +117,4 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
 );
 }
 
-export {FormularioCurso}
+export {FormularioNivel}
