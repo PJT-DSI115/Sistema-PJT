@@ -12,6 +12,7 @@ import { AssignTeacher } from "Components/assignTeacher";
 import { Sidebar } from "Components/SideBar";
 import { ListadocursoDocente } from "Components/ListadoCursosDocente";
 import { Curso } from 'Components/Curso';
+import { Nivel } from 'Components/Nivel';
 
 function App() {
 	return (
@@ -42,6 +43,7 @@ function App() {
 							</Route>
 							</Route>
 							<Route path = "/gestionCursos" element = { <Curso />} />
+							<Route path = "/gestionNiveles" element = { <Nivel />} />
 						</Routes>
 					</div>
 					<Footer />

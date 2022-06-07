@@ -35,10 +35,13 @@ Route::post('/login', [LoginController::class, 'login']);
 
 //Routes Niveles.
 
-Route::get('/nivels/index', [NivelController::class, 'index'])
-    ->middleware('authJwt:Administrador');
+Route::get('/nivels/index', [NivelController::class, 'index']);
+    // ->middleware('authJwt:Administrador');
 Route::get('/nivels/{codigoNivel}', [NivelController::class, 'show']);
 Route::post('/nivels/store', [NivelController::class, 'store']);
+Route::put('/nivels/update/{nivel}', [NivelController::class, 'update']);
+Route::delete('/nivels/delete/{id}', [NivelController::class, 'destroy']);
+
 
 //Routes Periodos.
 
