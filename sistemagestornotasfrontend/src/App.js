@@ -53,8 +53,6 @@ function App() {
 									</Route>
 								</Route>
 
-
-
 								<Route path="/card" element={<CursosNivel />} />
 
 								<Route path="/actividad">
