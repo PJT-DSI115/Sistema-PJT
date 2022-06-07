@@ -3,7 +3,7 @@ function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate, loadi
 
     const handleDelete = () =>{
         console.log(dataUpdate);
-        onEvent({ data: dataUpdate });
+        onEvent({ data: dataUpdate, onClose });
     }
 
     return (
