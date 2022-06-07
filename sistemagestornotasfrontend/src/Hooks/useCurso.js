@@ -110,7 +110,7 @@ function useCurso({showModal}) {
         })
     }
 
-    const deleteCurso = ({data}) =>{
+    const deleteCurso = ({data, onClose}) =>{
         deleteCursos({data, jwt})
         .then (data => {
             if(data.status === 500){
@@ -118,23 +118,21 @@ function useCurso({showModal}) {
                 setErrorServer(true);
                 return;
             }
-
             if(data.status === 401){
                 setSaveSuccess(false);
                 setErrorPermission(true);
                 return;
             }
-
             setErrorPermission(false);
             setErrorServer(false);
             setSaveSuccess(true);
             return data.json();
         })
-
         .then( (data) => {
             if(data.message === 'OK'){
                 setLoading(false);
                 setSaveSuccess(true);
+                onClose()
             }
         })
     }

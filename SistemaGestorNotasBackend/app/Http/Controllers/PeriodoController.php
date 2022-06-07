@@ -52,6 +52,17 @@ class PeriodoController extends Controller
         return $this->returnResponse($responseBool);
     }
 
+    public function searchPeriodoActivo() {
+        $periodo = Periodo::where('activo_periodo', '=', true)->first();
+        if($periodo) {
+            return $periodo;
+        } else {
+            return [
+                "message" => "no"
+            ];
+        }
+    }
+
 
     private function returnResponse($responseBool) {
         if($responseBool) {
@@ -61,5 +72,6 @@ class PeriodoController extends Controller
         }
 
     }
+
 }
 

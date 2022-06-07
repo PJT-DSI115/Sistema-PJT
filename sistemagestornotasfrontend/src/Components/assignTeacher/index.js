@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Context from 'Context/UserContext';
+import ContextPeriodo from 'Context/PeriodoContext';
 import { AssignTeacheTable } from './AssignTeacherTable';
 import { FormRegister } from './FormRegister';
 import { AlertMessage } from 'Components/AlertMessage/alertMessage';
@@ -19,14 +20,17 @@ function AssignTeacher() {
     const [showModal, setShowModal] = useState(false);
     const [register, setRegister] = useState([]);
     const { jwt } = useContext(Context);
+    const { periodo } = useContext(ContextPeriodo);
     const [errorLogic, setErrorLogic] = useState(false);
     const [messageErrorLogic, setMessageErrorLogic] = useState("");
+    const [buttonActive, setButtonActive] = useState(false);
 
 
     const [heightC, setHeigtC] = useState("");
     const [widthC, setWidthC] = useState("");
     const [children, setChildren] = useState("");
 
+    console.log(periodo);
     useEffect(() => {
         getData();
 
@@ -104,6 +108,7 @@ function AssignTeacher() {
             }
             if(data.message === "Ok") {
                 getData();
+                onClose()
                 return {
                     "type": data.message,
                     "descripcion": data.descripcionMessage
@@ -123,6 +128,7 @@ function AssignTeacher() {
                     return data
                 });
                 setRegister(data);
+                buttonActiveSet();
             })
 
     }
@@ -193,6 +199,13 @@ function AssignTeacher() {
         setShowModal(true);
 
     }
+    const buttonActiveSet = () => {
+        if(periodo === idPeriodo) {
+            setButtonActive(true)
+            return;
+        }
+        setButtonActive(false);
+    }
 
     return (
         <div className= "main">
@@ -201,7 +214,7 @@ function AssignTeacher() {
             >Asignación de profesores</h1>
             <div className="buttonRegisterContainer">
             {
-                !verifiedButton() ?
+                (!verifiedButton() && buttonActive) ?
                 <button 
                     className="rounded-lg bg-lime-600 px-10 py-1 
                     text-gray-100 cursor-pointer hover:bg-line-800

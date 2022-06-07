@@ -1,11 +1,14 @@
 import { useContext, useCallback, useState } from "react";
 import Context from "Context/UserContext";
+import ContextPeriodo from "Context/PeriodoContext";
 import { useNavigate } from "react-router-dom";
 
 import { loginService } from 'Service/loginService';
+import { searchPeriodoActivo } from 'Service/periodoService';
 
 function useUser() {
     const { jwt, setJWT, nombreRol, setNombreRol, idRol, setIdRol } = useContext(Context);
+    const { setPeriodo } = useContext(ContextPeriodo);
     const [state, setState] = useState({loading: false, error: false});
     const [messageError, setMessageError] = useState("");
     const navigate = useNavigate();
@@ -26,9 +29,38 @@ function useUser() {
                 setIdRol(data.idRol);
                 setNombreRol(data.nombreRol);
                 setState({loading: false, error: false});
+                searchPeriodo({jwt})
             }
         })
     }, [setJWT, setIdRol, setNombreRol]);
+
+    const searchPeriodo = () => {
+        searchPeriodoActivo({jwt})
+        .then(response => {
+            if(response.status ===401) {
+                return;
+            }
+            if(response.status === 403) {
+                return;
+            }
+            if(response.status === 500) {
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            if(data.message) {
+                console.log(data.message);
+                setPeriodo(0);
+                window.sessionStorage.setItem('periodo', 0);
+            }
+            else {
+                setPeriodo(data.id);
+                window.sessionStorage.setItem('periodo', data.id);
+            }
+        })
+
+    }
 
     const logout = useCallback(() => {
         setJWT(null);

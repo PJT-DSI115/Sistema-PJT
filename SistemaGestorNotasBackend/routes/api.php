@@ -103,3 +103,5 @@ Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class
     ->middleware('authJwt:Docente');
 
 
+Route::get('/periodo/searchPeriodoActivo', [PeriodoController::class, 'searchPeriodoActivo']);
+

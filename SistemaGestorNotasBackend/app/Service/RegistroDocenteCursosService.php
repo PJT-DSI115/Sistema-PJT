@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Models\Periodo;
 use App\Models\RegistroDocenteCurso;
 use Carbon\Carbon;
 use App\Utils\ValidateJsonRequest;
@@ -22,11 +23,18 @@ class RegistroDocenteCursosService {
         $idDocente = $data['idDocente'];
         $idNivelCurso = $data['idNivelCurso'];
 
+
         $responseValidateLogicRegister = $this->validateLogicRegisterDocentes($idPeriodo, $idNivelCurso,
             $idDocente, $rol, "save");
 
         if(count($responseValidateLogicRegister) > 0) {
             return $responseValidateLogicRegister;
+        }
+
+        $periodoActivoBool = Periodo::find($idPeriodo);
+        if(!$periodoActivoBool->activo_periodo) {
+            return MessageResponse::messageDescriptionError("Error", "Error el periodo no esta activo");
+
         }
         
         $registroDocenteCurso = new RegistroDocenteCurso;

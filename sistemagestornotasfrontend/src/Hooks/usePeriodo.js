@@ -109,7 +109,7 @@ function usePeriodo() {
         })
     }
 
-    const changeState = ({ data }) => {
+    const changeState = ({ data, onClose }) => {
 
         changeStatePeriod({ data, jwt })
         .then(data => {
@@ -134,6 +134,7 @@ function usePeriodo() {
                 setLoading(false);
                 setSaveSuccess(true);
                 setUpdateData(!updateData);
+                onClose()
             }
         })
     }

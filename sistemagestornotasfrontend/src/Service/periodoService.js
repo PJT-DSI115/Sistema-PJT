@@ -62,4 +62,16 @@ const changeStatePeriod = ({ data, jwt }) => {
 
 }
 
-export { getAllPeriod, storeOnePeriod, updateOnePeriodo, changeStatePeriod }; 
+const searchPeriodoActivo = ({ jwt }) => {
+    return (
+        fetch(`${ENDPOINT}/periodo/searchPeriodoActivo`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        })
+        .then(response => response)
+    );
+}
+
+export { getAllPeriod, storeOnePeriod, updateOnePeriodo, changeStatePeriod, searchPeriodoActivo }; 

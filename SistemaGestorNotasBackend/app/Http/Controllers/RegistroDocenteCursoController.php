@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Periodo;
 use App\Models\RegistroDocenteCurso;
 use App\Utils\MessageResponse;
 use App\Service\RegistroDocenteCursosService;
@@ -30,9 +30,15 @@ class RegistroDocenteCursoController extends Controller
         $idNivelCurso = $request->get('idNivelCurso');
         $idPeriodo = $request->get('idPeriodo');
 
+        $periodo = Periodo::find($idPeriodo);
+        $periodoActivo = $periodo->activo_periodo;
+
         $registers = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
             ->where('id_periodo', $idPeriodo)->with('profesor')->get();
 
+        foreach($registers as $register) {
+            $register['activo'] = $periodoActivo;
+        }
         return $registers;
     }
 

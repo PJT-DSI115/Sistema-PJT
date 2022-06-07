@@ -127,7 +127,7 @@ function useActividad() {
   };
 
   //Delete
-  const borrarActividad = ({ data }) => {
+  const borrarActividad = ({ data, onCLose }) => {
     setLoading(true);
     setErrorMessage("");
 
@@ -153,6 +153,7 @@ function useActividad() {
             setErrorMessage(null);
             setSaveSuccess(false);
           }, 1000);
+          onclose();
           return;
         }
       });

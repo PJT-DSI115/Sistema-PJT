@@ -1,5 +1,7 @@
 
 function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
+
+
     const handleClickTable = (e) => {
         if(e.target.getAttribute('op') === 'edit') {
             handleClickUpdate(e.target.getAttribute('index'));
@@ -39,6 +41,9 @@ function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
                             <td className = "px-6 py-4">{register.profesor.dui_profesor}</td>
                             <td className = "px-6 py-4">{register.rol}</td>
                             <td className = "px-6 py-4">
+                                {
+                                    register.activo === 1 ?
+                                    <>
                                         <button 
                                             op = "edit"
                                             index = { register.index }
@@ -49,6 +54,8 @@ function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
                                             index = {register.index}
                                             className = "formCustom__button formCustom__button--red"
                                         >Eliminar</button> 
+                                    </>: ""
+                                }
                             </td>
                         </tr>
 

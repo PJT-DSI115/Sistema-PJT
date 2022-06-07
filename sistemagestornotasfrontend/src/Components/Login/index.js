@@ -5,6 +5,7 @@ import { ParraphopError } from "Components/ParraphopError";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "Hooks/useUser";
+import { Loader } from 'Components/Loader';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -19,6 +20,10 @@ function Login() {
       navigate("/");
     }
   }, [isLogged]);
+
+  if(isLoginLoading) {
+    return <Loader />
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
