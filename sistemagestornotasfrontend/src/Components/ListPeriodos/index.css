@@ -1,0 +1,22 @@
+
+.main__periodo{
+    z-index: 10;
+    position: absolute;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.periodo__title {
+    background-color: #65a30d;
+    padding: 5px;
+    border-radius: 5px;
+    display: block;
+}
+
+.periodo__link {
+    padding: 5px;
+    border-radius: 5px;
+    display: block;
+    cursor: pointer;
+}
