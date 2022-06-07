@@ -14,6 +14,7 @@ import { Sidebar } from "Components/SideBar";
 import { ListadocursoDocente } from "Components/ListadoCursosDocente";
 import { Curso } from 'Components/Curso';
 import { ListPeriodos } from 'Components/ListPeriodos'
+import { Nivel } from 'Components/Nivel';
 
 function App() {
 	return (
@@ -27,7 +28,6 @@ function App() {
 								<Route path="/" element={<Home />} />
 								<Route path="error403" element={<Error403 />} />
 								<Route path="/gestionPeriodo" element={<Periodo />} />
-
 								<Route path="/asignacionDocentes" element = {<ListPeriodos />}>
 									<Route path=":idPeriodo" element = { <CursosNivel />}>
 									</Route>
@@ -35,25 +35,26 @@ function App() {
 										<Route path = ":idCursoNivel" element = { <AssignTeacher /> }/>
 									</Route>
 								</Route>
-
 								<Route path="/listadoCursosDocente">
-								<Route
-									path=":idPeriodo"
-									element={<ListadocursoDocente />}
-								></Route>
+									<Route
+										path=":idPeriodo"
+										element={<ListadocursoDocente />}
+									>
+									</Route>
 								</Route>
 								<Route path="/card" element={<CursosNivel />} />
 								<Route path="/actividad">
-								<Route path=":idPeriodo">
-									<Route path=":idCursoNivel" element={<Actividad />} />
-								</Route>
+									<Route path=":idPeriodo">
+										<Route path=":idCursoNivel" element={<Actividad />} />
+									</Route>
 								</Route>
 								<Route path = "/gestionCursos" element = { <Curso />} />
+								<Route path = "/gestionNiveles" element = { <Nivel />} />
 							</Routes>
 						</div>
 						<Footer />
 					</div>
-					<div className="App-right">
+					<div>
 						<Sidebar />
 					</div>
 				</div>

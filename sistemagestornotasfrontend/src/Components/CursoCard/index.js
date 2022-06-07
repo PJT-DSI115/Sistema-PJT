@@ -7,7 +7,7 @@ import "./css/index.css";
 
 function CursosNivel() {
 
-    const { nivel, loading } = useNivel();
+    const { niveles, loading } = useNivel();
     const {cursoNivel, getCursosNivel} = useCursoNivel();
     const [idNivel, setIdNivel] = useState(0);
 
@@ -20,7 +20,7 @@ function CursosNivel() {
   return (
   
     <div className="Curso-Nivel">
-        <div className="Nivel-List_container"><ListNivel handleChange={ handleChange } nivel = {nivel} /></div>
+        <div className="Nivel-List_container"><ListNivel handleChange={ handleChange } nivel = {niveles} /></div>
         <div className="Curso-List_container">{idNivel > 0?<CursoList cursoNivel = { cursoNivel  }/>:""}</div>
     </div>
   
