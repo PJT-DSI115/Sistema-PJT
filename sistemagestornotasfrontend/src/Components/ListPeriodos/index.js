@@ -9,7 +9,7 @@ function ListPeriodos() {
                 <h3 className= "periodo__title">Periodos</h3>
                 <Link to = '1' className="periodo__link">P-2022</Link> 
             </div>
-                <Outlet/>
+            <Outlet/>
         </div>
     );
 }

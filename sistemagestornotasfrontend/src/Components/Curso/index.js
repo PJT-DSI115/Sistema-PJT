@@ -4,6 +4,7 @@ import {CursoTable} from './CursoTable';
 import {FormularioCurso} from './FormularioCurso';
 import { AlertMessage } from 'Components/AlertMessage/alertMessage';
 import Modal from 'Components/Modal';
+import { Loader } from 'Components/Loader';
 
 function Curso() {
 
@@ -13,7 +14,7 @@ function Curso() {
     const [widthC, setWidthC] = useState("");
     const [showModal, setShowModal] = useState(false);
     const { cursos, errorPermission,errorServer, setErrorServer, storeCurso, updateCurso,
-            saveSuccess, setLoading, deleteCurso} = useCurso({showModal});
+            saveSuccess, setLoading, deleteCurso, loading} = useCurso({showModal});
 
     //UsseEfect.
 
@@ -94,6 +95,10 @@ function Curso() {
 		setShowModal(false);
 		setErrorServer(false);
 	}//Fin de la función. */
+
+    if(loading) {
+        return <Loader />
+    }
 
     return (
         <div className = "main">

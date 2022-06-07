@@ -28,8 +28,8 @@ const optionsMaestro = [
     },
     {
         id: 2,
-        nombre: 'Actividades',
-        ruta: '/actividades'
+        nombre: 'Gestionar Actividades',
+        ruta: '/actividad'
     }
 ]
 

@@ -6,6 +6,7 @@ import { usePeriodo } from 'Hooks/usePeriodo';
 import { AlertMessage } from '../AlertMessage/alertMessage';
 import { PeriodTable } from './periodTable';
 import Modal from 'Components/Modal';
+import { Loader } from 'Components/Loader';
 
 import "./index.css";
 
@@ -14,7 +15,7 @@ function Periodo() {
 
     const { periodo, errorPermission, 
         storePeriod, errorSave, setErrorSave, updatePeriod, 
-        saveSuccess, setLoading, changeState} = usePeriodo();
+        saveSuccess, setLoading, changeState, loading} = usePeriodo();
     const [childrenModal, setChildrenModal] =  useState(null);
     const [heightC, setHeigtC] = useState("");
     const [widthC, setWidthC] = useState("");
@@ -89,6 +90,9 @@ function Periodo() {
     const onClose = () => {
         setShowModal(false);
         setErrorSave(false);
+    }
+    if(loading) {
+        return <Loader />
     }
 
     return (

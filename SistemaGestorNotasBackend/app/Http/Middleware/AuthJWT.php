@@ -19,7 +19,7 @@ class AuthJWT
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next, ...$role)
     {
 
         $header = $request->header("authorization");
@@ -51,14 +51,17 @@ class AuthJWT
                 ->header('Content-Type', 'application/json');
         }
 
-        if($user->rol->nombre_rol != $role) {
-            $errorResponse = $this->getMessageDescription("Forbidden", 403, "Permissions denied");
-            return response($errorResponse, 403)
-                ->header('Content-Type', 'application/json');
-            
+        foreach($role as $rol) {
+            if($user->rol->nombre_rol == $rol) {
+                return $next($request);
+            }
         }
 
-        return $next($request);
+        $errorResponse = $this->getMessageDescription("Forbidden", 403, "Permissions denied");
+        return response($errorResponse, 403)
+            ->header('Content-Type', 'application/json');
+
+
     }
 
     /**

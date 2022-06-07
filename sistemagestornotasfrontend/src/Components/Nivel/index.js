@@ -4,6 +4,7 @@ import {NivelTable} from './NivelTable';
 import {FormularioNivel} from './FormularioNivel';
 import { AlertMessage } from 'Components/AlertMessage/alertMessage';
 import Modal from 'Components/Modal';
+import { Loader } from 'Components/Loader';
 
 function Nivel() {
 
@@ -13,7 +14,7 @@ function Nivel() {
     const [widthC, setWidthC] = useState("");
     const [showModal, setShowModal] = useState(false);
     const { niveles, errorPermission,errorServer, setErrorServer, storeNivel, updateNivel,
-            saveSuccess, setLoading, deleteNivel} = useNivel({showModal});
+            saveSuccess, setLoading, deleteNivel, loading} = useNivel({showModal});
 
     //UsseEfect.
 
@@ -89,6 +90,11 @@ function Nivel() {
         )
         setShowModal(true);
     }//Fin de la función.
+
+    if(loading) {
+        return <Loader />
+
+    }
 
     return (
         <div className = "main">
