@@ -24,11 +24,12 @@ function App() {
 					<div className="App-left">
 						<div className="App-container">
 							<Routes>
+								//Principales
 								<Route path="/login" element={<Login />} />
 								<Route path="/" element={<Home />} />
 								<Route path="error403" element={<Error403 />} />
-								<Route path="/gestionPeriodo" element={<Periodo />} />
 
+								//Routa para asignar profesores a un curso
 								<Route path="/asignacionDocentes" element = {<ListPeriodos />}>
 									<Route path=":idPeriodo" element = { <CursosNivel />}>
 									</Route>
@@ -36,7 +37,11 @@ function App() {
 										<Route path = ":idCursoNivel" element = { <AssignTeacher /> }/>
 									</Route>
 								</Route>
-
+								
+								/**
+								 Ruta para que profesores puedan gestionar
+								 las actividades de los cursos que imparten
+								 */
 								<Route path="/actividad" element = {<ListPeriodos />}>
 									<Route path=":idPeriodo" element = { <ListadocursoDocente />}>
 									</Route>
@@ -45,24 +50,21 @@ function App() {
 									</Route>
 								</Route>
 
-								<Route path="/listadoCursosDocente">
-									<Route
-										path=":idPeriodo"
-										element={<ListadocursoDocente />}
-									>
+								/**
+								 Ruta para que admin gestione actividades de todos los cursos
+								 */
+								<Route path="/gestionActividad" element = {<ListPeriodos />}>
+									<Route path=":idPeriodo" element = { <CursosNivel />}>
+									</Route>
+									<Route path = ":idPeriodo"  >
+										<Route path = ":idCursoNivel" element = { <Actividad /> }/>
 									</Route>
 								</Route>
 
-								<Route path="/card" element={<CursosNivel />} />
-
-								<Route path="/actividad">
-									<Route path=":idPeriodo">
-										<Route path=":idCursoNivel" element={<Actividad />} />
-									</Route>
-								</Route>
-
+								/** Diferentes cruds */
 								<Route path = "/gestionCursos" element = { <Curso />} />
 								<Route path = "/gestionNiveles" element = { <Nivel />} />
+								<Route path = "/gestionPeriodos" element = {<Periodo/>}/>
 							</Routes>
 						</div>
 						<Footer />

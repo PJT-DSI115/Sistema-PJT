@@ -1,19 +1,33 @@
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { usePeriodo } from "Hooks/usePeriodo";
+import { Item } from "./Item";
+import { Loader } from "Components/Loader";
+import "./index.css";
 
-import { Link, Outlet } from 'react-router-dom'
-import './index.css'
 function ListPeriodos() {
+  const { periodo, loading } = usePeriodo();
+  
+  if(loading){
+      return <Loader/>
+  }
 
-    return (
-        <div>
-            <div className= "main__periodo">
-                <h3 className= "periodo__title">Periodos</h3>
-                <Link to = '1' className="periodo__link">P-2022</Link> 
-            </div>
-            <Outlet/>
-        </div>
-    );
+  return (
+    <div className="Periodo-container">
+      <div className="List-periodo">
+        {periodo
+          ? periodo.map((per) => (
+              <Item
+                key={per.id}
+                id_periodo={per.id}
+                codigo_periodo={per.codigo_periodo}
+              />
+            ))
+          : ""}
+      </div>
+      <Outlet />
+    </div>
+  );
 }
 
-export {
-    ListPeriodos
-}
+export { ListPeriodos };

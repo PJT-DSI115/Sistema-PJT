@@ -9,7 +9,6 @@ function ListOptions() {
 
   return values.map((rut) => (
     <Link to={rut.ruta} key={rut.id} className="NavBar-item-content">
-      <div className="NavBar-icon"></div>
       <li className="NavBar-item">{rut.nombre}</li>
     </Link>
   ));

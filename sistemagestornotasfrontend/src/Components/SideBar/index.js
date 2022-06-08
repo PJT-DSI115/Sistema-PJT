@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { NavBarOptions } from "Components/NavBarOptions";
 import { useUser } from "Hooks/useUser";
 import "./index.css";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   const { logout, isLogged } = useUser();
@@ -29,6 +30,7 @@ function Sidebar() {
           <div className={openValue ? "SBactive" : "Sidebar-btn"}>
             <div className="Sidebar-btn-l"></div>
           </div>
+          {openValue && <Link to="/" className="Sidebar-home">Inicio</Link>}
         </div>
       ) : (
         ""

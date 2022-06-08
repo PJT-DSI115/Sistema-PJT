@@ -1,29 +1,35 @@
 import { useState } from "react";
 import { useNivel } from "Hooks/useNiveles";
 import CursoList from "./CursoList";
-import { ListNivel } from 'Components/CursoCard/ListNivel'
-import { useCursoNivel } from 'Hooks/useCursoNivel';
+import { ListNivel } from "Components/CursoCard/ListNivel";
+import { useCursoNivel } from "Hooks/useCursoNivel";
 import "./css/index.css";
+import { Loader } from "Components/Loader";
 
 function CursosNivel() {
+  const { niveles } = useNivel();
+  const { cursoNivel, getCursosNivel, loading } = useCursoNivel();
 
-    const { niveles, loading } = useNivel();
-    const {cursoNivel, getCursosNivel} = useCursoNivel();
-    const [idNivel, setIdNivel] = useState(0);
-
-    async function handleChange(e){
-        setIdNivel(e.target.value);
-        getCursosNivel({id: e.target.value});
-    }
-  
+  function handleClick(e) {
+    getCursosNivel({ id: e.target.value });
+    console.log(cursoNivel);
+  }
 
   return (
-  
     <div className="Curso-Nivel">
-        <div className="Nivel-List_container"><ListNivel handleChange={ handleChange } nivel = {niveles} /></div>
-        <div className="Curso-List_container">{idNivel > 0?<CursoList cursoNivel = { cursoNivel  }/>:""}</div>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <nav className="Nivel-List_container">
+            <ListNivel handleClick={handleClick} niveles={niveles} />
+          </nav>
+          <div className="Curso-List_container">
+            {cursoNivel ? <CursoList cursoNivel={cursoNivel} /> : ""}
+          </div>
+        </>
+      )}
     </div>
-  
   );
 }
 

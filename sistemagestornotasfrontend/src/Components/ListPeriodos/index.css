@@ -1,22 +1,31 @@
-
-.main__periodo{
-    z-index: 10;
-    position: absolute;
-    padding-left: 20px;
-    display: flex;
-    flex-direction: column;
+.Periodo-container{
+    display: grid;
+    grid-template-columns: 20% 80%;
+    justify-items: center;
+    align-items: center;
+    padding: 20px;
 }
 
-.periodo__title {
-    background-color: #65a30d;
+.List-periodo{
+    width: 65%;
+    background-color: #287463;
     padding: 5px;
-    border-radius: 5px;
-    display: block;
+    border-radius: 3px;
+    text-align: center;
 }
 
-.periodo__link {
-    padding: 5px;
-    border-radius: 5px;
+.List-periodo-item{
     display: block;
-    cursor: pointer;
+    padding: 5px;
+    border-radius: 2px;
+    margin: 5px 0px;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    font-weight: 500;
+    transition: all 0.5s;
+}
+
+.List-periodo-item:hover{
+    background-color: #fff;
+    color: #287463;
 }

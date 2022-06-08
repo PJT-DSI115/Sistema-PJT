@@ -17,17 +17,13 @@
     background-color: #71d7b7;
 }
 
-.NavBar-item-content{
-    display: flex;
-    justify-content: space-around;
-}
-
 .NavBar-icon{
     width: 20px;
     height: 20px;
 }
 
 .NavBar-item{
+    font-size: 14px;
     font-weight: 500;
-    text-align: center;
+    text-align: right;
 }
