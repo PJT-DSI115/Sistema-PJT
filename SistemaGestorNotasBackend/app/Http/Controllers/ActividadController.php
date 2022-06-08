@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Actividad;
 use App\Service\ActividadService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ActividadController extends Controller

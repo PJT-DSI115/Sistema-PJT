@@ -30,51 +30,51 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Routes Login.
-
 Route::post('/login', [LoginController::class, 'login']);
 
 //Routes Niveles.
-
-Route::get('/nivels/index', [NivelController::class, 'index']);
-    // ->middleware('authJwt:Administrador');
-Route::get('/nivels/{codigoNivel}', [NivelController::class, 'show']);
-Route::post('/nivels/store', [NivelController::class, 'store']);
-Route::put('/nivels/update/{nivel}', [NivelController::class, 'update']);
-Route::delete('/nivels/delete/{id}', [NivelController::class, 'destroy']);
-
+Route::get('/nivels/index', [NivelController::class, 'index'])
+    ->middleware('authJwt:Administrador');
+Route::get('/nivels/{codigoNivel}', [NivelController::class, 'show'])
+    ->middleware('authJwt:Administrador');
+Route::post('/nivels/store', [NivelController::class, 'store'])
+    ->middleware('authJwt:Administrador');
+Route::put('/nivels/update/{nivel}', [NivelController::class, 'update'])
+    ->middleware('authJwt:Administrador');
+Route::delete('/nivels/delete/{id}', [NivelController::class, 'destroy'])
+    ->middleware('authJwt:Administrador');
 
 //Routes Periodos.
-
 Route::post('/periodos/store', [PeriodoController::class, 'storePeriod'])
     ->middleware('authJwt:Administrador');
 Route::get('/periodos/index', [PeriodoController::class, 'indexPeriod'])
     ->middleware('authJwt:Administrador');
-
 Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeriod'])
     ->middleware('authJwt:Administrador');
-
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
     ->middleware('authJwt:Administrador');
 
 //Routes Curso.
-Route::get('/curso/index', [CursoController::class, 'index']);
-Route::post('/curso/store', [CursoController::class, 'store']);
-Route::put('/curso/update/{curso}', [CursoController::class, 'update']);
-Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy']);
+Route::get('/curso/index', [CursoController::class, 'index'])
+    ->middleware('authJwt:Administrador');
+Route::post('/curso/store', [CursoController::class, 'store'])
+    ->middleware('authJwt:Administrador');
+Route::put('/curso/update/{curso}', [CursoController::class, 'update'])
+    ->middleware('authJwt:Administrador');
+Route::delete('/curso/delete/{id}', [CursoController::class, 'destroy'])
+    ->middleware('authJwt:Administrador');
 
 //Routes Actividad.
-
 Route::get('/actividad/{id_periodo}/{id_curso_nivel}', [ActividadController::class, 'indexActividad'])
     ->middleware('authJwt:Docente,Administrador');
 Route::post('/actividad', [ActividadController::class, 'storeActividad'])
-    ->middleware('authJwt:Docente');
+    ->middleware('authJwt:Docente,Administrador');
 Route::put('/actividad/{actividad}', [ActividadController::class, 'updateActividad'])
-    ->middleware('authJwt:Docente');
+    ->middleware('authJwt:Docente,Administrador');
 Route::delete('/actividad/{actividad}', [ActividadController::class, 'destroyActividad'])
-    ->middleware('authJwt:Docente');
+    ->middleware('authJwt:Docente,Administrador');
 
 //Routes LineaActividad.
-
 Route::get('/linea-actividad', [LineaActividadController::class, 'index']);
 Route::get('/linea-actividad/{id}', [LineaActividadController::class, 'show']);
 Route::post('/linea-actividad', [LineaActividadController::class, 'store']);
@@ -82,11 +82,10 @@ Route::put('/linea-actividad/update/{linea_actividad}', [LineaActividadControlle
 Route::delete('/linea-actividad/{id}', [LineaActividadController::class, 'destroy']);
 
 //Routes CursosNivel.
-
-Route::get('/cursos/{id}', [CursoNivelController::class, 'getCursosByNivel']);
+Route::get('/cursos/{id}', [CursoNivelController::class, 'getCursosByNivel'])
+    ->middleware('authJwt:Administrador,Coordinador');
 
 //Routes DocenteCurso.
-
 Route::post('/registroDocenteCurso/storeRegister', 
     [RegistroDocenteCursoController::class, 'storeRegisterProfessor']);
 

@@ -31,5 +31,10 @@ class RolSeeder extends Seeder
             'nombre_rol' => 'Alumno',
             'created_at' => Carbon::now()
         ]);
+        DB::table('rols')->insert([
+            'codigo_rol' => '4',
+            'nombre_rol' => 'Coordinador',
+            'created_at' => Carbon::now()
+        ]);
     }
 }

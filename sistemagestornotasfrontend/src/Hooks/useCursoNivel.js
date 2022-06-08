@@ -11,7 +11,6 @@ function useCursoNivel() {
   const [errorSave, setErrorSave] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
 
-
   const getCursosNivel = ({ id }) => {
     if (id != undefined || id != 0) {
       setLoading(true);
