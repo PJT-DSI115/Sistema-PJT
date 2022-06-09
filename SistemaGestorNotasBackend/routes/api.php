@@ -48,7 +48,7 @@ Route::delete('/nivels/delete/{id}', [NivelController::class, 'destroy'])
 Route::post('/periodos/store', [PeriodoController::class, 'storePeriod'])
     ->middleware('authJwt:Administrador');
 Route::get('/periodos/index', [PeriodoController::class, 'indexPeriod'])
-    ->middleware('authJwt:Administrador');
+    ->middleware('authJwt:Administrador,Docente');
 Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeriod'])
     ->middleware('authJwt:Administrador');
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
