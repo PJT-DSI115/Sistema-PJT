@@ -20,7 +20,8 @@ use Illuminate\Support\Facades\DB;
                 ->select(
                     'registro_docente_cursos.id_periodo',
                     'periodos.codigo_periodo',
-                    'periodos.id')
+                    'periodos.id',
+                    'periodos.fecha_inicio_periodo')
                     ->selectRaw('count(registro_docente_cursos.id_periodo) as Cuenta')
                 ->join('periodos', 'periodos.id', '=', 'registro_docente_cursos.id_periodo')
                 ->where('registro_docente_cursos.id_docente', '=', $professor->id)
@@ -40,7 +41,13 @@ use Illuminate\Support\Facades\DB;
         }
         if($rol->codigo_rol == "1") {
             $registros = DB::table('periodos')
-                ->select('periodos.id', 'periodos.codigo_periodo')->get();
+                ->select(
+                    'periodos.id', 
+                    'periodos.codigo_periodo', 
+                    'periodos.fecha_inicio_periodo', 
+                    'periodos.fecha_fin_periodo',
+                    'periodos.activo_periodo'
+                )->get();
         }
         return $registros;
     }
