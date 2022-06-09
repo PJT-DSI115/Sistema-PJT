@@ -51,6 +51,20 @@ function App() {
 								</Route>
 
 								/**
+								 Ruta para que profesores puedan gestionar
+								 las notas de los cursos que imparten
+								 */
+								<Route path="/gestionarNotas" element = {<ListPeriodos />}>
+									<Route path=":idPeriodo" element = { <ListadocursoDocente />}>
+									</Route>
+									<Route path = ":idPeriodo"  >
+										<Route path = ":idCursoNivel" element = { <Actividad /> }>
+											
+										</Route>
+									</Route>
+								</Route>
+
+								/**
 								 Ruta para que admin gestione actividades de todos los cursos
 								 */
 								<Route path="/gestionActividad" element = {<ListPeriodos />}>
