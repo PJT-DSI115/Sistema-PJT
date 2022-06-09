@@ -23,4 +23,7 @@ class CursoNivel extends Model
         return $this->hasMany(RegistroDocenteCurso::class, 'id_nivel_curso');
     }
 
+    public function cargaAcademica (){
+        return $this->hasMany(CargaAcademica::class, 'id_curso_nivel');
+    }
 }
