@@ -3,12 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Periodo;
+use App\Models\RegistroDocenteCurso;
+use App\Utils\AuthJwtUtils;
 use App\Utils\MessageResponse;
+use App\Service\PeriodoService; 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PeriodoController extends Controller
 {
+    protected $periodoService;
+
+    public function __construct(PeriodoService $periodoService) 
+    {
+        $this->periodoService = $periodoService;
+    }
 
     public function indexPeriod() {
         return Periodo::all();
@@ -61,6 +71,12 @@ class PeriodoController extends Controller
                 "message" => "no"
             ];
         }
+    }
+
+
+    public function getAllPeriodosByUser(Request $request) {
+        $registros = $this->periodoService->getPeriodosByUsers($request);
+        return $registros;
     }
 
 

@@ -54,6 +54,9 @@ Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeri
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
     ->middleware('authJwt:Administrador');
 
+Route::get('/periodos/getPeriodosByUser', [PeriodoController::class, 'getAllPeriodosByUser'])
+    ->middleware('authJwt:Docente,Alumno,Administrador');
+
 //Routes Curso.
 Route::get('/curso/index', [CursoController::class, 'index'])
     ->middleware('authJwt:Administrador');

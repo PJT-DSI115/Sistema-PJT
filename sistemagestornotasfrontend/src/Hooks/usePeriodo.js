@@ -1,7 +1,12 @@
 import { useState, useEffect, useContext } from 'react'; 
 
-import {getAllPeriod, storeOnePeriod, updateOnePeriodo, 
-    changeStatePeriod} from 'Service/periodoService';
+import {
+    getAllPeriod, 
+    storeOnePeriod, 
+    updateOnePeriodo, 
+    changeStatePeriod,
+    getPeriodoByUsers
+} from 'Service/periodoService';
 import Context from 'Context/UserContext';
 
 
@@ -18,7 +23,8 @@ function usePeriodo() {
 
     useEffect(() => {
         setLoading(true);
-        getAllPeriod({ jwt })
+        getPeriodosByUser({ jwt });
+        /*getAllPeriod({ jwt })
         .then((data) => {
             if(data.status) {
                 if(data.status === 401) {
@@ -32,7 +38,7 @@ function usePeriodo() {
                 setPeriodo(data);
                 setLoading(false);
             }
-        })
+        })*/
     }, [jwt, setErrorPermission, setLoading, setPeriodo, updateData])
 
     const getPeriod = () => {
@@ -138,6 +144,23 @@ function usePeriodo() {
             }
         })
     }
+
+    const getPeriodosByUser = ({ jwt }) => {
+        setLoading(true)
+        getPeriodoByUsers({ jwt })
+        .then(response => {
+            if(response.status === 401 || response.status === 403 || response.status === 500) {
+                setErrorSave(true);
+                setSaveSuccess(false);
+                return;
+            }
+            return response.json();
+        })
+        .then(data => {
+            setPeriodo(data);
+            setLoading(false);
+        });
+    }
     
 
     return {
@@ -152,7 +175,8 @@ function usePeriodo() {
         setLoading,
         setPeriodo,
         getPeriod,
-        changeState
+        changeState,
+        getPeriodosByUser
     }
 
 }
