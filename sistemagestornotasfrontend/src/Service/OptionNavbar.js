@@ -35,6 +35,11 @@ const optionsMaestro = [
         id: 2,
         nombre: 'Gestionar Actividades',
         ruta: '/actividad'
+    },
+    {
+        id: 3,
+        nombre: 'Gestionar Notas',
+        ruta: '/gestionarNotas'
     }
 ]
 const optionsCoordinador = [

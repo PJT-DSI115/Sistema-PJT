@@ -12,4 +12,8 @@ class Periodo extends Model
     public function registroDocenteCurso() {
         return $this->hasMany(RegistroDocenteCurso::class, 'id_periodo');
     }
+
+    public function cargaAcademica (){
+        return $this->hasMany(CargaAcademica::class, 'id_periodo');
+    }
 }
