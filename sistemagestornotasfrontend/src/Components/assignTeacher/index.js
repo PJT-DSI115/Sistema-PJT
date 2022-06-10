@@ -213,8 +213,6 @@ function AssignTeacher() {
                 className= "text-lg font-bold text-center mt-10"
             >Asignación de profesores</h1>
             <div className="buttonRegisterContainer">
-            {
-                (!verifiedButton() && buttonActive) ?
                 <button 
                     className="rounded-lg bg-lime-600 px-10 py-1 
                     text-gray-100 cursor-pointer hover:bg-line-800
@@ -222,9 +220,7 @@ function AssignTeacher() {
                     onClick={handleClickRegister}
                 >
                     Registrar
-                </button> : ""
-
-            }
+                </button>
             </div>
             <AssignTeacheTable register={ register }  handleClickDelete = { handleClickDelete} handleClickUpdate = { handleClickUpdate} />
 
