@@ -7,6 +7,7 @@ use App\Http\Controllers\RegistroDocenteCursoController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\CursoNivelController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Models\RegistroDocenteCurso;
@@ -110,3 +111,6 @@ Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class
 
 Route::get('/periodo/searchPeriodoActivo', [PeriodoController::class, 'searchPeriodoActivo']);
 
+//Routes Carga Académica
+Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga'])
+    ->middleware('authJwt:Docente');
