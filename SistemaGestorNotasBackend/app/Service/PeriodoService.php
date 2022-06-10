@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\DB;
                 ->groupBy('id_periodo')
                 ->get();
         }
-        if($rol->codigo_rol == "1") {
+        if($rol->codigo_rol == "1" || $rol->codigo_rol == "4") {
             $registros = DB::table('periodos')
                 ->select(
                     'periodos.id', 

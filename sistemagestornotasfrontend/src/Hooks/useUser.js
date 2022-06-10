@@ -29,7 +29,7 @@ function useUser() {
                 setIdRol(data.idRol);
                 setNombreRol(data.nombreRol);
                 setState({loading: false, error: false});
-                searchPeriodo({jwt})
+                //searchPeriodo({jwt})
             }
         })
     }, [setJWT, setIdRol, setNombreRol]);

@@ -24,7 +24,7 @@ class AlumnoSeeder extends Seeder
             'nie_alumno' => '161098158',
             'fecha_nacimiento_alumno' => Carbon::createFromDate(2004, 10, 16, 'America/El_Salvador'),
             'id_categoria_alumno' => 1,
-            'id_user' => 6,
+            'id_user' => 4,
             'created_at' => Carbon::now()
         ]);
     }

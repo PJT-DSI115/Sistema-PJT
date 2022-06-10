@@ -35,7 +35,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 //Routes Niveles.
 Route::get('/nivels/index', [NivelController::class, 'index'])
-    ->middleware('authJwt:Administrador');
+    ->middleware('authJwt:Administrador,Coordinador');
 Route::get('/nivels/{codigoNivel}', [NivelController::class, 'show'])
     ->middleware('authJwt:Administrador');
 Route::post('/nivels/store', [NivelController::class, 'store'])
@@ -56,7 +56,7 @@ Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'chang
     ->middleware('authJwt:Administrador');
 
 Route::get('/periodos/getPeriodosByUser', [PeriodoController::class, 'getAllPeriodosByUser'])
-    ->middleware('authJwt:Docente,Alumno,Administrador');
+    ->middleware('authJwt:Docente,Alumno,Administrador,Coordinador');
 
 //Routes Curso.
 Route::get('/curso/index', [CursoController::class, 'index'])

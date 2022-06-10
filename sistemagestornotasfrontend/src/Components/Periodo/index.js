@@ -111,19 +111,14 @@ function Periodo() {
                 className = "text-lg font-bold mt-10 text-center periodo-title"
             >Gestión de periodos</h1>
             <div className= "buttonRegisterContainer mt-5">
-                
-                {
-                    !verifiedPeriodActive() ? 
-                    <button 
-                        className="Actividad-btn rounded-lg bg-lime-600 px-10 py-1 
-                        text-gray-100 cursor-pointer hover:bg-line-800
-                        mt-10 btn-periodo"
-                        onClick={handleClick}
-                    >
-                        Registrar
-                    </button>
-                    : ""
-                }
+                <button 
+                    className="Actividad-btn rounded-lg bg-lime-600 px-10 py-1 
+                    text-gray-100 cursor-pointer hover:bg-line-800
+                    mt-10 btn-periodo"
+                    onClick={handleClick}
+                >
+                    Registrar
+                </button>
             </div>
             <PeriodTable 
                 handleClickDelete = { handleClickDelete }
