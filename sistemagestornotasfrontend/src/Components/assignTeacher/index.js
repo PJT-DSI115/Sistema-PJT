@@ -30,7 +30,6 @@ function AssignTeacher() {
     const [widthC, setWidthC] = useState("");
     const [children, setChildren] = useState("");
 
-    console.log(periodo);
     useEffect(() => {
         getData();
 

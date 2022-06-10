@@ -30,7 +30,7 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
         </thead>
         <tbody>
             {
-                periodo.map( (periodo) => {
+                periodo.map( (periodo, index) => {
                     return (
                         <tr key = {periodo.id} 
                             className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 py-10"
@@ -43,15 +43,15 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
                             <td className = "px-6 py-4">{periodo.fecha_fin_periodo}</td>
                             <td className = "px-6 py-4">
                                 {
-                                        periodo.activo_periodo ? 
+                                        periodo.activo_periodo === 1 ? 
                                         <>
                                         <button 
                                             op = "edit"
-                                            index = { periodo.index }
+                                            index = { index }
                                             className = "formCustom__button mx-2"
                                         >Editar</button> 
                                         <button 
-                                        index = { periodo.index }
+                                        index = { index }
                                             op = "close"
                                             className = "formCustom__button formCustom__button--red"
                                         >Cerrar</button> 
