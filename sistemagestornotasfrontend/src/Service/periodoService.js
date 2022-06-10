@@ -74,4 +74,23 @@ const searchPeriodoActivo = ({ jwt }) => {
     );
 }
 
-export { getAllPeriod, storeOnePeriod, updateOnePeriodo, changeStatePeriod, searchPeriodoActivo }; 
+const getPeriodoByUsers = ({ jwt }) => {
+    return (
+        fetch(`${ENDPOINT}/periodos/getPeriodosByUser`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        })
+        .then(response => response)
+    )
+}
+
+export {
+    getAllPeriod, 
+    storeOnePeriod, 
+    updateOnePeriodo, 
+    changeStatePeriod, 
+    searchPeriodoActivo ,
+    getPeriodoByUsers
+}; 
