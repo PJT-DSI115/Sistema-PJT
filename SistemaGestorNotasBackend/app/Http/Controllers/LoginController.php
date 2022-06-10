@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Hash;
 class LoginController extends Controller
 {
 
+    /**
+     * Permite iniciar sesion al usuario retornando un token jwt
+     * @param \Illuminate\Http\Request $request
+     * @return Array $credentials
+     */
     public function login(Request $request) {
         $responseMessage = [
 
@@ -19,7 +24,6 @@ class LoginController extends Controller
         $username = $request->post('username');
         $password = $request->post('password');
         $user = User::where('username', $username)->get();
-        error_log($user);
         if($user->isEmpty()) {
             $responseMessage["message"] = "The username or password is invalid";
             return response($responseMessage, 401);

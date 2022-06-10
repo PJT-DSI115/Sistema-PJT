@@ -1,11 +1,21 @@
 <?php
 namespace App\Utils;
 
+/**
+ * @author JS Martinez
+ */
+
 use App\Utils\MessageResponse;
 
 
 class ValidateJsonRequest {
 
+
+    /**
+     * @param Array $data
+     * 
+     * @return Array $responseMessage
+     */
     public static function validateJsonRequestRegistroDocenteCurso($data) {
 
         if(!isset($data['idNivelCurso'])) {
@@ -25,6 +35,11 @@ class ValidateJsonRequest {
         return [];
     }
 
+    /**
+     * @param Array $data
+     * 
+     * @return Array $responseMessage
+     */
     public static function validateJasonRequestActividad($data){
         if(!isset($data['nombre_actividad'])) {
             return MessageResponse::messageDescriptionError('Error',
@@ -55,6 +70,11 @@ class ValidateJsonRequest {
         return [];
     }
 
+    /**
+     * @param Array $data
+     * 
+     * @return Array $responseMessage
+     */
     public static function validateJasonRequestActividadUpdate($data){
         if(!isset($data['nombre_actividad'])) {
             return MessageResponse::messageDescriptionError('Error',

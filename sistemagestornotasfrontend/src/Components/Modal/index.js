@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import  ReactDOM  from "react-dom";
 import './index.css';
 

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\User;
+use App\Utils\MessageResponse;
 use Carbon\Carbon;
 use Closure;
 use DomainException;
@@ -15,13 +16,13 @@ class AuthJWT
     /**
      * Handle an incoming request.
      *
+     * @param Array $role
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, ...$role)
     {
-
         $header = $request->header("authorization");
         $headerArray = substr($header, 7);
         if(!$header) {
@@ -68,7 +69,7 @@ class AuthJWT
      * @var string $type                  Type for message 
      * @var int $statusCode               Status code HTTP
      * @var string $messageDescription    Description for message
-     * @return array $messageDescription
+     * @return Array $messageDescription
     */
     private function getMessageDescription($type, $statusCode, $messageDescription) {
         return [

@@ -1,4 +1,8 @@
 
+/**
+ * @author JS Martinez
+ * 
+ */
 function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
 
 

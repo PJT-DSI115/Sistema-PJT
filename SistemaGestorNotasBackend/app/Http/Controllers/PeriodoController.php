@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+/**
+ * @author JS Martinez
+ */
 
 use App\Models\Periodo;
-use App\Models\RegistroDocenteCurso;
-use App\Utils\AuthJwtUtils;
 use App\Utils\MessageResponse;
 use App\Service\PeriodoService; 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PeriodoController extends Controller
 {
@@ -28,13 +28,16 @@ class PeriodoController extends Controller
 
     }
 
+    /**
+     * Permite guardado de un periodo
+     * @param \Illuminate\Http\Request $request
+     * 
+     * @return Array responseMessage;
+     */
     public function storePeriod(Request $request) {
         $fechaInicio = $request->post('fechaInicio');
         $fechaFin = $request->post('fechaFin');
         $codigoPeriodo = "P" . "-" . Carbon::now()->format('Y');
-        error_log($fechaFin);
-        error_log($fechaInicio);
-        error_log($codigoPeriodo);
 
         $periodo = new Periodo();
         $periodo->codigo_periodo = $codigoPeriodo;
@@ -42,25 +45,37 @@ class PeriodoController extends Controller
         $periodo->fecha_fin_periodo = $fechaFin;
         $periodo->activo_periodo = true;
         $responseBool = $periodo->save();
-
-        return $this->returnResponse($responseBool);
+        return MessageResponse::returnResponse($responseBool);
     }
 
+
+    /**
+     * Permite actualizar la fecha de inicio y de fin del periodo
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Periodo $periodo
+     * @return Array responseMessage;
+     */
     public function updatePeriod(Request $request, Periodo $periodo) {
         $periodo->fecha_inicio_periodo = $request->post('fechaInicio');
         $periodo->fecha_fin_periodo = $request->post('fechaFin');
         $periodo->updated_at = Carbon::now();
         $responseBool = $periodo->update();
-        return $this->returnResponse($responseBool);
+        return MessageResponse::returnResponse($responseBool);
     }
 
+    /**
+     * Permite actualizar cambiar el estado del periodo 
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Periodo $periodo
+     * @return Array responseMessage;
+     */
     public function changeStatePeriod(Request $request, Periodo $periodo) {
         $periodo->activo_periodo = $request->post('periodActive');
 
         $responseBool = $periodo->update();
-
-        return $this->returnResponse($responseBool);
+        return MessageResponse::returnResponse($responseBool);
     }
+
 
     public function searchPeriodoActivo() {
         $periodo = Periodo::where('activo_periodo', '=', true)->first();
@@ -73,6 +88,10 @@ class PeriodoController extends Controller
         }
     }
 
+    /**
+     * @param \Illuminate\Http\Request
+     * @return Array $registros
+     */
 
     public function getAllPeriodosByUser(Request $request) {
         $registros = $this->periodoService->getPeriodosByUsers($request);
@@ -80,14 +99,6 @@ class PeriodoController extends Controller
     }
 
 
-    private function returnResponse($responseBool) {
-        if($responseBool) {
-            return MessageResponse::messageDescriptionError("Ok", "Save Success");
-        } else {
-            return MessageResponse::messageDescriptionError("Error", "Save failed");
-        }
-
-    }
 
 }
 

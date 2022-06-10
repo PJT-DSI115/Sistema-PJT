@@ -51,7 +51,7 @@ class LineaActividadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \App\Models\LineaActividad $linea_actividad
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, LineaActividad $linea_actividad)

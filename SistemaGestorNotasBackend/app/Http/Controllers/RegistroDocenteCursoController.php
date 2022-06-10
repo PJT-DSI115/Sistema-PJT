@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+/**
+ * @author JS Martinez
+ */
 use App\Models\Periodo;
 use App\Models\RegistroDocenteCurso;
 use App\Utils\MessageResponse;
@@ -9,7 +12,6 @@ use App\Service\RegistroDocenteCursosService;
 use Illuminate\Http\Request;
 
 use App\Utils\AuthJwtUtils;
-use Illuminate\Support\Facades\DB;
 
 class RegistroDocenteCursoController extends Controller
 {
@@ -20,12 +22,20 @@ class RegistroDocenteCursoController extends Controller
         $this->registroDocenteCursosService = $registroDocenteCursosService;
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return Array $responseJson;
+     */
     public function storeRegisterProfessor(Request $request) {
         $responseJson = $this->registroDocenteCursosService
                              ->registroDocente($request->json()->all());
         return $responseJson;
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return Array $register;
+     */
     public function getRegisterByIdPeriodAndByIdNivelCurso(Request $request) {
         $idNivelCurso = $request->get('idNivelCurso');
         $idPeriodo = $request->get('idPeriodo');
@@ -42,6 +52,11 @@ class RegistroDocenteCursoController extends Controller
         return $registers;
     }
 
+
+    /**
+     * @param \App\Models\RegistroDocenteCurso $registroDocenteCurso
+     * @return Array $responseMessage;
+     */
     public function deleteRegisterDocenteCurso(RegistroDocenteCurso $registroDocenteCurso) {
         $boolResponse = $registroDocenteCurso->delete();
 
@@ -49,6 +64,11 @@ class RegistroDocenteCursoController extends Controller
 
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\RegistroDocenteCurso $registroDocenteCurso
+     * @return Array $responseMessage;
+     */
     public function updateRegisterDocenteCurso(
         RegistroDocenteCurso $registroDocenteCurso,
         Request $request
@@ -58,7 +78,10 @@ class RegistroDocenteCursoController extends Controller
                              ->updateRegisterDocenteCurso($jsonRequest, $registroDocenteCurso);
     }
 
-
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return Array $responseMessage;
+     */
     public function getAllRegisterByDocentePeriodoCursoNivel(Request $request) {
 
         $jwt = AuthJwtUtils::getSubStringHeaderAuthorization($request->header('Authorization'));

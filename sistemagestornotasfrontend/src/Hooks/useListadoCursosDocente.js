@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import { getAllRegisterByDocente } from 'Service/registerProfesorCursoNivelService';
 import { useContext, useState } from 'react';
 import Context from 'Context/UserContext';
@@ -25,6 +28,7 @@ function useListadoCursosDocentes() {
                 return;
             }
             if(response.status === 401) {
+                navigate('/login')
                 return;
             }
             return response.json();

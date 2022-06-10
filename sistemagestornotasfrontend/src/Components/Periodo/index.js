@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 
@@ -70,7 +73,6 @@ function Periodo() {
         setHeigtC("320px");
         setWidthC("600px");
         const periodUpdate = periodo[id];
-        console.log(periodUpdate);
         const dataUpdate = {
             "fechaFin": periodUpdate.fecha_fin_periodo,
             "fechaInicio": periodUpdate.fecha_inicio_periodo,

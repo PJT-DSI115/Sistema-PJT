@@ -1,5 +1,9 @@
+/**
+ * @author JS Martinez
+ */
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Context from 'Context/UserContext';
 import ContextPeriodo from 'Context/PeriodoContext';
@@ -17,6 +21,7 @@ import { getAllRegisterByNivelCursoAndPeriodo,
 function AssignTeacher() {
     const  { idPeriodo, idCursoNivel }  = useParams();
 
+    const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
     const [register, setRegister] = useState([]);
     const { jwt } = useContext(Context);
@@ -33,15 +38,21 @@ function AssignTeacher() {
     useEffect(() => {
         getData();
 
-    }, [])
+    },[] )
 
 
     const updateRegisterDocenteCurso = ({ data }) => {
         return (updateRegister({data, jwt})
             .then(response => {
-                if(response.status === 401, response.status === 500, response.status === 403) {
+                if( response.status === 500) {
                     setErrorLogic(true);
                     return
+                }
+                if(response.status === 401) {
+                    navigate('/login');
+                }
+                if(response.status === 403) {
+                    navigate('/error403');
                 }
                 return response.json();
             })

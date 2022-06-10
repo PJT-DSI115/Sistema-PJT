@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @author JS Martinez
+ */
+
 namespace App\Service;
 
 use App\Utils\AuthJwtUtils;
@@ -8,6 +12,10 @@ use Illuminate\Support\Facades\DB;
  class PeriodoService {
 
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return Array $registros
+     */
     public function getPeriodosByUsers($request) {
 
         $jwt = AuthJwtUtils::getSubStringHeaderAuthorization($request->header('Authorization'));

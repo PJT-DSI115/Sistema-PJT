@@ -1,6 +1,8 @@
+/**
+ * @author JS Martinez
+ */
 
 function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
-
 
     const handleClickTable = (e) => {
         if(e.target.getAttribute('op') === 'edit') {
