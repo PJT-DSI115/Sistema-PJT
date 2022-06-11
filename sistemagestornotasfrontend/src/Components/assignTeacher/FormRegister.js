@@ -16,9 +16,11 @@ function FormRegister( { dataUpdate, onEvent, onClose, title } ) {
     const [rolDocente, setRolDocente] = useState( () => dataUpdate ? dataUpdate.rol: "");
 
     const [messageError, setMessageError] = useState("");
+    const [loading, setLoading] = useState(false);
 
 
     const handleSubmit =  (e) => {
+        setLoading(true);
         e.preventDefault();
         const data = {
             "idNivelCurso": idCursoNivel,
@@ -36,6 +38,7 @@ function FormRegister( { dataUpdate, onEvent, onClose, title } ) {
                     }
                     if(data.type === "Ok") {
                         setMessageError("");
+                        setLoading(false);
                     }
                 });
         }

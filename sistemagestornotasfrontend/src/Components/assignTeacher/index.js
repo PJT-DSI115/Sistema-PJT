@@ -16,6 +16,7 @@ import { getAllRegisterByNivelCursoAndPeriodo,
     deleteRegister,
     updateRegister
 } from 'Service/registerProfesorCursoNivelService';
+import { Loader } from 'Components/Loader';
 
 
 function AssignTeacher() {
@@ -29,6 +30,7 @@ function AssignTeacher() {
     const [errorLogic, setErrorLogic] = useState(false);
     const [messageErrorLogic, setMessageErrorLogic] = useState("");
     const [buttonActive, setButtonActive] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     const [heightC, setHeigtC] = useState("");
@@ -128,6 +130,7 @@ function AssignTeacher() {
     }
 
     const getData = () => {
+        setLoading(true);
         getAllRegisterByNivelCursoAndPeriodo({ idPeriodo, idCursoNivel, jwt })
             .then(response => {
                 return response.json()
@@ -139,6 +142,7 @@ function AssignTeacher() {
                 });
                 setRegister(data);
                 buttonActiveSet();
+                setLoading(false);
             })
 
     }
@@ -217,20 +221,28 @@ function AssignTeacher() {
         setButtonActive(false);
     }
 
+    if(loading) {
+        return <Loader />
+    }
+
     return (
         <div className= "main">
             <h1 
                 className= "text-lg font-bold text-center mt-10"
             >Asignación de profesores</h1>
             <div className="buttonRegisterContainer">
-                <button 
-                    className="rounded-lg bg-lime-600 px-10 py-1 
-                    text-gray-100 cursor-pointer hover:bg-line-800
-                    mt-10"
-                    onClick={handleClickRegister}
-                >
-                    Registrar
-                </button>
+                {
+                    !verifiedButton() ?
+                        <button 
+                            className="rounded-lg bg-lime-600 px-10 py-1 
+                            text-gray-100 cursor-pointer hover:bg-line-800
+                            mt-10"
+                            onClick={handleClickRegister}
+                        >
+                            Registrar
+                        </button>
+                        : ""
+                }
             </div>
             <AssignTeacheTable register={ register }  handleClickDelete = { handleClickDelete} handleClickUpdate = { handleClickUpdate} />
 
