@@ -11,6 +11,7 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\RegistroNotasController;
 use App\Models\RegistroDocenteCurso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -119,3 +120,6 @@ Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaContr
     ->middleware('authJwt:Docente');
 
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
+
+//Route Notas
+Route::post('/registrarNota', [RegistroNotasController::class, 'storeNota']);

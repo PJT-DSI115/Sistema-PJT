@@ -92,5 +92,18 @@ class ValidateJsonRequest {
 
         return [];
     }
+
+    public static function validateJasonRequestNota($data){
+        if(!isset($data['id_curso_nivel_mes'])) {
+            return MessageResponse::messageDescriptionError('Error',
+            'Es necesario que elija un mes');
+        }
+        if(!isset($data['nota'])) {
+            return MessageResponse::messageDescriptionError('Error',
+            'El valor nota es requerido');
+        }
+
+        return [];
+    }
 }
 
