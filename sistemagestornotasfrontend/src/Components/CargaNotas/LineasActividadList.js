@@ -3,6 +3,8 @@ function LineasActividadList({ lineasActividad }) {
   
     function handleClickRegister(){};
 
+	console.log(lineasActividad)
+
 	return (
 		<div className="Carga-listActividad-table">
 			{
@@ -11,27 +13,32 @@ function LineasActividadList({ lineasActividad }) {
 						<h4 className="ListActividad-title">{linea.nombre_actividad}</h4>
 						<div className="Carga-listActividad-table-head">
 							<h4 className="Carga-listActividad-h">Nombre</h4>
-							<h4 className="Carga-listActividad-h">Nota</h4>
+							{linea.cursoNivelMes.map((cursoNiv, index) => {
+								return <h4 key={index} className="Carga-listActividad-h">{cursoNiv.meses[0].codigo_mes}</h4>
+							})}
 							<h4 className="Carga-listActividad-h">Opciones</h4>
 						</div>
 						<div className="ListActividad-table">
-							<div>
-								{
-									linea.lineaActividad.map((lineas, index) => (
-										<div className="ListActividad-table-name" key={index}>
+						{
+									linea.lineaActividad.map((lineas, index1) => (
+										<div className="ListActividad-table-name" key={index1}>
 											<div className="ListActividad-table-lname">
 												{lineas.nombre_linea_actividad}
 											</div>
-											<div className="ListActividad-table-nota">
-												{
-													lineas.registroNotas.length > 0
-													? lineas.registroNotas[0].nota
-													: "-"
-												}
-											</div>
+											{
+												linea.cursoNivelMes.map((curso, index3) => (
+													<div className="ListActividad-table-nota">
+														{
+															lineas.registroNotas[index3]?(
+																lineas.registroNotas[index3].nota
+															): "-"
+														}
+													</div>
+												))
+											}
 											<div className="ListActividad-table-options">
 												{
-													!lineas.registroNotas.length > 0 ? (
+													lineas.registroNotas.length <  linea.cursoNivelMes.length ? (
 													<button className="ListActividad-table-btn list-btn-reg" value={lineas.id}>
 														Registrar
 													</button>
@@ -43,7 +50,6 @@ function LineasActividadList({ lineasActividad }) {
 										</div>
 									))
 								}
-							</div>
 						</div>
 					</div>
 		))}
