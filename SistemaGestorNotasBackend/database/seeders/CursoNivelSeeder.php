@@ -321,7 +321,7 @@ class CursoNivelSeeder extends Seeder
         ]);
         
         //Nivel 9
-        DB::table('curso_nivels')->insert([
+        /* DB::table('curso_nivels')->insert([
             'id' => 49,
             'id_curso' => 1,
             'id_nivel' => 9,
@@ -356,6 +356,6 @@ class CursoNivelSeeder extends Seeder
             'id_curso' => 6,
             'id_nivel' => 9,
             'created_at' => Carbon::now()
-        ]);
+        ]); */
     }
 }

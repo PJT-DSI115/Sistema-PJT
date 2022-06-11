@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import './Formulario.css';
 
 function Formulario ({meses, idCargaAcademica, idLinea, onClose, onStore, messageLog, loading}) {
 
@@ -22,7 +23,7 @@ function Formulario ({meses, idCargaAcademica, idLinea, onClose, onStore, messag
     
     return(
         <form className="Form-notas">
-            <h2 className="Form-title"></h2>
+            <h2 className="Form-title">Registro de nota</h2>
             <div className="Form-group">
                 <select className="Form-select" name="id_curso_nivel_mes" onChange={handleChange}>
                     <option value="">Seleccione el mes</option>
@@ -34,14 +35,14 @@ function Formulario ({meses, idCargaAcademica, idLinea, onClose, onStore, messag
                 </select>
             </div>
             <div className="Form-group">
-                <input type="text" className="Form-input" name="nota" onChange={handleChange}/>
+                <input type="text" className="Form-input" name="nota" onChange={handleChange} placeholder="Ingrese la nota"/>
             </div>
             <div className="Form-group">
                 <p className="errorMesage">{messageLog?messageLog:""}</p>
             </div>
             <div className="Form-group btn-group">
-                <button type="button" className="Form-btn btn-gr" onClick={handleClick}>Guardar</button>
-                <button type="button" className="Form-btn btn-can" onClick={onClose}>Cancelar</button>
+                <button type="button" className="Form-btn btn-gr" onClick={handleClick}>{loading?"Cargando...":"Guardar"}</button>
+                <button type="button" className="Form-btn btn-cn" onClick={onClose}>Cancelar</button>
             </div>
         </form>
     );
