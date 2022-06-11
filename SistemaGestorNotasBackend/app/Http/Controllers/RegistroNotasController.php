@@ -14,5 +14,9 @@ class RegistroNotasController extends Controller
         $this->registroNotasService = $registroNotasService;
     }
 
-    
+    public function storeNota(Request $request)
+    {
+        $response = $this->registroNotasService->registrarNota($request->json()->all());
+        return $response;
+    }
 }
