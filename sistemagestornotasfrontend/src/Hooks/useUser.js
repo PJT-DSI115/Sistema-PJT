@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import { useContext, useCallback, useState } from "react";
 import Context from "Context/UserContext";
 import ContextPeriodo from "Context/PeriodoContext";
@@ -50,7 +53,6 @@ function useUser() {
         })
         .then(data => {
             if(data.message) {
-                console.log(data.message);
                 setPeriodo(0);
                 window.sessionStorage.setItem('periodo', 0);
             }

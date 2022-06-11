@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author JS Martinez
+ */
 
 namespace App\Service;
 
@@ -11,6 +14,10 @@ use Illuminate\Support\Facades\DB;
 class RegistroDocenteCursosService {
 
 
+    /**
+     * @param Aray $data
+     * @return Array $responseMessage
+     */
     public function registroDocente($data) {
 
         $responseValidate = ValidateJsonRequest::validateJsonRequestRegistroDocenteCurso($data);
@@ -50,6 +57,11 @@ class RegistroDocenteCursosService {
     }
 
 
+    /**
+     * @param Array $jsonRequest
+     * @param \App\Models\RegistroDocenteCurso $registroDocenteCurso
+     * @return Array $responseMessage
+     */
     public function updateRegisterDocenteCurso($jsonRequest, $registroDocenteCurso) {
         $responseValidate = ValidateJsonRequest::validateJsonRequestRegistroDocenteCurso($jsonRequest);
         if(count($responseValidate) > 0) {
@@ -76,10 +88,14 @@ class RegistroDocenteCursosService {
     }
 
 
+    /**
+     * @param int $idDocente
+     * @param int $idPeriodo
+     * 
+     * @return Array $arrayPadre
+     */
     public function getAllRegisterByDocente($idDocente, $idPeriodo) {
-        $responseNivels = [];
         $arrayPadre = [];
-        $arrayValue = [];
         $arrayHijo = [];
 
         $nivelsForDocentes = DB::table('registro_docente_cursos')
@@ -117,6 +133,14 @@ class RegistroDocenteCursosService {
     }
 
 
+    /**
+     * @param int $idPeriodo
+     * @param int $idNivelCurso
+     * @param int $idDocente
+     * @param string $rol
+     * @param String type
+     * @return Array responseMessage
+     */
     private function validateLogicRegisterDocentes($idPeriodo, $idNivelCurso, $idDocente, $rol, $type) {
         $countMentor = 2;
         if($type == "save") {

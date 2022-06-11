@@ -1,4 +1,8 @@
+/**
+ * @author JS Martinez
+ */
 import { useState, useEffect, useContext } from 'react'; 
+import { useNavigate } from 'react-router-dom';
 
 import {
     getAllPeriod, 
@@ -13,7 +17,7 @@ import Context from 'Context/UserContext';
 function usePeriodo() {
 
     const { jwt } = useContext(Context);
-
+    const navigate = useNavigate();
     const [periodo, setPeriodo] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errorPermission, setErrorPermission] = useState(false);
@@ -24,21 +28,6 @@ function usePeriodo() {
     useEffect(() => {
         setLoading(true);
         getPeriodosByUser({ jwt });
-        /*getAllPeriod({ jwt })
-        .then((data) => {
-            if(data.status) {
-                if(data.status === 401) {
-                    setErrorPermission(true);
-                }
-            }else {
-                data.forEach((da, index) => {
-                    da.index = index
-                    return data;
-                }) 
-                setPeriodo(data);
-                setLoading(false);
-            }
-        })*/
     }, [jwt, setErrorPermission, setLoading, setPeriodo, updateData])
 
     const getPeriod = () => {
@@ -47,7 +36,7 @@ function usePeriodo() {
         .then((data) => {
             if(data.status) {
                 if(data.status === 401) {
-                    setErrorPermission(true);
+                    navigate('/login');
                 }
             }else {
                 data.forEach((da, index) => {
@@ -71,7 +60,11 @@ function usePeriodo() {
                 return;
             }
             if(data.status === 401) {
-                setErrorPermission(true);
+                navigate('/login');
+                return;
+            }
+            if(data.status === 403) {
+                navigate('/error403');
                 return;
             }
             setErrorPermission(false);
@@ -97,8 +90,11 @@ function usePeriodo() {
                 return;
             }
             if(data.status === 401) {
-                setSaveSuccess(false);
-                setErrorPermission(true);
+                navigate('/login')
+                return;
+            }
+            if(data.status === 401) {
+                navigate('/error403')
                 return;
             }
             setErrorPermission(false);
@@ -126,9 +122,10 @@ function usePeriodo() {
                 return;
             }
             if(data.status === 401) {
-                setSaveSuccess(false);
-                setErrorPermission(true);
-                return;
+                navigate('/login');
+            }
+            if(data.status === 403) {
+                navigate('/error403');
             }
             setErrorPermission(false);
             setErrorSave(false);
@@ -149,7 +146,13 @@ function usePeriodo() {
         setLoading(true)
         getPeriodoByUsers({ jwt })
         .then(response => {
-            if(response.status === 401 || response.status === 403 || response.status === 500) {
+            if(response.status === 401) {
+                navigate('/login');
+            }
+            if(response.status === 403) {
+                navigate('/error403');
+            }
+            if(response.status === 500) {
                 setErrorSave(true);
                 setSaveSuccess(false);
                 return;

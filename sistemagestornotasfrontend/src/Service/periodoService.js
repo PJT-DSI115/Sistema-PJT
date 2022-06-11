@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import { ENDPOINT } from 'Config/EndPoint';
 
 

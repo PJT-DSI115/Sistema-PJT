@@ -28,13 +28,10 @@ class CursoController extends Controller
     public function store(Request $request)
     {
         $json = $request->json()->all();
-        error_log("pruebaStore");
         //Guardar cursos.
         $codigoCurso = $json['codigo_curso'];
         $nombreCurso = $json['nombre_curso'];
         
-        error_log($request->post('codigo_curso'));
-        error_log($nombreCurso);
 
         $curso = new Curso();
         $curso->codigo_curso = $codigoCurso;
@@ -45,32 +42,18 @@ class CursoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        error_log("Esta es una prueba para el show");
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \App\Model\Curso  $curso
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Curso $curso)
     {
         //Actualizar.
         $json = $request->json()->all();
-        error_log("Entra aqui");
-        error_log($json['codigo_curso']);    
         $curso->codigo_curso = $json['codigo_curso'];
         $curso->nombre_curso = $json['nombre_curso'];
-        error_log($request->post('codigo_curso'));
         $responseBool = $curso->update();
         return $this->returnResponse($responseBool);
     }

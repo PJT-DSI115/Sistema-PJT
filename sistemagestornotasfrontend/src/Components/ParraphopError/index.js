@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import '../Login/index.css';
 function ParraphopError({ message }) {
     return (

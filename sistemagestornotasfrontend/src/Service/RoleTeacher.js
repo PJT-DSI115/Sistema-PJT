@@ -1,4 +1,6 @@
-
+/**
+ * @author JS Martinez
+ */
 const rolesDocente = [
     {
         id: 1,
