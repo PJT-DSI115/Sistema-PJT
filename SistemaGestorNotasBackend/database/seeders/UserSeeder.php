@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now()
         ]);
 
+        //User para Juan
         DB::table('users')->insert([
             'id' => 3,
             'username' => 'docente',
@@ -34,6 +35,7 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now()
         ]);
 
+        //User para Alumon
         DB::table('users')->insert([
             'id' => 4,
             'username' => 'alumno',
@@ -43,6 +45,7 @@ class UserSeeder extends Seeder
             'created_at' => Carbon::now()
         ]);
 
+        //
         DB::table('users')->insert([
             'id' => 5,
             'username' => 'coordinador',
@@ -51,5 +54,15 @@ class UserSeeder extends Seeder
             'id_role' => 4,
             'created_at' => Carbon::now()
         ]);
+
+        DB::table('users')->insert([
+            'id' => 2,
+            'username' => 'carlos',
+            'password' => Hash::make('password'),
+            'email' => 'cg1809@ues.edu.sv',
+            'id_role' => 2,
+            'created_at' => Carbon::now()
+        ]);
+
     }
 }

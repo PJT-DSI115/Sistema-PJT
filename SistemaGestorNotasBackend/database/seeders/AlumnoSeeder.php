@@ -17,6 +17,7 @@ class AlumnoSeeder extends Seeder
     public function run()
     {
         DB::table('alumnos')->insert([
+            'id' => 1,
             'codigo_alumno' => 'OG2201',
             'nombre_alumno' => 'Jorge José',
             'apellido_alumno' => 'Orellana Guevara',

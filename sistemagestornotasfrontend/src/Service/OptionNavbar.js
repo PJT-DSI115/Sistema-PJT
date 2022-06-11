@@ -28,16 +28,11 @@ const optionsAdministrador = [
 const optionsMaestro = [
     {
         id: 1,
-        nombre: 'Mis Cursos',
-        ruta: '/cursosAsignados',
-    },
-    {
-        id: 2,
         nombre: 'Gestionar Actividades',
         ruta: '/actividad'
     },
     {
-        id: 3,
+        id: 2,
         nombre: 'Gestionar Notas',
         ruta: '/gestionarNotas'
     }

@@ -16,7 +16,7 @@ class CargaAcademicaSeeder extends Seeder
     public function run()
     {
         DB::table('carga_academicas')->insert([
-            'id_alumno' => 2,
+            'id_alumno' => 1,
             'id_periodo' => 1,
             'id_curso_nivel' => 1,
             'fecha_inscripcion_carga' => Carbon::now(),
@@ -24,7 +24,7 @@ class CargaAcademicaSeeder extends Seeder
         ]);
 
         DB::table('carga_academicas')->insert([
-            'id_alumno' => 2,
+            'id_alumno' => 1,
             'id_periodo' => 1,
             'id_curso_nivel' => 2,
             'fecha_inscripcion_carga' => Carbon::now(),
@@ -32,7 +32,7 @@ class CargaAcademicaSeeder extends Seeder
         ]);
 
         DB::table('carga_academicas')->insert([
-            'id_alumno' => 2,
+            'id_alumno' => 1,
             'id_periodo' => 1,
             'id_curso_nivel' => 3,
             'fecha_inscripcion_carga' => Carbon::now(),

@@ -35,6 +35,7 @@ function FormRegister( { dataUpdate, onEvent, onClose, title } ) {
                 .then(data => {
                     if(data.type === "Error") {
                         setMessageError(data.descripcion);
+                        setLoading(false);
                     }
                     if(data.type === "Ok") {
                         setMessageError("");
@@ -92,7 +93,11 @@ function FormRegister( { dataUpdate, onEvent, onClose, title } ) {
                 <button
                     onClick={handleSubmit}
                     className = "formCustom__button"
-                >Aceptar</button>
+                >
+                    {
+                        loading ? "Cargando...": "Aceptar"
+                    }
+                </button>
                 <button
                     className = "formCustom__button formCustom__button--red"
                     onClick={onClose}
