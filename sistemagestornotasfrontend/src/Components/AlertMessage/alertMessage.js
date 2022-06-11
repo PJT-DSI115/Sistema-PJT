@@ -2,7 +2,6 @@ import './index.css';
 function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate, loading }) {
 
     const handleDelete = () =>{
-        console.log(dataUpdate);
         onEvent({ data: dataUpdate, onClose });
     }
 

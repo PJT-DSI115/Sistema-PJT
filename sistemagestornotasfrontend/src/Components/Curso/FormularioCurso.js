@@ -33,14 +33,13 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
     }
 
     function handleSubmit(e){
+        console.log("Entra aqui");
         loading(true);
         e.preventDefault();
         printErrorInput();
-        //Inicio del if.
         if(nombreCurso === "" || codigoCurso === "")  {
             setMessageError("Los campos indicados, son obligatorios");
-        }//Fin del if
-         else {//Inicio del else.
+        }else {
             setMessageError("");
             const data = {
                 "nombre_curso": nombreCurso,
@@ -55,7 +54,7 @@ function FormularioCurso({onClose, loading, dataUpdate, onStore, errorSave, save
             if(saveSuccess) {
                 setMessageError("Guardado con éxito");
             }
-        }//Fin del else
+        }
     }
 
     const printErrorInput = ()=>{

@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { getAllNivels, storeNiveles, updateNiveles, deleteNiveles } from "Service/NivelService";
 import Context from "Context/UserContext";
 
-function useNivel({showModal} = {showModal: false}) {
+function useNivel() {
     const {jwt} = useContext(Context);
 
     const [niveles, setNiveles] = useState([]);
@@ -10,6 +10,7 @@ function useNivel({showModal} = {showModal: false}) {
     const [errorPermission, setErrorPermission] = useState(false);
     const [errorServer, setErrorServer] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
+    const [updateData, setUpdateData] = useState(false);
 
     useEffect(() => {
         setLoading(true);
@@ -34,7 +35,7 @@ function useNivel({showModal} = {showModal: false}) {
             setNiveles(data);
             setLoading(false);
         });
-    }, [jwt, setErrorPermission, setLoading, setNiveles, showModal]);
+    }, [jwt, setErrorPermission, setLoading, setNiveles, updateData]);
 
     const getNivel = () => {
         setLoading(true);
@@ -74,9 +75,10 @@ function useNivel({showModal} = {showModal: false}) {
             return data.json();
         })
         .then(data => {
-            if(data.message === 'OK'){
+            if(data.message === 'Ok'){
                 setLoading(false);
                 setSaveSuccess(true);
+                setUpdateData(!updateData);
             }
         })
     }
@@ -102,9 +104,10 @@ function useNivel({showModal} = {showModal: false}) {
             return data.json();
         })
         .then( (data) => {
-            if(data.message === 'OK'){
+            if(data.message === 'Ok'){
                 setLoading(false);
                 setSaveSuccess(true);
+                setUpdateData(!updateData);
             }
         })
     }
@@ -131,13 +134,11 @@ function useNivel({showModal} = {showModal: false}) {
         })
 
         .then( (data) => {
-            if(data.message === 'Ok'){
-                //console.log("Entra");
-                onClose();
-                setLoading(false);
-                setSaveSuccess(true);
+            setUpdateData(!updateData);
+            onClose();
+            setLoading(false);
+            setSaveSuccess(true);
 
-            }
         })
     }
 

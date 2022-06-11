@@ -28,7 +28,7 @@ class NivelController extends Controller
         $nivel->nombre_nivel = $nombreNivel;
 
         $responseBool = $nivel->save();
-        return $this->returnResponse($responseBool);
+        return MessageResponse::returnResponse($responseBool);
     }
 
     //Mostrar un nivel especifico.
@@ -44,7 +44,7 @@ class NivelController extends Controller
         $nivel->codigo_nivel = $json['codigo_nivel'];
         $nivel->nombre_nivel = $json['nombre_nivel'];
         $responseBool = $nivel->update();
-        return $this->returnResponse($responseBool);
+        return MessageResponse::returnResponse($responseBool);
     }
 
     public function destroy($id)

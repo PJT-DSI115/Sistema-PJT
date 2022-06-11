@@ -14,21 +14,10 @@ function Curso() {
     const [widthC, setWidthC] = useState("");
     const [showModal, setShowModal] = useState(false);
     const { cursos, errorPermission,errorServer, setErrorServer, storeCurso, updateCurso,
-            saveSuccess, setLoading, deleteCurso, loading} = useCurso({showModal});
+            saveSuccess, setLoading, deleteCurso, loading} = useCurso();
 
-    //UsseEfect.
-
-    /* useEffect (()=>{
-        if(errorPermission)
-        {
-            
-        }
-    },[]); */
-
-    //Funciones.
     function onClose(e)
     {
-        // e.preventDefault();
         setShowModal(false);
         setErrorServer(false);
     }

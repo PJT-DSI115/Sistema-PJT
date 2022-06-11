@@ -2,13 +2,14 @@ import { useState, useContext, useEffect } from 'react'
 import Context from 'Context/UserContext';
 import { getAllCursos, storeCursos, updateCursos, deleteCursos } from 'Service/CursoService'
 
-function useCurso({showModal}) {
+function useCurso() {
 
     const [cursos, setCursos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errorServer, setErrorServer] = useState(false);
     const [errorPermission, setErrorPermission] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
+    const [updateDate, setUpdateData] = useState(false);
     const { jwt } = useContext(Context);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ function useCurso({showModal}) {
             setLoading(false);
         });
 
-    }, [jwt, setErrorPermission, setLoading, setCursos, showModal]);
+    }, [jwt, setErrorPermission, setLoading, setCursos, updateDate]);
 
     const getCurso = () =>{
         setLoading(true);
@@ -45,15 +46,14 @@ function useCurso({showModal}) {
                 if(data.status === 401){
                     setErrorPermission(true);
                 }
+            }else{
+                data.forEach( (cu, index) => {
+                    cu.index= index;
+                    return data;
+                })
+                setCursos(data);
+                setLoading(false);
             }
-                else{
-                    data.forEach( (cu, index) => {
-                        cu.index= index;
-                        return data;
-                    })
-                    setCursos(data);
-                    setLoading(false);
-                }
         });
     }
 
@@ -78,12 +78,12 @@ function useCurso({showModal}) {
             if(data.message === 'Ok'){
                 setLoading(false);
                 setSaveSuccess(true);
+                setUpdateData(!updateDate);
             }
         })
     }
 
     const updateCurso =({data}) => {
-        setLoading(true);
         updateCursos({data,jwt})
         .then( (data) => {
             if(data.status === 500){
@@ -103,9 +103,13 @@ function useCurso({showModal}) {
             return data.json();
         })
         .then( (data) => {
-            if(data.message === 'OK'){
+            console.log("Prueba");
+            if(data.message === 'Ok'){
+                console.log(loading)
                 setLoading(false);
+                console.log(loading)
                 setSaveSuccess(true);
+                setUpdateData(!updateDate);
             }
         })
     }
@@ -129,11 +133,12 @@ function useCurso({showModal}) {
             return data.json();
         })
         .then( (data) => {
-            if(data.message === 'OK'){
-                setLoading(false);
-                setSaveSuccess(true);
-                onClose()
-            }
+            setLoading(false);
+            setSaveSuccess(true);
+            console.log(updateCurso);
+            setUpdateData(!updateDate);
+            console.log(updateCurso);
+            onClose()
         })
     }
 

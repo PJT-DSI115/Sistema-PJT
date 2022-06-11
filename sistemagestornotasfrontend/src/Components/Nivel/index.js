@@ -14,16 +14,8 @@ function Nivel() {
     const [widthC, setWidthC] = useState("");
     const [showModal, setShowModal] = useState(false);
     const { niveles, errorPermission,errorServer, setErrorServer, storeNivel, updateNivel,
-            saveSuccess, setLoading, deleteNivel, loading} = useNivel({showModal});
+            saveSuccess, setLoading, deleteNivel, loading} = useNivel();
 
-    //UsseEfect.
-
-    /* useEffect (()=>{
-        if(errorPermission)
-        {
-            
-        }
-    },[]); */
 
     //Funciones.
     function onClose(e)
