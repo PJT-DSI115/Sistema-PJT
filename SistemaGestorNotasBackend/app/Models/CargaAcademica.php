@@ -20,4 +20,8 @@ class CargaAcademica extends Model
     public function cursoNivel(){
         return $this->belongsTo(CursoNivel::class, 'id_curso_nivel');
     }
+
+    public function registroNotas(){
+        return $this->hasMany(RegistroNota::class, 'id_carga_academica');
+    }
 }

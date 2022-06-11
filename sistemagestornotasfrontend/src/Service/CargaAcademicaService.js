@@ -13,4 +13,17 @@ function getAllAlumnosFromCarga({ data, jwt }) {
     );
 }
 
-export {getAllAlumnosFromCarga}
+function getAllLineasActividadFromCurso({data, jwt}){
+  return(
+    fetch(`${ENDPOINT}/cargaAcademica/lineasActividad/${data.cargaAcademica}`, {
+      method: "GET",
+      headers:{
+        Authorization: jwt ? `Bearer ${jwt}` : "",
+      }
+    })
+    .then(response => response.json())
+    .then(data => data)
+  )
+}
+
+export {getAllAlumnosFromCarga, getAllLineasActividadFromCurso}

@@ -14,5 +14,7 @@ class LineaActividad extends Model
         return $this->belongsTo(Actividad::class, 'id_actividad');
     }
 
-
+    public function registroNota(){
+        return $this->hasOne(RegistroNota::class, 'id_linea_actividad');
+    }
 }

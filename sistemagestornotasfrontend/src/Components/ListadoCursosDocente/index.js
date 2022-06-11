@@ -3,6 +3,8 @@ import { useListadoCursosDocentes } from 'Hooks/useListadoCursosDocente';
 import { useEffect } from 'react';
 import { CursoCard } from 'Components/CursoCard/CursoCard'
 import { Loader } from 'Components/Loader';
+import './index.css';
+
 function ListadocursoDocente() {
     const  { idPeriodo }  = useParams();
 
@@ -21,14 +23,11 @@ function ListadocursoDocente() {
     }
 
     return (
-        <div>
-            <h1
-                className = "text-lg font-bold mt-10 text-center"
-            >Cursos</h1>
+        <div className='Cursos-doc-container'>
             {
                 cursos.map( (curso, index) => (
                     <div key = {index} className = "mb-10">
-                        <h2 key = {index} className = "text-sm font-bold text-center mt-10 mb-8">{curso.nombre}</h2>
+                        <h2 key = {index} className = "Curso-nivel-title">{curso.nombre}</h2>
                         <div className="Cursos-list">
                             {
                                 curso.values.map((va, index) => (
