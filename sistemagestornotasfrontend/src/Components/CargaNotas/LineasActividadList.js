@@ -1,9 +1,9 @@
 
-function LineasActividadList({ lineasActividad }) {
+function LineasActividadList({ lineasActividad, handlePost }) {
   
-    function handleClickRegister(){};
-
-	console.log(lineasActividad)
+    function handleClickRegister(e){
+		handlePost(e.target.value);
+	};
 
 	return (
 		<div className="Carga-listActividad-table">
@@ -27,7 +27,7 @@ function LineasActividadList({ lineasActividad }) {
 											</div>
 											{
 												linea.cursoNivelMes.map((curso, index3) => (
-													<div className="ListActividad-table-nota">
+													<div key={index3} className="ListActividad-table-nota">
 														{
 															lineas.registroNotas[index3]?(
 																lineas.registroNotas[index3].nota
@@ -39,7 +39,7 @@ function LineasActividadList({ lineasActividad }) {
 											<div className="ListActividad-table-options">
 												{
 													lineas.registroNotas.length <  linea.cursoNivelMes.length ? (
-													<button className="ListActividad-table-btn list-btn-reg" value={lineas.id}>
+													<button className="ListActividad-table-btn list-btn-reg" value={lineas.id} onClick={handleClickRegister}>
 														Registrar
 													</button>
 													) : (
