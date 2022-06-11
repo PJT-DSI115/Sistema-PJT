@@ -12,4 +12,8 @@ class Actividad extends Model
     public function lineaActividad (){
         return $this->hasMany(LineaActividad::class, "id_actividad");
     }
+
+    public function cursoNivel (){
+        return $this->belongsTo(CursoNivel::class, 'id_curso_nivel');
+    }
 }

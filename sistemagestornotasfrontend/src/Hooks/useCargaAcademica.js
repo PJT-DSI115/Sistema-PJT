@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Context from "Context/UserContext"
 import { useParams } from "react-router-dom";
-import {getAllAlumnosFromCarga} from 'Hooks/useCargaAcademica';
+import {getAllAlumnosFromCarga} from 'Service/CargaAcademicaService';
 
 function useCargaAcademica () {
 
@@ -12,7 +12,7 @@ function useCargaAcademica () {
     const [errorPermission, setErrorPermission] = useState(null);
     const [errorLog, setErrorLog] = useState(null);
 
-    const data = {
+    const daPer = {
         id_periodo: idPeriodo,
         id_curso_nivel: idCursoNivel
     }
@@ -20,7 +20,7 @@ function useCargaAcademica () {
     useEffect(() => {
         setLoading(true);
         setErrorPermission(false);
-        getAllAlumnosFromCarga({data, jwt})
+        getAllAlumnosFromCarga({data:daPer, jwt})
         .then(data => {
             if(data.status){
                 if(data.status === 401){
@@ -42,12 +42,12 @@ function useCargaAcademica () {
         })
     }, [jwt])
 
-    return[
+    return{
         listaAlumnos,
         loading,
         errorLog,
         errorPermission
-    ]
+    }
 }
 
 export {useCargaAcademica}

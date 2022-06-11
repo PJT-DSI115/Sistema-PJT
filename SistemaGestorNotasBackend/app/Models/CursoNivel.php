@@ -18,6 +18,9 @@ class CursoNivel extends Model
         return $this->belongsTo(Nivel::class, 'id_nivel');
     }
 
+    public function actividades(){
+        return $this->hasMany(Actividad::class, 'id_curso_nivel');
+    }
 
     public function registroDocenteCurso() {
         return $this->hasMany(RegistroDocenteCurso::class, 'id_nivel_curso');
@@ -25,5 +28,9 @@ class CursoNivel extends Model
 
     public function cargaAcademica (){
         return $this->hasMany(CargaAcademica::class, 'id_curso_nivel');
+    }
+    
+    public function cursoNivelMes (){
+        return $this->hasMany(CursoNivelMes::class, 'id_curso_nivel');
     }
 }

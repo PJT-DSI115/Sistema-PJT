@@ -19,4 +19,20 @@ class CargaAcademicaService {
         return $cargaAcademica;
     }
 
+    public function getAllLineaActividadByCursoNivel(CargaAcademica $cargaAcademica){
+        $actividades = CursoNivel::find(1)->actividades()->select('id', 'nombre_actividad')
+            ->where('id_curso_nivel', $cargaAcademica->id_curso_nivel)->get();
+    
+        foreach($actividades as $actividad){
+            $lineas = $actividad->lineaActividad()->select('id', 'nombre_linea_actividad')->get();
+            foreach($lineas as $linea){
+                $linea['registroNotas'] = $linea->registroNota()->select('id', 'nota', 'id_linea_actividad')
+                    ->where('id_carga_academica', $cargaAcademica->id)->get();
+            }
+            $actividad['lineaActividad'] = $lineas;
+        }    
+
+        return $actividades;
+    }
+
 }
