@@ -18,24 +18,18 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id' => 1,
-            'username' => 'jason',
+            'username' => 'admin',
             'password' => Hash::make('password'),
-            'id_role' => 1,
-            'created_at' => Carbon::now()
-        ]);
-
-        DB::table('users')->insert([
-            'id' => 2,
-            'username' => 'eduardo',
-            'password' => Hash::make('password'),
+            'email' => 'ma17092@ues.edu.sv',
             'id_role' => 1,
             'created_at' => Carbon::now()
         ]);
 
         DB::table('users')->insert([
             'id' => 3,
-            'username' => 'juan',
+            'username' => 'docente',
             'password' => Hash::make('password'),
+            'email' => 'og17006@ues.edu.sv',
             'id_role' => 2,
             'created_at' => Carbon::now()
         ]);
@@ -44,6 +38,7 @@ class UserSeeder extends Seeder
             'id' => 4,
             'username' => 'alumno',
             'password' => Hash::make('password'),
+            'email' => 'ro17002@ues.edu.sv',
             'id_role' => 3,
             'created_at' => Carbon::now()
         ]);
@@ -52,6 +47,7 @@ class UserSeeder extends Seeder
             'id' => 5,
             'username' => 'coordinador',
             'password' => Hash::make('password'),
+            'email' => 'eo111111@ues.edu.sv',
             'id_role' => 4,
             'created_at' => Carbon::now()
         ]);

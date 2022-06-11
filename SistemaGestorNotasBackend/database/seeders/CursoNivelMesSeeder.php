@@ -59,7 +59,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 2,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 2,
 			'created_at' => Carbon::now()
@@ -78,10 +78,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 2,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+       /*  DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 3,
 			'created_at' => Carbon::now()
@@ -90,7 +90,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 3,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 3,
@@ -101,7 +101,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 3,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 3,
 			'created_at' => Carbon::now()
@@ -110,10 +110,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 3,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+       /*  DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 4,
 			'created_at' => Carbon::now()
@@ -132,7 +132,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 4,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 4,
@@ -209,7 +209,7 @@ class CursoNivelMesSeeder extends Seeder
 
 
 		//Nivel2
-        DB::table('curso_nivel_mes')->insert([
+         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 7,
 			'created_at' => Carbon::now()
@@ -241,7 +241,7 @@ class CursoNivelMesSeeder extends Seeder
 		]);
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 8,
 			'created_at' => Carbon::now()
@@ -260,7 +260,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 8,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 8,
@@ -270,7 +270,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 8,
 			'created_at' => Carbon::now()
-		]);
+		]); 
 
 
         DB::table('curso_nivel_mes')->insert([
@@ -283,7 +283,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 9,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 9,
 			'created_at' => Carbon::now()
@@ -302,9 +302,9 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 9,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 10,
 			'created_at' => Carbon::now()
@@ -313,7 +313,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 10,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 10,
@@ -324,7 +324,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 10,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 10,
 			'created_at' => Carbon::now()
@@ -333,7 +333,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 10,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
@@ -432,7 +432,7 @@ class CursoNivelMesSeeder extends Seeder
 		]);
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 14,
 			'created_at' => Carbon::now()
@@ -441,7 +441,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 14,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 14,
@@ -452,7 +452,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 14,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 14,
 			'created_at' => Carbon::now()
@@ -462,10 +462,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 14,
 			'created_at' => Carbon::now()
 
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 15,
 			'created_at' => Carbon::now()
@@ -484,7 +484,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 15,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 15,
@@ -507,7 +507,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 16,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 16,
 			'created_at' => Carbon::now()
@@ -526,7 +526,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 16,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
         DB::table('curso_nivel_mes')->insert([
@@ -635,7 +635,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 20,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 20,
 			'created_at' => Carbon::now()
@@ -654,10 +654,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 20,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 21,
 			'created_at' => Carbon::now()
@@ -666,7 +666,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 21,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 21,
@@ -677,7 +677,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 21,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 21,
 			'created_at' => Carbon::now()
@@ -686,10 +686,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 21,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 22,
 			'created_at' => Carbon::now()
@@ -708,7 +708,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 22,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 22,
@@ -817,7 +817,7 @@ class CursoNivelMesSeeder extends Seeder
 		]);
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 26,
 			'created_at' => Carbon::now()
@@ -836,7 +836,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 26,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 26,
@@ -859,7 +859,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 27,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 27,
 			'created_at' => Carbon::now()
@@ -878,10 +878,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 27,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 28,
 			'created_at' => Carbon::now()
@@ -890,7 +890,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 28,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 28,
@@ -901,7 +901,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 28,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 28,
 			'created_at' => Carbon::now()
@@ -910,7 +910,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 28,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
         DB::table('curso_nivel_mes')->insert([
@@ -1009,7 +1009,7 @@ class CursoNivelMesSeeder extends Seeder
 		]);
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 32,
 			'created_at' => Carbon::now()
@@ -1018,7 +1018,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 32,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 32,
@@ -1029,7 +1029,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 32,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 32,
 			'created_at' => Carbon::now()
@@ -1038,10 +1038,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 32,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 33,
 			'created_at' => Carbon::now()
@@ -1060,7 +1060,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 33,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 33,
@@ -1083,7 +1083,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 34,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 34,
 			'created_at' => Carbon::now()
@@ -1102,7 +1102,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 34,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
         DB::table('curso_nivel_mes')->insert([
@@ -1212,7 +1212,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 38,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 38,
 			'created_at' => Carbon::now()
@@ -1231,10 +1231,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 38,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 39,
 			'created_at' => Carbon::now()
@@ -1243,7 +1243,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 39,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 39,
@@ -1254,7 +1254,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 39,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 39,
 			'created_at' => Carbon::now()
@@ -1263,10 +1263,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 39,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 40,
 			'created_at' => Carbon::now()
@@ -1285,7 +1285,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 40,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 40,
@@ -1394,7 +1394,7 @@ class CursoNivelMesSeeder extends Seeder
 		]);
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 44,
 			'created_at' => Carbon::now()
@@ -1413,7 +1413,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 4,
 			'id_curso_nivel' => 44,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 44,
@@ -1436,7 +1436,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 45,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 45,
 			'created_at' => Carbon::now()
@@ -1455,10 +1455,10 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 45,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 46,
 			'created_at' => Carbon::now()
@@ -1467,7 +1467,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 2,
 			'id_curso_nivel' => 46,
 			'created_at' => Carbon::now()
-		]);
+		]); */
         DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 3,
 			'id_curso_nivel' => 46,
@@ -1478,7 +1478,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_curso_nivel' => 46,
 			'created_at' => Carbon::now()
 		]);
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 5,
 			'id_curso_nivel' => 46,
 			'created_at' => Carbon::now()
@@ -1487,7 +1487,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 46,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
 
         DB::table('curso_nivel_mes')->insert([
@@ -1555,7 +1555,7 @@ class CursoNivelMesSeeder extends Seeder
 
 
 		//Nivel9
-        DB::table('curso_nivel_mes')->insert([
+        /* DB::table('curso_nivel_mes')->insert([
 			'id_mes' => 1,
 			'id_curso_nivel' => 49,
 			'created_at' => Carbon::now()
@@ -1742,7 +1742,7 @@ class CursoNivelMesSeeder extends Seeder
 			'id_mes' => 6,
 			'id_curso_nivel' => 54,
 			'created_at' => Carbon::now()
-		]);
+		]); */
 
     }
 }

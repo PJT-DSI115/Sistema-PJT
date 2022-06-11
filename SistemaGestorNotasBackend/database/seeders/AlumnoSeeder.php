@@ -18,8 +18,8 @@ class AlumnoSeeder extends Seeder
     {
         DB::table('alumnos')->insert([
             'codigo_alumno' => 'OG2201',
-            'nombre_alumno' => 'Eduardo José',
-            'apellido_alumno' => 'Orellana Guerretta',
+            'nombre_alumno' => 'Jorge José',
+            'apellido_alumno' => 'Orellana Guevara',
             'nombre_encargado_alumno' => 'Juan Orellana',
             'nie_alumno' => '161098158',
             'fecha_nacimiento_alumno' => Carbon::createFromDate(2004, 10, 16, 'America/El_Salvador'),

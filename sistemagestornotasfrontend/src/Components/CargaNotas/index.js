@@ -8,7 +8,7 @@ import Modal from "../Modal";
 import "./index.css";
 
 function CargaNotas() {
-  const { lineasActividad, registrerNota, loading, errorPermission, errorLog, messageLog } =
+  const { lineasActividad, registrerNota, loading, loadingForm, errorPermission, errorLog, messageLog } =
     useRegistroNota();
 
   const { meses, load, errorPer, errorL, idCargaAcademica } =
@@ -20,14 +20,13 @@ function CargaNotas() {
   const [idLinea, setIdLinea] = useState(0);
 
   const handlePost = (id) => {
-    setHeigtC("350px");
-    setWidthC("580px");
+    setHeigtC("300px");
+    setWidthC("470px");
     setShowModal(true);
     setIdLinea(id)
   };
 
   const handleRegister = d =>{
-    console.log(d);
     registrerNota({data: d});
   }
 
@@ -35,7 +34,7 @@ function CargaNotas() {
     setShowModal(false);
   }
 
-  if (loading || load) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -54,7 +53,7 @@ function CargaNotas() {
                 onClose={onClose}
                 onStore={handleRegister}
                 messageLog={messageLog}
-                loading={loading}
+                loading={loadingForm}
               />
             </Modal>
           ):""

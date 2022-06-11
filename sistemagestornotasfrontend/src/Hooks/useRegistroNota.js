@@ -9,6 +9,7 @@ function useRegistroNota() {
   const { idCargaAcademica } = useParams();
   const [lineasActividad, setLineasActividad] = useState([]);
   const [loading, setLoading] = useState(null);
+  const [loadingForm, setLoadingForm] = useState(null);
   const [errorPermission, setErrorPermission] = useState(null);
   const [errorLog, setErrorLog] = useState(null);
   const [saveSucces, setSaveSuccess] = useState(null);
@@ -37,21 +38,23 @@ function useRegistroNota() {
         setLineasActividad(data);
       }
     });
-  }, [jwt]);
+  }, [jwt, saveSucces]);
 
   function registrerNota({ data }) {
-    setLoading(true);
+    setLoadingForm(true);
     setErrorPermission(false);
     setErrorLog(false);
     setSaveSuccess(false);
     registrarNota({ data, jwt })
-      .then((data) => {               //Dice que acá hay un error!
+      .then((data) => { 
         if (data.status === 401) {
           setErrorPermission(true);
+          setLoadingForm(false);
           return;
         }
         if (data.status === 403 || data.status === 500) {
           setErrorLog(true);
+          setLoadingForm(false);
           return;
         }
         return data.json();
@@ -59,7 +62,8 @@ function useRegistroNota() {
       .then((data) => {
         if (data.message === "Error") {
           setMessageLog(data.descripcionMessage);
-          setTimeout(() => setMessageLog(null), 1500);
+          setLoadingForm(false);
+          setTimeout(() => setMessageLog(null), 3000);
           return;
         }
         if (data.message === "Ok") {
@@ -67,6 +71,7 @@ function useRegistroNota() {
           setErrorLog(false);
           setErrorPermission(false);
           setSaveSuccess(true);
+          setLoadingForm(false);
           return;
         }
       });
@@ -76,9 +81,10 @@ function useRegistroNota() {
     lineasActividad,
     registrerNota,
     loading,
+    loadingForm,
     errorPermission,
     errorLog,
-    messageLog,
+    messageLog
   };
 }
 
