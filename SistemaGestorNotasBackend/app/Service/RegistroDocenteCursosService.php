@@ -32,7 +32,7 @@ class RegistroDocenteCursosService {
 
 
         $responseValidateLogicRegister = $this->validateLogicRegisterDocentes($idPeriodo, $idNivelCurso,
-            $idDocente, $rol, "save");
+            $idDocente, $rol, 1, 1);
 
         if(count($responseValidateLogicRegister) > 0) {
             return $responseValidateLogicRegister;
@@ -68,12 +68,24 @@ class RegistroDocenteCursosService {
             return $responseValidate;
         }
 
+        $countUpdateDocente = 1;
+        $countUpdateRol = 1;
+        if($registroDocenteCurso->id_docente == $jsonRequest['idDocente']) {
+            $countUpdateDocente = 2;
+        }
+        if($jsonRequest['rol'] == "mentor") {
+            if($jsonRequest['rol'] == $registroDocenteCurso->rol) {
+                $countUpdateRol = 2;
+            }
+        }
+
         $responseValidateLogic = $this->validateLogicRegisterDocentes(
             $jsonRequest['idPeriodo'],
             $registroDocenteCurso->id_nivel_curso,
             $jsonRequest['idDocente'],
             $jsonRequest['rol'],
-            "update"
+            $countUpdateDocente,
+            $countUpdateRol
         );
         
         if(count($responseValidateLogic) > 0) {
@@ -138,17 +150,22 @@ class RegistroDocenteCursosService {
      * @param int $idNivelCurso
      * @param int $idDocente
      * @param string $rol
-     * @param String type
+     * @param String $countUpdateDocente
+     * @param String $countUpdateRol
      * @return Array responseMessage
      */
-    private function validateLogicRegisterDocentes($idPeriodo, $idNivelCurso, $idDocente, $rol, $type) {
-        $countMentor = 2;
-        if($type == "save") {
-            $countMentor = 1;
-        }
+    private function validateLogicRegisterDocentes(
+        $idPeriodo, 
+        $idNivelCurso, 
+        $idDocente, 
+        $rol, 
+        $countUpdateDocente,
+        $countUpdateRol
+    ) {
+        
         $searchRegistroDocenteCurso = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
             ->where('id_periodo', $idPeriodo)->get();
-        if( count($searchRegistroDocenteCurso) > 3 ) {
+        if(count($searchRegistroDocenteCurso) > 3 ) {
             return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 3 docentes");
         }
 
@@ -156,14 +173,14 @@ class RegistroDocenteCursosService {
             $searchRegistroDocenteCursoMentor = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
                 ->where('id_periodo', $idPeriodo)->where('rol', 'mentor')->get();
 
-            if( count($searchRegistroDocenteCursoMentor) >= $countMentor ) {
+            if(count($searchRegistroDocenteCursoMentor) >= $countUpdateRol ) {
                 return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 1 mentor");
             }
         }
 
         $searchDocente = RegistroDocenteCurso::where('id_docente', $idDocente)
             ->where('id_nivel_curso', $idNivelCurso)->where('id_periodo', $idPeriodo)->get();
-        if( count($searchDocente) >= $countMentor) {
+        if(count($searchDocente) >= $countUpdateDocente) {
             return MessageResponse::messageDescriptionError("Error", "No se puede dos veces el mismo maestro");
         }
         return [];
