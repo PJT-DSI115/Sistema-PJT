@@ -8,7 +8,8 @@ services:
     volumes:
       - volume-mysql-expediente:/var/lib/mysql
     networks:
-      - sistema-expediente-notas
+      sistema-expediente-notas:
+        ipv4_address: 192.168.9.3
     environment:
       MYSQL_ROOT_PASSWORD: root
 
@@ -19,10 +20,11 @@ services:
     ports:
       - 8085:80
     networks:
-      - sistema-expediente-notas
+      sistema-expediente-notas:
+        ipv4_address: 192.168.9.4
     environment:
-      PMA_HOST: 192.168.1.9
-      PMA_PORT: 3003
+      PMA_HOST: 192.168.9.3
+      PMA_PORT: 3306
 
 
 
@@ -34,4 +36,8 @@ volumes:
 networks:
   sistema-expediente-notas:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.9.0/24
+          gateway: 192.168.9.1
 
