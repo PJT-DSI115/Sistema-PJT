@@ -20,7 +20,10 @@ class CargaAcademicaService {
     }
 
     public function getAllLineaActividadByCursoNivel(CargaAcademica $cargaAcademica){
-        $actividades = CursoNivel::find($cargaAcademica->id_curso_nivel)->actividades()->select('id', 'nombre_actividad')->get();
+        $actividades = CursoNivel::find($cargaAcademica->id_curso_nivel)
+            ->actividades()
+            ->where('id_periodo', $cargaAcademica->id_periodo)
+            ->select('id', 'nombre_actividad')->get();
 
         foreach($actividades as $actividad){
             $lineas = $actividad->lineaActividad()->select('id', 'nombre_linea_actividad')->get();
