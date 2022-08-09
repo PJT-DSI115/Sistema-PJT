@@ -60,11 +60,6 @@ function LineasActividadList({ lineasActividad, handlePost }) {
                 </div>
               </div>
             ))}
-			<div className="Porcentaje-table">
-				{
-
-				}
-			</div>
           </div>
         </div>
       ))}

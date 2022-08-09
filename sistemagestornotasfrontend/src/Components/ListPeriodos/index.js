@@ -5,11 +5,22 @@ import { Item } from "./Item";
 import { Loader } from "Components/Loader";
 import "./index.css";
 
+const style = {
+	"font-size": "30px",
+	"font-weight": "bold",
+	"text-align": "center",
+	"margin-top": "40px",
+
+}
 function ListPeriodos() {
   const { periodo, loading } = usePeriodo();
   
   if(loading){
       return <Loader/>
+  }
+
+  if(periodo.length === 0){
+    return <p style={style}>No tiene periodos asignados</p>
   }
 
   return (
