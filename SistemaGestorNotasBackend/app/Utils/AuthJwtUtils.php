@@ -37,4 +37,10 @@ class AuthJwtUtils {
         }
 
     }
+
+    public static function generatePasswordRandow() {
+        $lengthPassword = 16;
+        $characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTVWXYZ";
+        return substr(str_shuffle($characters), 0, $lengthPassword);
+    }
 }

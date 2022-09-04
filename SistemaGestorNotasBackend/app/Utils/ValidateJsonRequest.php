@@ -31,7 +31,6 @@ class ValidateJsonRequest {
             return MessageResponse::messageDescriptionError('Error',
             'El valor idDocente es requerido');
         }
-
         return [];
     }
 
@@ -103,6 +102,24 @@ class ValidateJsonRequest {
             'El valor nota es requerido');
         }
 
+        return [];
+    }
+
+
+    public static function validateJsonRequestStoreTeach($data) {
+        if(!isset($data['id_person'])) {
+            return MessageResponse::messageDescriptionError('Error', 
+                'El valor id_person es requerido');
+        }
+        if(!isset($data['user_rol'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El valor de user_rol es requerido');
+        }
+
+        if(!isset($data['user_type'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El valor de user_type es requerido');
+        }
         return [];
     }
 }

@@ -8,14 +8,14 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\CursoNivelController;
 use App\Http\Controllers\CursoNivelMesController;
 use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
-use App\Models\RegistroDocenteCurso;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Utils\AuthJwtUtils;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +120,20 @@ Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaContr
     ->middleware('authJwt:Docente');
 
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
-
 //Route Notas
 Route::post('/registrarNota', [RegistroNotasController::class, 'storeNota']);
+Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
+
+//Routes for Managment Users
+//
+Route::get('/getAllUsersByStudents', [UserController::class, 'getAllUserByStudents'])
+    ->middleware('authJwt:Administrador');
+Route::get('/getAllUserByTeachers', [UserController::class, 'getAllUserByTeachers'])
+    ->middleware('authJwt:Administrador');
+Route::post('/storeUser', [UserController::class, 'storeUser'])
+    ->middleware('authJwt:Administrador');
+
+
+
+
+

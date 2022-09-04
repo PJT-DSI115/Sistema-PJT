@@ -21,7 +21,7 @@ class LoginController extends Controller
 
         ];
 
-        $username = $request->post('username');
+        $username = strtolower($request->post('username'));
         $password = $request->post('password');
         $user = User::where('username', $username)->get();
         if($user->isEmpty()) {

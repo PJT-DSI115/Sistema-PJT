@@ -6,6 +6,9 @@
 namespace App\Utils;
 use Carbon\Carbon;
 
+define('SUCCESS', 0);
+define('ERROR', 1);
+
 class MessageResponse {
 
     /**
@@ -15,7 +18,12 @@ class MessageResponse {
      * @return Array responseMessage
      */
     public static function messageDescriptionError($typeMessage, $descriptionMessage) {
+        $codeError = SUCCESS;
+        if($typeMessage == "Error") {
+            $codeError = ERROR;
+        }
         return  [
+            "codeError" => $codeError,
             "message" => $typeMessage,
             "descripcionMessage" => $descriptionMessage,
             "dateMessage" => Carbon::now()
