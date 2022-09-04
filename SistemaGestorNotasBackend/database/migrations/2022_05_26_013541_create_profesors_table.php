@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("dui_profesor", 10)->nullable(false);
             $table->foreignId('id_user')->nullable()->references('id')->on('users');
             $table->string("codigo_profesor",10)->nullable(false)->unique();
+            $table->string("email_profesor")->unique()->nullable(false);
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('alumnos', function (Blueprint $table){
             $table->string('codigo_alumno')->unique()->nullable(false);
+            $table->string('email_alumno', 50)->unique()->nullable(false);
         });
     }
 

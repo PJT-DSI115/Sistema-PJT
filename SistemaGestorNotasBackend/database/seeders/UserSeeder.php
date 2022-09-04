@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         //User para Juan
         DB::table('users')->insert([
             'id' => 3,
-            'username' => 'docente',
+            'username' => 'jr1234',
             'password' => Hash::make('password'),
             'email' => 'og17006@ues.edu.sv',
             'id_role' => 2,
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'id' => 2,
-            'username' => 'carlos',
+            'username' => 'cg5678',
             'password' => Hash::make('password'),
             'email' => 'cg1809@ues.edu.sv',
             'id_role' => 2,

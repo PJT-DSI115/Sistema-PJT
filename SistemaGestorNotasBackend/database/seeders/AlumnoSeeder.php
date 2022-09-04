@@ -26,7 +26,20 @@ class AlumnoSeeder extends Seeder
             'fecha_nacimiento_alumno' => Carbon::createFromDate(2004, 10, 16, 'America/El_Salvador'),
             'id_categoria_alumno' => 1,
             'id_user' => 4,
-            'created_at' => Carbon::now()
+            'created_at' => Carbon::now(),
+            'email_alumno' => "og2201@ues.edu.sv"
+        ]);
+        DB::table('alumnos')->insert([
+            'id' => 2,
+            'codigo_alumno' => 'MA17092',
+            'nombre_alumno' => 'Jason Saul',
+            'apellido_alumno' => 'Martinez Argueta',
+            'nombre_encargado_alumno' => 'Encargado 1',
+            'nie_alumno' => '161098158',
+            'fecha_nacimiento_alumno' => Carbon::createFromDate(1999, 8, 28, 'America/El_Salvador'),
+            'id_categoria_alumno' => 1,
+            'created_at' => Carbon::now(),
+            'email_alumno' => "ma17092@ues.edu.sv"
         ]);
     }
 }
