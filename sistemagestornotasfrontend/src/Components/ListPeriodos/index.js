@@ -6,10 +6,10 @@ import { Loader } from "Components/Loader";
 import "./index.css";
 
 const style = {
-	"font-size": "30px",
-	"font-weight": "bold",
-	"text-align": "center",
-	"margin-top": "40px",
+	"fontSize": "30px",
+	"fontWeight": "bold",
+	"textAlign": "center",
+	"marginTop": "40px",
 
 }
 function ListPeriodos() {

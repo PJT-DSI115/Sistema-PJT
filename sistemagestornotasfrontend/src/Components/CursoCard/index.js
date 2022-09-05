@@ -12,7 +12,6 @@ function CursosNivel() {
 
   function handleClick(e) {
     getCursosNivel({ id: e.target.value });
-    console.log(cursoNivel);
   }
 
   return (
