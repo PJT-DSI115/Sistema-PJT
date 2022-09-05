@@ -4,6 +4,7 @@
  * */
 namespace App\Service;
 
+use App\Mail\UserCreated;
 use App\Models\Alumno;
 use App\Models\Rol;
 use App\Models\User;
@@ -11,7 +12,8 @@ use App\Utils\AuthJwtUtils;
 use App\Utils\MessageResponse;
 use App\Utils\ValidateJsonRequest;
 use Illuminate\Support\Facades\Hash;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\StudentT;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 class UserService {
 
@@ -49,10 +51,11 @@ class UserService {
                     404
                 );
             }
+            $passwordGenerated = AuthJwtUtils::generatePasswordRandow();
 
             $user = new User();
             $user->username = $student->codigo_alumno;
-            $user->password = Hash::make(AuthJwtUtils::generatePasswordRandow());
+            $user->password = Hash::make($passwordGenerated);
             $user->id_role = $rol->id;
             $responseSaveSuccessUser = $user->saveOrFail();
             if(!$responseSaveSuccessUser) {
@@ -72,6 +75,10 @@ class UserService {
                     200
                 );
             }
+
+            Mail::to($student->email_alumno)
+                ->send(new UserCreated($user, $student, $passwordGenerated));
+
             return response(
                 MessageResponse::messageDescriptionError("Ok", "Save success"),
                 200
@@ -81,6 +88,22 @@ class UserService {
             return "Sera para empleado";
         }
 
+    }
+
+    public function getAllUserByStudents() {
+        $alumnos = DB::table('alumnos')
+            ->select(
+                'alumnos.nombre_alumno as nombre',
+                'alumnos.apellido_alumno as apellido',
+                'alumnos.fecha_nacimiento_alumno as fecha_nacimiento',
+                'alumnos.photo_alumno as avatar',
+                'users.username',
+                'rols.nombre_rol as rol',
+                'alumnos.id as id'
+            )->join('users', 'users.id', '=', 'alumnos.id_user')
+             ->join('rols', 'rols.id', '=', 'users.id_role')
+            ->where('alumnos.id_user', '!=', null)->get();
+        return $alumnos;
     }
 
 }

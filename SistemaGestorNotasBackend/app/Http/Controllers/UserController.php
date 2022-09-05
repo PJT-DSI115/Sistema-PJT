@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alumno;
 use App\Models\Profesor;
 use App\Service\UserService;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class UserController extends Controller
 
 
     public function getAllUserByStudents() { 
-        return Alumno::where('id_user', '!=', 'null')->get();
+        return $this->userService->getAllUserByStudents();
     }
 
     public function getAllUserByTeachers() {

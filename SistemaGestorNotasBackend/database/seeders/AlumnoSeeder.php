@@ -39,7 +39,7 @@ class AlumnoSeeder extends Seeder
             'fecha_nacimiento_alumno' => Carbon::createFromDate(1999, 8, 28, 'America/El_Salvador'),
             'id_categoria_alumno' => 1,
             'created_at' => Carbon::now(),
-            'email_alumno' => "ma17092@ues.edu.sv"
+            'email_alumno' => "jason.guerra253@gmail.com"
         ]);
     }
 }

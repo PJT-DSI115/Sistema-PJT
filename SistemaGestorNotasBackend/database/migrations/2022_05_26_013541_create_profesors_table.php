@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('id_user')->nullable()->references('id')->on('users');
             $table->string("codigo_profesor",10)->nullable(false)->unique();
             $table->string("email_profesor")->unique()->nullable(false);
+            $table->string('photo_profesor',200)->nullable(true);
         });
     }
 

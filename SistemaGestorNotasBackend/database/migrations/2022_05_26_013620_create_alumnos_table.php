@@ -23,6 +23,7 @@ return new class extends Migration
             $table->date("fecha_nacimiento_alumno")->nullable($value = false);
             $table->foreignId("id_categoria_alumno")->references("id")->on("categoria_alumnos");
             $table->foreignId("id_user")->unique()->references("id")->on("users");
+            $table->string('photo_alumno',200)->nullable(true);
         });
     }
 

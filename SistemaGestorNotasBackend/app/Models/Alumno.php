@@ -24,4 +24,8 @@ class Alumno extends Model
     public function cargaAcademica (){
         return $this->hasMany(CargaAcademica::class, 'id_alumno');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }
