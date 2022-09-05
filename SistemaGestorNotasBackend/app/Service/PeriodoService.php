@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\DB;
         $registros = [];
         if($rol->codigo_rol == "2") {
             $professor = $user->professor;
+            if($professor == null) {
+                return [];
+            }
             $registros = DB::table('registro_docente_cursos')
                 ->select(
                     'registro_docente_cursos.id_periodo',
@@ -35,9 +38,13 @@ use Illuminate\Support\Facades\DB;
                 ->where('registro_docente_cursos.id_docente', '=', $professor->id)
                 ->groupBy('id_periodo')
                 ->get();
+            $registros = [];
         }
         if($rol->codigo_rol == "3") {
             $alumno = $user->alumno;
+            if($alumno == null) {
+                return [];
+            }
             $registros = DB::table('carga_academicas')
                 ->select('carga_academicas.id_periodo', 'periodos.codigo_periodo',
                 'periodos.id')
