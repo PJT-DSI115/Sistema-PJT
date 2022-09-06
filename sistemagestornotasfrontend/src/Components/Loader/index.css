@@ -5,10 +5,10 @@
     border: 5px solid #000;
     border-bottom-color: transparent;
     border-radius: 50%;
-    display: inline-block;
+    display: block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
     bottom: 0;

@@ -11,7 +11,9 @@ function ListCardUser({users}) {
                     key = {user.id}
                     name = { `${user.nombre} ${user.apellido} `}
                     age = { user.fecha_nacimiento }
-                    avatar = {`${ENDPOINTIMAGE}${user.avatar}`}
+                    avatar = { (user.avatar === "" || user.avatar === null) ?  
+                        `${ENDPOINTIMAGE}/storage/avatar.png` : 
+                        `${ENDPOINTIMAGE}${user.avatar}` }
                     rol = {user.rol}
                 />
             ))

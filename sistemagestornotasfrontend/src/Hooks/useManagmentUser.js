@@ -2,23 +2,26 @@ import Context from 'Context/UserContext';
 import { useContext, useState, useEffect } from 'react';
 import { getAllUsersByStudents } from 'Service/UserService';
 
-function useManagmentUser() {
+function useManagmentUser({option} = {option: 'students'}) {
 
     const { jwt } = useContext(Context);
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
-        getAllUsersByStudents({jwt})
+        setLoading(true);
+        getAllUsersByStudents({jwt, option})
         .then(response => response.json())
             .then(data => {
                 setUsers(data);
+                setLoading(false);
             })
-    }, []);
+    }, [option, jwt]);
 
     return {
-        users
+        users,
+        loading
     }
 
 }

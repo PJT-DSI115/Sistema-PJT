@@ -55,6 +55,21 @@ const optionsCoordinador = [
     }
 ]
 
+const optionsFilter = [
+    {
+        id: 1,
+        name: 'Alumnos',
+        active: true,
+        option: 'students'
+    },
+    {
+        id: 2,
+        name: 'Empleados',
+        active: false,
+        option: 'teachers'
+    }
+]
+
 function selectOption({ value }) {
     if(value === 'Administrador') {
         return optionsAdministrador;
@@ -64,6 +79,9 @@ function selectOption({ value }) {
     }
     if(value === 'Coordinador'){
         return optionsCoordinador;;
+    }
+    if(value === 'userFilter') {
+        return optionsFilter;
     }
 }
 

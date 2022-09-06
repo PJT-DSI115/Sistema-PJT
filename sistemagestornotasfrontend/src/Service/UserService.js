@@ -1,9 +1,9 @@
 import {ENDPOINT} from "Config/EndPoint";
 
 
-function getAllUsersByStudents({jwt}) {
+function getAllUsersByStudents({jwt, option}) {
     return (
-        fetch(`${ENDPOINT}/getAllUsersByStudents`,{ 
+        fetch(`${ENDPOINT}/getAllUsers/${option}`,{ 
             method: 'GET',
             headers : {
                 'Authorization': jwt ? `Bearer ${jwt}`: '' 
