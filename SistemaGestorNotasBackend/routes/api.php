@@ -126,9 +126,9 @@ Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel
 
 //Routes for Managment Users
 //
-Route::get('/getAllUsersByStudents', [UserController::class, 'getAllUserByStudents'])
+Route::get('/getAllUsers/students', [UserController::class, 'getAllUserByStudents'])
     ->middleware('authJwt:Administrador');
-Route::get('/getAllUserByTeachers', [UserController::class, 'getAllUserByTeachers'])
+Route::get('/getAllUsers/teachers', [UserController::class, 'getAllUserByTeachers'])
     ->middleware('authJwt:Administrador');
 Route::post('/storeUser', [UserController::class, 'storeUser'])
     ->middleware('authJwt:Administrador');

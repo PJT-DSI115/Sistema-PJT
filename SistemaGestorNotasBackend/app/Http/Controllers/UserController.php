@@ -21,8 +21,7 @@ class UserController extends Controller
     }
 
     public function getAllUserByTeachers() {
-        return Profesor::where('id_user', '!=', 'null')->get();
-
+        return $this->userService->getAllUserByTeachers();
     }
 
     public function storeUser(Request $request) {

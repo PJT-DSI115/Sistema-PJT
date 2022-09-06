@@ -106,6 +106,23 @@ class UserService {
         return $alumnos;
     }
 
+
+    public function getAllUserByTeachers() {
+        $teachers = DB::table('profesors')
+        -> select(
+            'profesors.nombre_profesor as nombre',
+            'profesors.apellido_profesor as apellido',
+            'profesors.fecha_nacimiento_profesor as fecha_nacimiento',
+            'profesors.photo_profesor as avatar',
+            'profesors.id as id',
+            'rols.nombre_rol as rol',
+        ) 
+        ->join('users', 'users.id', '=', 'profesors.id_user')
+        ->join('rols', 'rols.id', '=', 'users.id_role')
+        ->where('profesors.id_user', '!=', null)->get();
+        return $teachers;
+    }
+
 }
 
 ?>
