@@ -43,4 +43,9 @@ class UserController extends Controller
         return $this->userService->deleteUser($dataJson);
     }
 
+    public function changePassword(Request $request) {
+        $dataJson = $request->json()->all();
+        return $this->userService->changePasswordService($dataJson);
+    }
+
 }

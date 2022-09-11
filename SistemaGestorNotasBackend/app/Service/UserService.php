@@ -4,6 +4,7 @@
  * */
 namespace App\Service;
 
+use App\Mail\ChangePasswordUser;
 use App\Mail\UserCreated;
 use App\Models\Alumno;
 use App\Models\Profesor;
@@ -270,6 +271,67 @@ class UserService {
             );
         }
 
+    }
+    
+    public function changePasswordService($dataJson) {
+        $passwordGenerated = AuthJwtUtils::generatePasswordRandow();
+        $responseValidate = ValidateJsonRequest::validateJsonRequestDeleteUser($dataJson);
+        if(count($responseValidate) > 0) {
+            return $responseValidate;
+        }
+
+        if($dataJson['type_user'] == self::STUDENT) {
+            $student = Alumno::find($dataJson['id_user']);
+            if(!$student) {
+                return response(
+                    MessageResponse::messageDescriptionError("Error", 
+                    "No se ha encontrado el registro"), 404);
+            }
+            if($student->id_user == null) {
+                return response(
+                    MessageResponse::messageDescriptionError("Error",
+                    "Error no existe un usuario para esta persona"),
+                    200
+                );
+            }
+            $user = $student->user;
+            $user->password = Hash::make($passwordGenerated);
+            $user->save();
+            Mail::to($student->email_alumno)
+                ->send(new ChangePasswordUser($user, $student->nombre_alumno, $passwordGenerated));
+
+            return response(
+                MessageResponse::messageDescriptionError("Ok", "Se ha cambiado el password"),
+                200
+            );
+        }
+
+        if($dataJson['type_user'] == self::TEACHER) {
+            $teacher = Profesor::find($dataJson['id_user']);
+            if(!$teacher) {
+                return response(
+                    MessageResponse::messageDescriptionError("Error", 
+                    "No se ha encontrado el registro"), 404);
+            }
+            if($teacher->id_user == null) {
+                return response(
+                    MessageResponse::messageDescriptionError("Error",
+                    "Error no existe un usuario para esta persona"),
+                    200
+                );
+            }
+            $user = $teacher->user;
+            $user->password = Hash::make($passwordGenerated);
+            $user->save();
+
+            Mail::to($teacher->email_profesor)
+                ->send(new ChangePasswordUser($user, $teacher->nombre_profesor, $passwordGenerated));
+
+            return response(
+                MessageResponse::messageDescriptionError("Ok", "Se ha cambiado el password"),
+                200
+            );
+        }
     }
 
 }

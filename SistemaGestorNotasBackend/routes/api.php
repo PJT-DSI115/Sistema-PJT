@@ -139,6 +139,8 @@ Route::get('/getUsersByFilter', [UserController::class, 'getUserFilter'])
 Route::post('/deleteUser', [UserController::class, 'deleteUser'])
     ->middleware('authJwt:Administrador');
 
+Route::post('/changePasswordUser', [UserController::class, 'changePassword'])
+    ->middleware('authJwt:Administrador');
 
 
 //Routes for Roles
