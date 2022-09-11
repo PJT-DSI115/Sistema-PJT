@@ -74,10 +74,24 @@ const deleteUser = ({jwt, dataSend}) => {
         .then(response => response));
 }
 
+const changePasswordService = ({jwt, dataSend}) => {
+    return(
+        fetch(`${ENDPOINT}/changePasswordUser`, {
+            method: 'POST',
+            headers :{
+                'Authorization': jwt ? `Bearer ${jwt}`: '' 
+            },
+            body: JSON.stringify(dataSend)
+        })
+        .then(response => response));
+};
+
+
 export { 
     getAllUsersByStudents, 
     getAgeByDateOfBirth, 
     getUsersFilter,
     storeUser,
-    deleteUser
+    deleteUser,
+    changePasswordService
 };

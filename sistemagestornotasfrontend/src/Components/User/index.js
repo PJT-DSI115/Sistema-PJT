@@ -9,7 +9,12 @@ import { selectOption } from 'Service/OptionNavbar';
 import { Loader } from 'Components/Loader';
 import  Modal  from 'Components/Modal';
 import { FormRegisterUser } from './FormRegisterUser';
-import {storeUser, getAllUsersByStudents, deleteUser } from 'Service/UserService'
+import {
+    storeUser,
+    getAllUsersByStudents, 
+    deleteUser,
+    changePasswordService
+} from 'Service/UserService'
 import { AlertMessage } from 'Components/AlertMessage/alertMessage';
 
 
@@ -98,6 +103,33 @@ function User() {
         )
     };
 
+    const handleClickChangePassword = ({dataSend}) => {
+        setHeigtC("200px");
+        setWidthC("600px");
+        setChildren(
+            <AlertMessage
+                dataUpdate={dataSend}
+                title = "Cambiar contraseña"
+                descripction={"¿Esta seguro que desea cambiar la contraseña del usuario?"}
+                onClose = {onClose}
+                onEvent={changePassword}
+            />
+        );
+        setShowModal(true);
+
+    };
+
+    const changePassword = ({data}) => {
+        changePasswordService({jwt, dataSend: data})
+        .then(response => response.json())
+        .then(data => {
+            if(data.codeError === 0) {
+                onClose();
+                setSuccess(true);
+            }
+        })
+    };
+
     const handleClickDelete = ({dataSend}) => {
         setHeigtC("200px");
         setWidthC("600px");
@@ -152,7 +184,7 @@ function User() {
                 }
             </div>
             {
-                loading ? <Loader />: <ListCardUser users = { users } handleClickDelete = {handleClickDelete} />
+                loading ? <Loader />: <ListCardUser users = { users } handleClickDelete = {handleClickDelete} handleClickChangePassword = {handleClickChangePassword} />
             }
 
             {showModal && <Modal heightC = {heightC} widthC = { widthC } children = {children} />}

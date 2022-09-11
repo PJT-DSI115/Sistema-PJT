@@ -4,7 +4,7 @@
 import { getAgeByDateOfBirth } from 'Service/UserService';
 import avatarDefault from 'assets/image/avatar.png';
 
-function CardUser({name, avatar, age, rol, idPerson, typeUser, handleClickDelete}) {
+function CardUser({name, avatar, age, rol, idPerson, typeUser, handleClickDelete, handleClickChangePassword}) {
 
     const STUDENT = "1";
     const TEACHER = "2";
@@ -16,6 +16,14 @@ function CardUser({name, avatar, age, rol, idPerson, typeUser, handleClickDelete
             "type_user": typeUser === "T" ? TEACHER : STUDENT
         }
         handleClickDelete({dataSend});
+    };
+
+    const changePasswordHandle = () => {
+        const dataSend = {
+            "id_user": idPerson,
+            "type_user": typeUser === "T" ? TEACHER : STUDENT
+        }
+        handleClickChangePassword({dataSend});
     };
 
 
@@ -32,6 +40,7 @@ function CardUser({name, avatar, age, rol, idPerson, typeUser, handleClickDelete
             <footer className="article__fotter">
                 <button 
                     className="formCustom__button article__button"
+                    onClick={changePasswordHandle}
                     >
                     Cambiar Password
                 </button>

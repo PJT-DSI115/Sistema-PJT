@@ -4,7 +4,7 @@
 import {CardUser} from "./CardUser";
 import { ENDPOINTIMAGE } from 'Config/EndPoint';
 
-function ListCardUser({users, handleClickDelete}) {
+function ListCardUser({users, handleClickDelete, handleClickChangePassword}) {
 
     return (
         <div className = "list-articles">
@@ -21,6 +21,7 @@ function ListCardUser({users, handleClickDelete}) {
                     idPerson = {user.id}
                     typeUser = { user.tipo}
                     handleClickDelete = { handleClickDelete}
+                    handleClickChangePassword = { handleClickChangePassword}
                 />
             ))
         }
