@@ -1,8 +1,10 @@
 <?php
+/**
+ * @author JS Martinez 
+ */
 
 namespace App\Http\Controllers;
 
-use App\Models\Profesor;
 use App\Service\UserService;
 use Illuminate\Http\Request;
 
@@ -34,6 +36,11 @@ class UserController extends Controller
         $filter = $request->get('filter');
         $users = $this->userService->getUsersFilter($filter);
         return $users;
+    }
+
+    public function deleteUser(Request $request) {
+        $dataJson = $request->json()->all();
+        return $this->userService->deleteUser($dataJson);
     }
 
 }

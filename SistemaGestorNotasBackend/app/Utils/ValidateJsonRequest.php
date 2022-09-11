@@ -122,5 +122,17 @@ class ValidateJsonRequest {
         }
         return [];
     }
+
+    public static function validateJsonRequestDeleteUser($data) {
+        if(!isset($data['id_user'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El valor id_user es requerido');
+        }
+        if(!isset($data['type_user'])){
+            return MessageResponse::messageDescriptionError('Error',
+                'El valor type_user es requerido');
+        }
+        return [];
+    }
 }
 
