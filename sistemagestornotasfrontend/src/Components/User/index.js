@@ -1,3 +1,6 @@
+/**
+ * @author JS Martinez
+ */
 import { useEffect, useState, useContext } from 'react';
 import Context from 'Context/UserContext';
 import './index.css';
@@ -6,7 +9,8 @@ import { selectOption } from 'Service/OptionNavbar';
 import { Loader } from 'Components/Loader';
 import  Modal  from 'Components/Modal';
 import { FormRegisterUser } from './FormRegisterUser';
-import {storeUser, getAllUsersByStudents} from 'Service/UserService'
+import {storeUser, getAllUsersByStudents, deleteUser } from 'Service/UserService'
+import { AlertMessage } from 'Components/AlertMessage/alertMessage';
 
 
 function User() {
@@ -94,6 +98,31 @@ function User() {
         )
     };
 
+    const handleClickDelete = ({dataSend}) => {
+        setHeigtC("200px");
+        setWidthC("600px");
+        setChildren(
+            <AlertMessage 
+                dataUpdate={dataSend}
+                title = {"Eliminar usuario"}
+                descripction = {"¿Está seguro que desea eliminar el usuario?"}
+                onClose = {onClose}
+                onEvent = {deleteUserHandle}
+                />
+        )
+        setShowModal(true);
+    }
+
+    const deleteUserHandle = ({data}) => {
+        deleteUser({jwt, dataSend: data})
+        .then(response => response.json())
+        .then(data => {
+            if(data.codeError === 0) {
+                onClose();
+                setSuccess(true);
+            } 
+        });
+    };
 
     return (
         <div className = "managment-user">
@@ -123,7 +152,7 @@ function User() {
                 }
             </div>
             {
-                loading ? <Loader />: <ListCardUser users = { users } />
+                loading ? <Loader />: <ListCardUser users = { users } handleClickDelete = {handleClickDelete} />
             }
 
             {showModal && <Modal heightC = {heightC} widthC = { widthC } children = {children} />}

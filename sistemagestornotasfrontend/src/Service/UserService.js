@@ -1,3 +1,7 @@
+
+/**
+ * @author JS Martinez
+ */
 import {ENDPOINT} from "Config/EndPoint";
 
 
@@ -58,9 +62,22 @@ const storeUser = ({jwt, user}) => {
         .then(response => response));
 }
 
+const deleteUser = ({jwt, dataSend}) => {
+    return(
+        fetch(`${ENDPOINT}/deleteUser`, {
+            method: 'POST',
+            headers :{
+                'Authorization': jwt ? `Bearer ${jwt}`: '' 
+            },
+            body: JSON.stringify(dataSend)
+        })
+        .then(response => response));
+}
+
 export { 
     getAllUsersByStudents, 
     getAgeByDateOfBirth, 
     getUsersFilter,
-    storeUser
+    storeUser,
+    deleteUser
 };

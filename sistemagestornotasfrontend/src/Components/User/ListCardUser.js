@@ -1,7 +1,10 @@
+/**
+ * @author JS Martinez
+ */
 import {CardUser} from "./CardUser";
 import { ENDPOINTIMAGE } from 'Config/EndPoint';
 
-function ListCardUser({users}) {
+function ListCardUser({users, handleClickDelete}) {
 
     return (
         <div className = "list-articles">
@@ -15,6 +18,9 @@ function ListCardUser({users}) {
                         `${ENDPOINTIMAGE}/storage/avatar.png` : 
                         `${ENDPOINTIMAGE}${user.avatar}` }
                     rol = {user.rol}
+                    idPerson = {user.id}
+                    typeUser = { user.tipo}
+                    handleClickDelete = { handleClickDelete}
                 />
             ))
         }
