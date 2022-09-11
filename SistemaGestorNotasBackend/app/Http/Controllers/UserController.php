@@ -30,4 +30,10 @@ class UserController extends Controller
 
     }
 
+    public function getUserFilter(Request $request) {
+        $filter = $request->get('filter');
+        $users = $this->userService->getUsersFilter($filter);
+        return $users;
+    }
+
 }

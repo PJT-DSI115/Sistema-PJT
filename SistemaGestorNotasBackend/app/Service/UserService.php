@@ -6,6 +6,7 @@ namespace App\Service;
 
 use App\Mail\UserCreated;
 use App\Models\Alumno;
+use App\Models\Profesor;
 use App\Models\Rol;
 use App\Models\User;
 use App\Utils\AuthJwtUtils;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\DB;
 class UserService {
 
     private const STUDENT = "1";
-    private const ALUMNO = "2";
+    private const TEACHER = "2";
 
 
     public function storeUser($data) {
@@ -27,9 +28,20 @@ class UserService {
             return $responseValidate;
         }
 
+        $rol = Rol::find($data['user_rol']);
+
+        if(!$rol) {
+            return response(
+                MessageResponse::messageDescriptionError("Error",
+                "No se ha encontrado el rol"),
+                404
+            );
+        }
+        $passwordGenerated = AuthJwtUtils::generatePasswordRandow();
+
         if($data['user_type'] == self::STUDENT) {
 
-            $student = Alumno::find($data['id_person']);
+            $student = Alumno::where('codigo_alumno', '=', $data['id_person'])->first();
             if(!$student) {
                 return response(
                 MessageResponse::messageDescriptionError("Error", 
@@ -42,16 +54,6 @@ class UserService {
                     200
                 );
             }
-            $rol = Rol::find($data['user_rol']);
-
-            if(!$rol) {
-                return response(
-                    MessageResponse::messageDescriptionError("Error",
-                    "Not Found"),
-                    404
-                );
-            }
-            $passwordGenerated = AuthJwtUtils::generatePasswordRandow();
 
             $user = new User();
             $user->username = $student->codigo_alumno;
@@ -61,7 +63,7 @@ class UserService {
             if(!$responseSaveSuccessUser) {
                 return response(
                     MessageResponse::messageDescriptionError("Error", 
-                    "Error save failed"),
+                    "Ha ocurrido un error"),
                     200
                 );
             }
@@ -71,21 +73,65 @@ class UserService {
                 $user->delete();
                 return response(
                     MessageResponse::messageDescriptionError("Error", 
-                    "Error save failed"),
+                    "Ha ocurrido un error"),
                     200
                 );
             }
 
             Mail::to($student->email_alumno)
-                ->send(new UserCreated($user, $student, $passwordGenerated));
+                ->send(new UserCreated($user, $student->nombre_alumno, $passwordGenerated));
 
             return response(
-                MessageResponse::messageDescriptionError("Ok", "Save success"),
+                MessageResponse::messageDescriptionError("Ok", "Se guardo con exito"),
                 200
             );
         }
-        if($data['user_type'] == self::ALUMNO) {
-            return "Sera para empleado";
+        if($data['user_type'] == self::TEACHER) {
+            $teacher = Profesor::where('codigo_profesor', '=', $data['id_person'])->first();
+            if(!$teacher) {
+                return response(
+                MessageResponse::messageDescriptionError("Error", 
+                    "No se ha encontrado el registro"), 404);
+            }
+
+            if($teacher->id_user != null) {
+                return response(
+                    MessageResponse::messageDescriptionError("Error",
+                    "Error ya existe un usuario para esta persona"),
+                    200
+                );
+            }
+            $user = new User();
+            $user->username = $teacher->codigo_profesor;
+            $user->password = Hash::make($passwordGenerated);
+            $user->id_role = $rol->id;
+            $responseSaveSuccessUser = $user->saveOrFail();
+
+            if(!$responseSaveSuccessUser) {
+                return response(
+                    MessageResponse::messageDescriptionError("Error", 
+                    "Ha ocurrido un error"),
+                    200
+                );
+            }
+            $teacher->id_user = $user->id;
+            $responseSaveSuccessStudent = $teacher->save();
+            if(!$responseSaveSuccessStudent) {
+                $user->delete();
+                return response(
+                    MessageResponse::messageDescriptionError("Error", 
+                    "Ha ocurrido un error"),
+                    200
+                );
+            }
+            Mail::to($teacher->email_profesor)
+                ->send(new UserCreated($user, $teacher->nombre_profesor, $passwordGenerated));
+
+            return response(
+                MessageResponse::messageDescriptionError("Ok", "Se guardo con exito"),
+                200
+            );
+
         }
 
     }
@@ -121,6 +167,47 @@ class UserService {
         ->join('rols', 'rols.id', '=', 'users.id_role')
         ->where('profesors.id_user', '!=', null)->get();
         return $teachers;
+    }
+
+    public function getUsersFilter($filter) {
+
+        $teachers = DB::table('profesors')
+        ->select(
+            'profesors.id as id',
+            'profesors.nombre_profesor as nombre',
+            'profesors.apellido_profesor as apellido',
+            'profesors.codigo_profesor as codigo',
+            'profesors.id_user',
+            DB::raw('CONCAT("T") as tipo')
+        )
+        ->where('profesors.id_user', '=', null)
+        ->where( function($query) use($filter) {
+            $query->whereRaw('nombre_profesor LIKE ?', ["%$filter%"])
+            ->orWhereRaw('apellido_profesor LIKE ?', ["%$filter%"])
+            ->orWhereRaw('codigo_profesor LIKE ?', ["%$filter%"]);
+        })
+        ->get();
+
+        $students = DB::table('alumnos')
+        ->select(
+            'alumnos.id as id',
+            'alumnos.nombre_alumno as nombre',
+            'alumnos.apellido_alumno as apellido',
+            'alumnos.codigo_alumno as codigo',
+            DB::raw('CONCAT("S") as tipo')
+        )
+        ->where('alumnos.id_user', '=', null)
+        ->where( function($query) use($filter) {
+            $query->whereRaw('nombre_alumno LIKE ?', ["%$filter%"])
+            ->orWhereRaw('apellido_alumno LIKE ?', ["%$filter%"])
+            ->orWhereRaw('codigo_alumno LIKE ?', ["%$filter%"]);
+        })
+        ->get();
+
+        $unionArrays = array_merge($teachers->toArray(), $students->toArray());
+
+        return $unionArrays;
+
     }
 
 }

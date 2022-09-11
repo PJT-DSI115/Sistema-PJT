@@ -15,7 +15,6 @@ class UserCreated extends Mailable
     use Queueable, SerializesModels;
 
     public $user;
-    public $student;
     public $password;
     public $dataShow;
 
@@ -24,15 +23,14 @@ class UserCreated extends Mailable
      *
      * @return void
      */
-    public function __construct(User $user, Alumno $student, $password)
+    public function __construct(User $user, $namePerson, $password)
     {
         $this->user = $user;
         $this->password = $password;
-        $this->student = $student;
         $this->dataShow = [
             "username" => $user->username,
             "password" => $password,
-            "alumno" => $student->nombre_alumno,
+            "alumno" => $namePerson,
             "date" => Carbon::now()
         ];
     }

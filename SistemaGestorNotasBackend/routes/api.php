@@ -13,6 +13,7 @@ use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
+use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -125,7 +126,6 @@ Route::post('/registrarNota', [RegistroNotasController::class, 'storeNota']);
 Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
 
 //Routes for Managment Users
-//
 Route::get('/getAllUsers/students', [UserController::class, 'getAllUserByStudents'])
     ->middleware('authJwt:Administrador');
 Route::get('/getAllUsers/teachers', [UserController::class, 'getAllUserByTeachers'])
@@ -133,7 +133,15 @@ Route::get('/getAllUsers/teachers', [UserController::class, 'getAllUserByTeacher
 Route::post('/storeUser', [UserController::class, 'storeUser'])
     ->middleware('authJwt:Administrador');
 
+Route::get('/getUsersByFilter', [UserController::class, 'getUserFilter'])
+    ->middleware('authJwt:Administrador');
 
+
+
+//Routes for Roles
+
+Route::get('/getAllRoles', [RolController::class, 'index'])
+    ->middleware('authJwt:Administrador');
 
 
 
