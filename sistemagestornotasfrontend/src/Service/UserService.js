@@ -14,6 +14,7 @@ function getAllUsersByStudents({jwt, option}) {
     );
 }
 
+
 const getAgeByDateOfBirth = (age) => {
     let ageArray = age.split('-');
     let [year, month, day] = ageArray;
@@ -32,4 +33,34 @@ const getAgeByDateOfBirth = (age) => {
     return ageSubtraction;
 }
 
-export { getAllUsersByStudents, getAgeByDateOfBirth }
+const getUsersFilter = ({jwt, filter}) => {
+    return (
+        fetch(`${ENDPOINT}/getUsersByFilter?filter=${filter}`,{ 
+            method: 'GET',
+            headers : {
+                'Authorization': jwt ? `Bearer ${jwt}`: '' 
+            }
+        }).then (response => {
+            return response;
+        })
+    );
+}
+
+const storeUser = ({jwt, user}) => {
+    return(
+        fetch(`${ENDPOINT}/storeUser`, {
+            method: 'POST',
+            headers :{
+                'Authorization': jwt ? `Bearer ${jwt}`: '' 
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => response));
+}
+
+export { 
+    getAllUsersByStudents, 
+    getAgeByDateOfBirth, 
+    getUsersFilter,
+    storeUser
+};

@@ -1,24 +1,99 @@
-import { useState } from 'react';
-import {useManagmentUser} from 'Hooks/useManagmentUser';
+import { useEffect, useState, useContext } from 'react';
+import Context from 'Context/UserContext';
 import './index.css';
 import { ListCardUser } from './ListCardUser';
 import { selectOption } from 'Service/OptionNavbar';
 import { Loader } from 'Components/Loader';
+import  Modal  from 'Components/Modal';
+import { FormRegisterUser } from './FormRegisterUser';
+import {storeUser, getAllUsersByStudents} from 'Service/UserService'
+
 
 function User() {
 
-    const [option, setOption] = useState("students");
+    const CODESUCCESS = 0;
+    const CODEERROR = 1;
 
-    const { users, loading } = useManagmentUser({option: option});
+
+    const { jwt } = useContext(Context);
+    const [option, setOption] = useState("students");
+    const [showModal, setShowModal] = useState(false);
+    const [heightC, setHeigtC] = useState("");
+    const [widthC, setWidthC] = useState("");
+    const [children, setChildren] = useState("");
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const [success, setSuccess] = useState(false);
     const options = selectOption({value: 'userFilter'});
     
+
+    const onClose = () => {
+        setShowModal(false);
+    }
+    useEffect(() =>{
+        getData();
+    },[success, option]);
+
+
+
+    const getData = () => {
+        setSuccess(false);
+        setLoading(true);
+        getAllUsersByStudents({jwt, option})
+        .then(response => response.json())
+        .then(data => {
+            setUsers(data)
+            setLoading(false);
+
+        });
+    }
 
 
     const handleOption = (e, optionSelected) => {
         document.querySelector('.filter__button--active').classList.remove('filter__button--active');
         e.target.classList.add('filter__button--active');
         setOption(optionSelected);
-    }
+    };
+
+
+    const storeUserTest = ({jwt, dataSend}) => {
+        return(
+            storeUser({jwt, user: dataSend})
+            .then(response => response.json()) 
+            .then(data => {
+                if(data.codeError === 0) {
+                    onClose();
+                    setSuccess(true);
+                    return {
+                        "type": CODESUCCESS ,
+                        "description": data.descripcionMessage
+                    }
+                } else {
+                    setSuccess(false);
+                    return {
+                        "type": CODEERROR,
+                        "description": data.descripcionMessage
+                    }
+                }
+            })
+        );
+
+    };
+    
+    const handleShowModal = (e) => {
+        setShowModal(true);
+        setWidthC("400px")
+        setHeigtC("400px")
+        setChildren(
+            <FormRegisterUser 
+                onClose={onClose}
+                title = {"Registro de usuario"} 
+                onEvent = {storeUserTest}
+            />
+        )
+    };
+
 
     return (
         <div className = "managment-user">
@@ -28,6 +103,7 @@ function User() {
             <div className = "container__button">
                 <button 
                     className = "rounded-lg bg-lime-600 px-10 py-1 text-gray-100 cursor-pointer hover:bg-line-800 mt-10 user__button"
+                    onClick={handleShowModal}
                 >
                     Registrar
                 </button>
@@ -49,6 +125,10 @@ function User() {
             {
                 loading ? <Loader />: <ListCardUser users = { users } />
             }
+
+            {showModal && <Modal heightC = {heightC} widthC = { widthC } children = {children} />}
+
+            
         </div>
     );
 
