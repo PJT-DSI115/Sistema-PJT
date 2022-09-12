@@ -28,6 +28,11 @@ const optionsAdministrador = [
         id: 6,
         nombre: 'Gestionar Usuarios',
         ruta: '/gestionUsuarios'
+    },
+    {
+        id: 7,
+        nombre: 'Gestionar Categorias',
+        ruta: '/gestionCategoriasAlumno'
     }
 ]
 const optionsMaestro = [

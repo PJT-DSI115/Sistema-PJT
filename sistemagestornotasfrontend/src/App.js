@@ -19,6 +19,7 @@ import { CargaAlumnos } from "Components/CargaAlumnos";
 import { CargaNotas } from "Components/CargaNotas";
 import {RegistroAlumnos} from "Components/RegistroAlumno";
 import { User } from "Components/User";
+import { CategoriaAlumno } from 'Components/CategoriaAlumno';
 
 function App() {
   return (
@@ -96,6 +97,10 @@ function App() {
                 
                 {/*Routes for Managment Users*/}
                 <Route path = "/gestionUsuarios" element = {<User />} />
+
+                {/*Routes for Categoria Alumno*/}
+                <Route path = "/gestionCategoriasAlumno" element = {<CategoriaAlumno />} />
+
               </Routes>
             </div>
             <Footer />
