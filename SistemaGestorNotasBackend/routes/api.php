@@ -10,6 +10,7 @@ use App\Http\Controllers\CursoNivelMesController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\CargaAcademicaController;
+use App\Http\Controllers\CategoriaAlumnoController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
@@ -132,13 +133,10 @@ Route::get('/getAllUsers/teachers', [UserController::class, 'getAllUserByTeacher
     ->middleware('authJwt:Administrador');
 Route::post('/storeUser', [UserController::class, 'storeUser'])
     ->middleware('authJwt:Administrador');
-
 Route::get('/getUsersByFilter', [UserController::class, 'getUserFilter'])
     ->middleware('authJwt:Administrador');
-
 Route::post('/deleteUser', [UserController::class, 'deleteUser'])
     ->middleware('authJwt:Administrador');
-
 Route::post('/changePasswordUser', [UserController::class, 'changePassword'])
     ->middleware('authJwt:Administrador');
 
@@ -146,6 +144,20 @@ Route::post('/changePasswordUser', [UserController::class, 'changePassword'])
 //Routes for Roles
 
 Route::get('/getAllRoles', [RolController::class, 'index'])
+    ->middleware('authJwt:Administrador');
+
+
+//Routes for CategoriaAlumno
+Route::get('/getAllCategoriaAlumno', [CategoriaAlumnoController::class, 'getAllCategoriasAlumnos'])
+    ->middleware('authJwt:Administrador');
+
+Route::post('/storeCategoriaAlumno', [CategoriaAlumnoController::class, 'storeCategoriaAlumno'])
+    ->middleware('authJwt:Administrador');
+
+Route::post('/updateCategoriaAlumno', [CategoriaAlumnoController::class, 'updateCategoriaAlumno'])
+    ->middleware('authJwt:Administrador');
+
+Route::delete('/deleteCategoriaAlumno/{idCategoriaAlumno}', [CategoriaAlumnoController::class, 'deleteCategoriaAlumno'])
     ->middleware('authJwt:Administrador');
 
 
