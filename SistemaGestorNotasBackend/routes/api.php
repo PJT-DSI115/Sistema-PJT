@@ -170,4 +170,5 @@ Route::middleware('authJwt:Administrador')->group(function(){
     Route::get('/alumno', [AlumnoController::class, 'index']);
     Route::put('/alumno/{alumno}', [AlumnoController::class, 'update']);
     Route::delete('/alumno/{alumno}', [AlumnoController::class, 'destroy']);
+    Route::get('/alumno/{alumno}', [AlumnoController::class, 'show']);
 });

@@ -29,9 +29,9 @@ class AlumnoController extends Controller
     }
 
     
-    public function show($id)
+    public function show(Alumno $alumno)
     {
-        //
+        return $alumno;
     }
 
     

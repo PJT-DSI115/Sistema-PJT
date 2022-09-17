@@ -11,6 +11,18 @@ const getAllStudent = ({ jwt }) => {
     )
 }
 
+const getStudentById = ({ jwt, id }) => {
+    return (
+        fetch(`${ENDPOINT}/alumno/${id}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}` : '',
+            }
+        }).then(response => response)
+    )
+}
+
 export {
-    getAllStudent
+    getAllStudent,
+    getStudentById
 }

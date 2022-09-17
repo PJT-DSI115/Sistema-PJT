@@ -19,7 +19,8 @@ import { CargaAlumnos } from "Components/CargaAlumnos";
 import { CargaNotas } from "Components/CargaNotas";
 import { User } from "Components/User";
 import { CategoriaAlumno } from 'Components/CategoriaAlumno';
-import { Student } from 'Components/Student';
+import { Student  } from 'Components/Student';
+import { DetailsStudent } from 'Components/Student/DetailsStudent';
 
 function App() {
   return (
@@ -102,7 +103,9 @@ function App() {
                 <Route path = "/gestionCategoriasAlumno" element = {<CategoriaAlumno />} />
 
 
-                <Route path = '/gestionAlumnos' element = {<Student />} />
+                <Route path = '/gestionAlumnos' element = {<Student />}>
+                </Route>
+                <Route path = '/gestionAlumnos/:idStudent' element = {<DetailsStudent />} />
 
               </Routes>
             </div>
