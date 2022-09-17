@@ -5,7 +5,7 @@ import { Loader } from "Components/Loader";
 import { LineasActividadList } from "./LineasActividadList";
 import { Formulario } from "./Formulario";
 import Modal from "../Modal";
-import "./index.css";
+import './index.css';
 
 function CargaNotas() {
   const { lineasActividad, registrerNota, loading, loadingForm, errorPermission, errorLog, messageLog } =
@@ -59,7 +59,7 @@ function CargaNotas() {
           ):""
       }
       <LineasActividadList 
-        lineasActividad={lineasActividad} 
+        data={lineasActividad}
         handlePost={handlePost}
       />
     </div>
