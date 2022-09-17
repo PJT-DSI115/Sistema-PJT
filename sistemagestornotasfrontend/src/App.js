@@ -19,6 +19,7 @@ import { CargaAlumnos } from "Components/CargaAlumnos";
 import { CargaNotas } from "Components/CargaNotas";
 import { User } from "Components/User";
 import { CategoriaAlumno } from 'Components/CategoriaAlumno';
+import { Student } from 'Components/Student';
 
 function App() {
   return (
@@ -99,6 +100,9 @@ function App() {
 
                 {/*Routes for Categoria Alumno*/}
                 <Route path = "/gestionCategoriasAlumno" element = {<CategoriaAlumno />} />
+
+
+                <Route path = '/gestionAlumnos' element = {<Student />} />
 
               </Routes>
             </div>

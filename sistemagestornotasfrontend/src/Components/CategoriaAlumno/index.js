@@ -164,7 +164,7 @@ function CategoriaAlumno() {
     return (
         <div className = "main">
             <h1 className = "text-lg font-bold mt -10 user__title">
-                Gestión Catego Alumno
+                Gestión Categoria Alumno
             </h1>
             <div className = "buttonRegisterContainer mt-5">
                 <button 
