@@ -134,5 +134,82 @@ class ValidateJsonRequest {
         }
         return [];
     }
+
+    public static function validateJsonRequestAlumno($data) {
+        if(!isset($data['nombre_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error', 
+                'El nombre del alumno es requerido');
+        }
+        if(!isset($data['apellido_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El apellido del alumno es requerido');
+        }
+
+        if(!isset($data['nombre_encargado_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El nombre del responsable del alumno es requerido');
+        }
+
+        if(!isset($data['nie_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El nie del alumno es requerido');
+        }
+
+        if(!isset($data['fecha_nacimiento_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'La fecha de nacimiento del alumno es requerida');
+        }
+
+        if(!isset($data['id_categoria_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'La categoría del alumno es requerido');
+        }
+
+        if(!isset($data['codigo_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El código del alumno es requerido');
+        }
+
+        if(!isset($data['email_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El email del alumno es requerido');
+        }
+
+        return [];
+    }
+
+    public static function validateJsonRequestDocenteNew($data) {
+        if(!isset($data['nombre_profesor'])) {
+            return MessageResponse::messageDescriptionError('Error', 
+                'El nombre del profesor es requerido');
+        }
+        if(!isset($data['apellido_profesor'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El apellido del profesor es requerido');
+        }
+
+        if(!isset($data['dui_profesor'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El dui del profesor es requerido');
+        }
+
+        if(!isset($data['fecha_nacimiento_profesor'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'La fecha de nacimiento del profesor es requerida');
+        }
+
+        if(!isset($data['codigo_profesor'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El código del profesor es requerido');
+        }
+
+        if(!isset($data['email_profesor'])) {
+            return MessageResponse::messageDescriptionError('Error',
+                'El email del profesor es requerido');
+        }
+
+        return [];
+    }
+
 }
 

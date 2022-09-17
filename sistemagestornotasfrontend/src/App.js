@@ -17,7 +17,6 @@ import { ListPeriodos } from "Components/ListPeriodos";
 import { Nivel } from "Components/Nivel";
 import { CargaAlumnos } from "Components/CargaAlumnos";
 import { CargaNotas } from "Components/CargaNotas";
-import {RegistroAlumnos} from "Components/RegistroAlumno";
 import { User } from "Components/User";
 import { CategoriaAlumno } from 'Components/CategoriaAlumno';
 
@@ -93,7 +92,7 @@ function App() {
                 <Route path="/gestionCursos" element={<Curso />} />
                 <Route path="/gestionNiveles" element={<Nivel />} />
                 <Route path="/gestionPeriodos" element={<Periodo />} />
-                <Route path = "/registroAlumno" element ={<RegistroAlumnos />} />
+                
                 
                 {/*Routes for Managment Users*/}
                 <Route path = "/gestionUsuarios" element = {<User />} />
