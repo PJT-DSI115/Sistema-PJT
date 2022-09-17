@@ -1,6 +1,6 @@
 <?php
 /**
- * @author JS Martinez 
+ * @author JS Martinez
  * */
 namespace App\Service;
 
@@ -45,7 +45,7 @@ class UserService {
             $student = Alumno::where('codigo_alumno', '=', $data['id_person'])->first();
             if(!$student) {
                 return response(
-                MessageResponse::messageDescriptionError("Error", 
+                MessageResponse::messageDescriptionError("Error",
                     "Not Found"), 404);
             }
             if($student->id_user != null) {
@@ -63,7 +63,7 @@ class UserService {
             $responseSaveSuccessUser = $user->saveOrFail();
             if(!$responseSaveSuccessUser) {
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "Ha ocurrido un error"),
                     200
                 );
@@ -73,7 +73,7 @@ class UserService {
             if(!$responseSaveSuccessStudent) {
                 $user->delete();
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "Ha ocurrido un error"),
                     200
                 );
@@ -91,7 +91,7 @@ class UserService {
             $teacher = Profesor::where('codigo_profesor', '=', $data['id_person'])->first();
             if(!$teacher) {
                 return response(
-                MessageResponse::messageDescriptionError("Error", 
+                MessageResponse::messageDescriptionError("Error",
                     "No se ha encontrado el registro"), 404);
             }
 
@@ -110,7 +110,7 @@ class UserService {
 
             if(!$responseSaveSuccessUser) {
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "Ha ocurrido un error"),
                     200
                 );
@@ -120,7 +120,7 @@ class UserService {
             if(!$responseSaveSuccessStudent) {
                 $user->delete();
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "Ha ocurrido un error"),
                     200
                 );
@@ -165,7 +165,7 @@ class UserService {
             'profesors.id as id',
             'rols.nombre_rol as rol',
             DB::raw('CONCAT("T") as tipo')
-        ) 
+        )
         ->join('users', 'users.id', '=', 'profesors.id_user')
         ->join('rols', 'rols.id', '=', 'users.id_role')
         ->where('profesors.id_user', '!=', null)->get();
@@ -225,7 +225,7 @@ class UserService {
             $student = Alumno::find($dataJson['id_user']);
             if(!$student) {
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "No se ha encontrado el registro"), 404);
             }
             if($student->id_user == null) {
@@ -250,7 +250,7 @@ class UserService {
             $teacher = Profesor::find($dataJson['id_user']);
             if(!$teacher) {
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "No se ha encontrado el registro"), 404);
             }
             if($teacher->id_user == null) {
@@ -272,7 +272,7 @@ class UserService {
         }
 
     }
-    
+
     public function changePasswordService($dataJson) {
         $passwordGenerated = AuthJwtUtils::generatePasswordRandow();
         $responseValidate = ValidateJsonRequest::validateJsonRequestDeleteUser($dataJson);
@@ -284,7 +284,7 @@ class UserService {
             $student = Alumno::find($dataJson['id_user']);
             if(!$student) {
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "No se ha encontrado el registro"), 404);
             }
             if($student->id_user == null) {
@@ -310,7 +310,7 @@ class UserService {
             $teacher = Profesor::find($dataJson['id_user']);
             if(!$teacher) {
                 return response(
-                    MessageResponse::messageDescriptionError("Error", 
+                    MessageResponse::messageDescriptionError("Error",
                     "No se ha encontrado el registro"), 404);
             }
             if($teacher->id_user == null) {
