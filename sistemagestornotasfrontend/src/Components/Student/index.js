@@ -15,7 +15,6 @@ function Student() {
     const getStudents = () => {
         getAllStudent({jwt}).then(response => response.json())
         .then(data => {
-            console.log(data);
             setStudents(data)
 
         });

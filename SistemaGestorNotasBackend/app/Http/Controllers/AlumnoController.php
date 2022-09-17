@@ -37,6 +37,8 @@ class AlumnoController extends Controller
     
     public function update(Request $request, Alumno $alumno)
     {
+        error_log($alumno);
+        error_log($request['nombre_alumno']);
         return $this->alumnoService->modificarAlumno($request, $alumno);
     }
 
