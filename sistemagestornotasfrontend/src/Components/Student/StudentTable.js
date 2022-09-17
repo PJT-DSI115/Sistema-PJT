@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function StudentTable({ students }) {
+function StudentTable({ students, handleDelete }) {
 
     return (
         <table
@@ -43,6 +43,9 @@ function StudentTable({ students }) {
                                     </Link>
                                     <button
                                         className="formCustom__button formCustom__button--red"
+                                        onClick={() => {
+                                            handleDelete({id: student.id})
+                                        }}
                                     >
                                         Eliminar
                                     </button>

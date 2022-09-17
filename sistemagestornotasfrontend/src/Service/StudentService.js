@@ -37,8 +37,37 @@ const updateStudent = ({ jwt, student }) => {
 
 }
 
+const deleteStudent = ({ jwt, id }) => {
+    return (
+        fetch(`${ENDPOINT}/alumno/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}` : '',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(response => response)
+    )
+}
+
+const insertStudents = ({jwt}) => {
+    return (
+        fetch(`${ENDPOINT}/alumno/store`, {
+            method: "POST",
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}` : '',
+                'Content-Type': 'application/json'
+            },
+
+        })
+        .then(response => response)
+    )
+}
+
 export {
     getAllStudent,
     getStudentById,
-    updateStudent
+    updateStudent,
+    deleteStudent,
+    insertStudents
 }
