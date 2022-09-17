@@ -30,12 +30,16 @@ class CargaAcademicaService
             ->select('id', 'nombre_actividad', 'porcentaje_actividad')
             ->get();
 
+        $pruebaUnion = null;
+        
+        $meses = DB::table('curso_nivel_mes')
+        ->select('mes.id', 'mes.codigo_mes')
+        ->join('mes', 'curso_nivel_mes.id_mes', '=', 'mes.id')
+        ->where('id_curso_nivel', $cargaAcademica->id_curso_nivel)
+        ->get();
+
         foreach ($actividades as $actividad) {
-            $actividad["meses"] = DB::table('curso_nivel_mes')
-                ->selectRaw('count(id_curso_nivel) as num')
-                ->where('id_curso_nivel', $cargaAcademica->id_curso_nivel)
-                ->first()
-                ->num;
+            
             $lineas = $actividad->lineaActividad()->select('id', 'nombre_linea_actividad')->get();
             foreach ($lineas as $linea) {
                 $suma_linea = 0;
@@ -49,7 +53,7 @@ class CargaAcademicaService
                 foreach ($linea->registro_notas as $n) {
                     $suma_linea += $n->nota;
                 }
-                $linea['promedio_nota'] = number_format(($suma_linea/$actividad["meses"])*($actividad["porcentaje_actividad"]/100), 2);
+                $linea['promedio_nota'] = number_format(($suma_linea/count($meses))*($actividad["porcentaje_actividad"]/100), 2);
             }
 
             /* $suma_actividad = DB::table('registro_notas')
@@ -58,7 +62,10 @@ class CargaAcademicaService
             $actividad['lineaActividad'] = $lineas;
         }
 
-        return $actividades;
+        $pruebaUnion["actividades"] = $actividades;
+        $pruebaUnion["meses"] = $meses;
+
+        return $pruebaUnion;
     }
 
 
