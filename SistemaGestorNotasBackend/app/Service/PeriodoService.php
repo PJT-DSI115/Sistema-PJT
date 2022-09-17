@@ -38,7 +38,6 @@ use Illuminate\Support\Facades\DB;
                 ->where('registro_docente_cursos.id_docente', '=', $professor->id)
                 ->groupBy('id_periodo')
                 ->get();
-            $registros = [];
         }
         if($rol->codigo_rol == "3") {
             $alumno = $user->alumno;

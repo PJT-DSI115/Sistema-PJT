@@ -29,7 +29,7 @@ function usePeriodo() {
         setLoading(true);
         getPeriodosByUser({ jwt });
     }, [jwt, setErrorPermission, setLoading, setPeriodo, updateData])
-
+    
     const getPeriod = () => {
         setLoading(true);
         getAllPeriod({ jwt })
