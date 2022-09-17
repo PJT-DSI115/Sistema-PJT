@@ -21,7 +21,6 @@ function useRegistroNota() {
 
   useEffect(() => {
     getAllLineasActividadFromCurso({ data: carga, jwt }).then((data) => {
-      console.log(data);
       if (data.status) {
         if (data.status === 401) {
           setErrorPermission(true);
@@ -40,12 +39,12 @@ function useRegistroNota() {
     });
   }, [jwt, saveSucces]);
 
-  function registrerNota({ data }) {
+  function registrerNota({ data, id }) {
     setLoadingForm(true);
     setErrorPermission(false);
     setErrorLog(false);
     setSaveSuccess(false);
-    registrarNota({ data, jwt })
+    registrarNota({ data, jwt, id })
       .then((data) => { 
         if (data.status === 401) {
           setErrorPermission(true);
@@ -84,7 +83,8 @@ function useRegistroNota() {
     loadingForm,
     errorPermission,
     errorLog,
-    messageLog
+    messageLog,
+    saveSucces
   };
 }
 

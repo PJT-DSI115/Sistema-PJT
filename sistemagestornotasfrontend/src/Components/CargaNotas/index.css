@@ -19,7 +19,7 @@
 .Carga-listActividad-table-head{
     width: 85%;
     display: grid;
-    grid-template-columns: 15% repeat(6, 9.17%) 12% 17%;
+    grid-template-columns: 10% repeat(6, 12.2%) 15%;
     text-align: center;
     align-items: center;
     border: 4px solid #1e5549;
@@ -39,7 +39,7 @@
 
 .ListActividad-table-name{
     display: grid;
-    grid-template-columns: 15% repeat(6, 9.17%) 12% 17%;
+    grid-template-columns: 10% repeat(12, 6.12%) 15%;
     text-align: center;
     align-items: center;
     margin: 10px 0px;
@@ -58,6 +58,13 @@
     border-radius: 5px;
     color: #fff;
     transition: all 0.5s;
+}
+
+.prom{
+    background-color: #1e5549;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .list-btn-reg{

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useRegistroNota } from "Hooks/useRegistroNota";
 import { useCursoNivelMes } from "Hooks/useCursoNivelMes";
 import { Loader } from "Components/Loader";
@@ -8,7 +8,7 @@ import Modal from "../Modal";
 import './index.css';
 
 function CargaNotas() {
-  const { lineasActividad, registrerNota, loading, loadingForm, errorPermission, errorLog, messageLog } =
+  const { lineasActividad, registrerNota, loading, loadingForm, errorPermission, errorLog, messageLog, saveSucces } =
     useRegistroNota();
 
   const { meses, load, errorPer, errorL, idCargaAcademica } =
@@ -18,21 +18,29 @@ function CargaNotas() {
   const [heightC, setHeigtC] = useState("");
   const [widthC, setWidthC] = useState("");
   const [idLinea, setIdLinea] = useState(0);
+  const [mes, setMes] = useState(0);
 
-  const handlePost = (id) => {
+  const handlePost = (valueArray) => {
     setHeigtC("300px");
     setWidthC("470px");
     setShowModal(true);
-    setIdLinea(id)
+    setIdLinea(valueArray[0]);
+    setMes(valueArray[1]);
   };
 
   const handleRegister = d =>{
-    registrerNota({data: d});
+    registrerNota({data: d, id: idLinea});
   }
 
   const onClose = () =>{
     setShowModal(false);
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowModal(false);
+    }, 2200);
+  }, [saveSucces])
 
   if (loading) {
     return <Loader />;
@@ -48,6 +56,7 @@ function CargaNotas() {
             >
               <Formulario
                 meses={meses}
+                mes={mes}
                 idCargaAcademica={idCargaAcademica}
                 idLinea={idLinea} 
                 onClose={onClose}
