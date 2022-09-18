@@ -1,6 +1,6 @@
 <?php
 /**
- * @author JS Martinez 
+ * @author JS Martinez
  */
 
 namespace App\Http\Controllers;
@@ -11,14 +11,14 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    private $userService;
+    private UserService $userService;
 
     public function __construct(UserService $userService) {
         $this->userService = $userService;
     }
 
 
-    public function getAllUserByStudents() { 
+    public function getAllUserByStudents() {
         return $this->userService->getAllUserByStudents();
     }
 

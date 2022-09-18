@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,7 @@ Route::get('/', function () {
 
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::get('/prueba', function() {
+    return Storage::url('avatar.png');
+
+});
