@@ -126,7 +126,7 @@ Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaContr
 
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
 //Route Notas
-Route::post('/registrarNota', [RegistroNotasController::class, 'storeNota']);
+Route::put('/registrarNota/{nota}', [RegistroNotasController::class, 'storeNota']);
 Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
 
 //Routes for Managment Users

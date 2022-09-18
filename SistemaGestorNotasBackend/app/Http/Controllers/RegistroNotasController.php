@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RegistroNota;
 use App\Service\RegistroNotasService;
 use Illuminate\Http\Request;
 
@@ -14,9 +15,9 @@ class RegistroNotasController extends Controller
         $this->registroNotasService = $registroNotasService;
     }
 
-    public function storeNota(Request $request)
+    public function storeNota(Request $request, RegistroNota $nota)
     {
-        $response = $this->registroNotasService->registrarNota($request->json()->all());
+        $response = $this->registroNotasService->registrarNota($request->json()->all(), $nota);
         return $response;
     }
 }
