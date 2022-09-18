@@ -16,6 +16,7 @@ use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -172,4 +173,13 @@ Route::middleware('authJwt:Administrador')->group(function(){
     Route::delete('/alumno/{alumno}', [AlumnoController::class, 'destroy']);
     Route::get('/alumno/{alumno}', [AlumnoController::class, 'show']);
     Route::post('/alumno/store', [AlumnoController::class, 'store']);
+});
+
+
+Route::post('/prueba', function(Request $request) {
+
+    $imagen = $request->file('imagen');
+    Storage::disk('public')
+    ->put($imagen->getClientOriginalName(),  File::get($imagen));
+    return "pruebaa";
 });
