@@ -1,9 +1,9 @@
 import { ENDPOINT } from "Config/EndPoint";
 
-const registrarNota = ({ data, jwt }) => {
+const registrarNota = ({ data, jwt, id }) => {
   return(
-    fetch(`${ENDPOINT}/registrarNota`, {
-      method: "POST",
+    fetch(`${ENDPOINT}/registrarNota/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${jwt}`

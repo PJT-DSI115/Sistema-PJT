@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './Formulario.css';
 
-function Formulario ({meses, idCargaAcademica, idLinea, onClose, onStore, messageLog, loading}) {
+function Formulario ({meses, mes, idCargaAcademica, idLinea, onClose, onStore, messageLog, loading}) {
 
     const [dataForm, setDataForm] = useState({
         id_carga_academica: idCargaAcademica,
@@ -20,7 +20,7 @@ function Formulario ({meses, idCargaAcademica, idLinea, onClose, onStore, messag
             [e.target.name]: e.target.value
         })
     }
-    
+    console.log(mes)
     return(
         <form className="Form-notas">
             <h2 className="Form-title">Registro de nota</h2>
@@ -28,8 +28,8 @@ function Formulario ({meses, idCargaAcademica, idLinea, onClose, onStore, messag
                 <select className="Form-select" name="id_curso_nivel_mes" onChange={handleChange}>
                     <option value="">Seleccione el mes</option>
                     {meses?(
-                        meses.map(mes => (
-                            <option key={mes.id} value={mes.id}>{mes.meses[0].nombre_mes}</option>
+                        meses.map(mesInfo => (
+                            mes.toString() === mesInfo.id_mes.toString() && <option key={mesInfo.id} value={mesInfo.id}>{mesInfo.meses[0].nombre_mes}</option>
                         ))
                     ):""}
                 </select>
