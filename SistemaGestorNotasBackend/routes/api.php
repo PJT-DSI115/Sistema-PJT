@@ -151,4 +151,6 @@ Route::middleware('authJwt:Administrador')->group(function(){
     Route::put('/alumno/{alumno}', [AlumnoController::class, 'update']);
     Route::delete('/alumno/{alumno}', [AlumnoController::class, 'destroy']);
     Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
+    Route::get('/alumno/{alumno}', [AlumnoController::class, 'show']);
+    Route::post('/alumno/store', [AlumnoController::class, 'store']);
 });

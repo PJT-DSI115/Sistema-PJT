@@ -5,6 +5,7 @@ function LineasActividadList({ data, handlePost }) {
     const valueArray = e.target.value.split(',');
     handlePost(valueArray);
   }
+
   return (
     <div className="Carga-listActividad-table">
       {data.actividades.map((actividad, index) => (
