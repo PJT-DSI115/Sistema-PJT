@@ -19,6 +19,7 @@ import { CargaAlumnos } from "Components/CargaAlumnos";
 import { CargaNotas } from "Components/CargaNotas";
 import { User } from "Components/User";
 import { CategoriaAlumno } from 'Components/CategoriaAlumno';
+import { BoletaPDF } from "Components/ComponentePrint/ComponentePrint";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
                       <Route path=":idCargaAcademica" element={<CargaNotas />} />
                     </Route>
                   </Route>
+                  
                 </Route>
 
                 {/**
@@ -99,7 +101,7 @@ function App() {
 
                 {/*Routes for Categoria Alumno*/}
                 <Route path = "/gestionCategoriasAlumno" element = {<CategoriaAlumno />} />
-
+                
               </Routes>
             </div>
             <Footer />
