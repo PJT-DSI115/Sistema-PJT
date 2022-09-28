@@ -27,6 +27,16 @@ class CargaAcademicaService
 
     public function getAllLineaActividadByCursoNivel(CargaAcademica $cargaAcademica)
     {
+        $infoGeneral = DB::table('carga_academicas')
+            ->select('alumnos.codigo_alumno', 'alumnos.nombre_alumno', 'alumnos.apellido_alumno', 'periodos.codigo_periodo', 'cursos.nombre_curso', 'nivels.nombre_nivel')
+            ->join('alumnos', 'carga_academicas.id_alumno', '=', 'alumnos.id')
+            ->join('periodos', 'carga_academicas.id_periodo', '=', 'periodos.id')
+            ->join('curso_nivels', 'carga_academicas.id_curso_nivel', '=', 'curso_nivels.id')
+            ->join('cursos', 'curso_nivels.id_curso', '=', 'cursos.id')
+            ->join('nivels', 'curso_nivels.id_nivel', '=', 'nivels.id')
+            ->where('carga_academicas.id', $cargaAcademica->id )
+            ->first();
+
         $actividades = CursoNivel::find($cargaAcademica->id_curso_nivel)
             ->actividades()
             ->where('id_periodo', $cargaAcademica->id_periodo)
@@ -44,7 +54,6 @@ class CargaAcademicaService
         foreach ($actividades as $actividad) {
             $lineas = $actividad->lineaActividad()->select('id', 'nombre_linea_actividad')->get();
             foreach ($lineas as $linea) {
-                $suma_linea = 0;
 
                 $validarNota = DB::table('registro_notas')
                     ->select("registro_notas.nota")
@@ -73,10 +82,6 @@ class CargaAcademicaService
                     ->join('mes', 'curso_nivel_mes.id_mes', '=', 'mes.id')
                     ->where('id_linea_actividad', $linea->id)
                     ->get();
-                foreach ($linea->registro_notas as $n) {
-                    $suma_linea += $n->nota;
-                }
-                $linea['promedio_nota'] = number_format(($suma_linea / count($meses)) * ($actividad["porcentaje_actividad"] / 100), 2);
             }
 
             /* $suma_actividad = DB::table('registro_notas')
@@ -87,6 +92,7 @@ class CargaAcademicaService
 
         $pruebaUnion["actividades"] = $actividades;
         $pruebaUnion["meses"] = $meses;
+        $pruebaUnion["infoGeneral"] = $infoGeneral;
 
         return $pruebaUnion;
     }

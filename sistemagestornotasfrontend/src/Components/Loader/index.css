@@ -1,3 +1,10 @@
+.Loader-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
 .loader {
     margin-top: 20px;
     width: 48px;
@@ -5,15 +12,8 @@
     border: 5px solid #000;
     border-bottom-color: transparent;
     border-radius: 50%;
-    display: block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
-    position: relative;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top:0;
-    margin:auto;
 }
 
 @keyframes rotation {

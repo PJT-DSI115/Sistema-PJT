@@ -78,6 +78,7 @@ function App() {
                       <Route path=":idCargaAcademica" element={<CargaNotas />} />
                     </Route>
                   </Route>
+                  
                 </Route>
 
                 {/**
@@ -101,12 +102,8 @@ function App() {
 
                 {/*Routes for Categoria Alumno*/}
                 <Route path = "/gestionCategoriasAlumno" element = {<CategoriaAlumno />} />
-
-
-                <Route path = '/gestionAlumnos' element = {<Student />}>
-                </Route>
+                <Route path = '/gestionAlumnos' element = {<Student />} />
                 <Route path = '/gestionAlumnos/:idStudent' element = {<DetailsStudent />} />
-
               </Routes>
             </div>
             <Footer />

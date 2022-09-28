@@ -7,10 +7,19 @@ use App\Models\LineaActividad;
 use App\Utils\ValidateJsonRequest;
 use App\Utils\MessageResponse;
 use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ActividadService {
 
     public function traerActividades ($id_periodo, $id_curso_nivel) {
+
+        $cursoNivel = DB::table('curso_nivels')
+            ->select('cursos.nombre_curso', 'nivels.nombre_nivel')
+            ->join('cursos', 'curso_nivels.id_curso', '=', 'cursos.id')
+            ->join('nivels', 'curso_nivels.id_nivel', '=', 'nivels.id')
+            ->where('curso_nivels.id', $id_curso_nivel)
+            ->first();
 
         $actividades = Actividad::where('id_periodo', $id_periodo)
             ->where('id_curso_nivel', $id_curso_nivel)->get();
@@ -18,7 +27,12 @@ class ActividadService {
             $linea_actividad = $actividad->lineaActividad()->get()->count();
             $actividad['numero_actividades'] = $linea_actividad;
         }
-        return $actividades;
+
+        $allInfo = null;
+        $allInfo['cursoInfo'] = $cursoNivel;
+        $allInfo['actividades'] = $actividades;
+
+        return $allInfo;
     }
 
     public function registrarActividad ($data){
@@ -129,11 +143,17 @@ class ActividadService {
     }
 
     public function borrarActividad (Actividad $actividad){
+        $lineasActividad = $actividad->lineaActividad()->where('id_actividad', $actividad->id)->get();
+        //hay que eliminar las notas
+        foreach($lineasActividad as $linea){
+            $linea->registroNota()->where('id_linea_actividad', $linea->id)->delete();
+        }
         //eliminar hijos primero
         $actividad->lineaActividad()->where('id_actividad', $actividad->id)->delete();
         //ahora eliminar la actividad
         $responseBool = $actividad->where('id', $actividad->id)->delete();
         return MessageResponse::returnResponse($responseBool);
+        return $lineasActividad;
     }
 
 }

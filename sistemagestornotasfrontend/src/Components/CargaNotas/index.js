@@ -6,6 +6,7 @@ import { LineasActividadList } from "./LineasActividadList";
 import { Formulario } from "./Formulario";
 import Modal from "../Modal";
 import './index.css';
+import { InfoGeneral } from "./InfoGeneral";
 
 function CargaNotas() {
   const { lineasActividad, registrerNota, loading, loadingForm, errorPermission, errorLog, messageLog, saveSucces } =
@@ -67,10 +68,11 @@ function CargaNotas() {
             </Modal>
           ):""
       }
-      <LineasActividadList 
-        data={lineasActividad}
-        handlePost={handlePost}
-      />
+        <InfoGeneral info={lineasActividad.infoGeneral}/>
+        <LineasActividadList 
+          data={lineasActividad}
+          handlePost={handlePost}
+        />
     </div>
   );
 }

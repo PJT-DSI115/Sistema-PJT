@@ -12,18 +12,17 @@
     display: grid;
     justify-content: center;
     width: 100%;
-    margin-top: 50px;
 }
 
 .Actividad-btn{
     display: inline;
-    margin: auto;
     width: fit-content;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     background-color: #287463;
     color: #fff;
     font-weight: 500;
+    font-size: 13px;
     transition: all 0.5s;
 }
 

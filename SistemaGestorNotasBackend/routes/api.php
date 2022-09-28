@@ -59,9 +59,9 @@ Route::post('/periodos/update/{periodo}', [PeriodoController::class, 'updatePeri
     ->middleware('authJwt:Administrador');
 Route::post('/periodos/changeState/{periodo}', [PeriodoController::class, 'changeStatePeriod'])
     ->middleware('authJwt:Administrador');
-
 Route::get('/periodos/getPeriodosByUser', [PeriodoController::class, 'getAllPeriodosByUser'])
     ->middleware('authJwt:Docente,Alumno,Administrador,Coordinador');
+Route::get('/periodo/searchPeriodoActivo', [PeriodoController::class, 'searchPeriodoActivo']);
 
 //Routes Curso.
 Route::get('/curso/index', [CursoController::class, 'index'])
@@ -95,39 +95,28 @@ Route::get('/cursos/{id}', [CursoNivelController::class, 'getCursosByNivel'])
     ->middleware('authJwt:Administrador,Coordinador');
 
 //Routes DocenteCurso.
-Route::post('/registroDocenteCurso/storeRegister', 
-    [RegistroDocenteCursoController::class, 'storeRegisterProfessor']);
-
-Route::get('/registroDocenteCurso/showRegister', 
-    [RegistroDocenteCursoController::class, 'getRegisterByIdPeriodAndByIdNivelCurso']);
-
-Route::delete('/registroDocenteCurso/delete/{registroDocenteCurso}', 
-    [RegistroDocenteCursoController::class, 'deleteRegisterDocenteCurso']);
-
-Route::put('/registroDocenteCurso/update/{registroDocenteCurso}', 
-    [RegistroDocenteCursoController::class, 'updateRegisterDocenteCurso']);
-
-Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
-Route::post('/docente', [DocenteController::class, 'store']);
-
-
+Route::post('/registroDocenteCurso/storeRegister', [RegistroDocenteCursoController::class, 'storeRegisterProfessor']);
+Route::get('/registroDocenteCurso/showRegister', [RegistroDocenteCursoController::class, 'getRegisterByIdPeriodAndByIdNivelCurso']);
+Route::delete('/registroDocenteCurso/delete/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'deleteRegisterDocenteCurso']);
+Route::put('/registroDocenteCurso/update/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'updateRegisterDocenteCurso']);
 Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class, 'getAllRegisterByDocentePeriodoCursoNivel'])
     ->middleware('authJwt:Docente');
 
-
-Route::get('/periodo/searchPeriodoActivo', [PeriodoController::class, 'searchPeriodoActivo']);
+//Routes Docente    
+Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
+Route::post('/docente', [DocenteController::class, 'store']);
 
 //Routes Carga Académica
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivel']);
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}/{mes}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivelMes']);
-
 Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga'])
     ->middleware('authJwt:Docente');
 
+//Route CursoNivelMes    
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
+
 //Route Notas
 Route::put('/registrarNota/{nota}', [RegistroNotasController::class, 'storeNota']);
-Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
 
 //Routes for Managment Users
 Route::get('/getAllUsers/students', [UserController::class, 'getAllUserByStudents'])
@@ -143,34 +132,26 @@ Route::post('/deleteUser', [UserController::class, 'deleteUser'])
 Route::post('/changePasswordUser', [UserController::class, 'changePassword'])
     ->middleware('authJwt:Administrador');
 
-
 //Routes for Roles
-
 Route::get('/getAllRoles', [RolController::class, 'index'])
     ->middleware('authJwt:Administrador');
-
 
 //Routes for CategoriaAlumno
 Route::get('/getAllCategoriaAlumno', [CategoriaAlumnoController::class, 'getAllCategoriasAlumnos'])
     ->middleware('authJwt:Administrador');
-
 Route::post('/storeCategoriaAlumno', [CategoriaAlumnoController::class, 'storeCategoriaAlumno'])
     ->middleware('authJwt:Administrador');
-
 Route::post('/updateCategoriaAlumno', [CategoriaAlumnoController::class, 'updateCategoriaAlumno'])
     ->middleware('authJwt:Administrador');
-
 Route::delete('/deleteCategoriaAlumno/{idCategoriaAlumno}', [CategoriaAlumnoController::class, 'deleteCategoriaAlumno'])
     ->middleware('authJwt:Administrador');
 
-
-
 //Route for Alumno
-
 Route::middleware('authJwt:Administrador')->group(function(){
     Route::get('/alumno', [AlumnoController::class, 'index']);
     Route::put('/alumno/{alumno}', [AlumnoController::class, 'update']);
     Route::delete('/alumno/{alumno}', [AlumnoController::class, 'destroy']);
+    Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
     Route::get('/alumno/{alumno}', [AlumnoController::class, 'show']);
     Route::post('/alumno/store', [AlumnoController::class, 'store']);
 });
