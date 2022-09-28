@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 
 function useActividad() {
   const { jwt } = useContext(Context);
-  const [actividad, setActividad] = useState([]);
+  const [infoGeneral, setInfoGeneral] = useState({});
   const [loading, setLoading] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [errorBool, setErrorBool] = useState(null);
@@ -32,8 +32,7 @@ function useActividad() {
         }
       } else {
         setErrorBool(false);
-        data.forEach((da, index) => (da.index = index));
-        setActividad(data);
+        setInfoGeneral(data);
         setLoading(false);
       }
     });
@@ -49,11 +48,7 @@ function useActividad() {
           return;
         }
       } else {
-        data.forEach((da, index) => {
-          da.index = index;
-          return data;
-        });
-        setActividad(data);
+        setInfoGeneral(data);
         setLoading(false);
         setErrorBool(false);
       }
@@ -153,7 +148,6 @@ function useActividad() {
             setErrorMessage(null);
             setSaveSuccess(false);
           }, 1000);
-          onclose();
           return;
         }
       });
@@ -161,7 +155,7 @@ function useActividad() {
   };
 
   return {
-    actividad,
+    infoGeneral,
     guardarActividad,
     borrarActividad,
     actualizarActividad,

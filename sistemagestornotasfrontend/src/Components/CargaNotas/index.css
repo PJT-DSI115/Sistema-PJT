@@ -19,13 +19,14 @@
 .Carga-listActividad-table-head{
     width: 85%;
     display: grid;
-    grid-template-columns: 10% repeat(6, 12.2%) 15%;
+    grid-template-columns: 20% repeat(6, 12.2%);
     text-align: center;
     align-items: center;
     border: 4px solid #1e5549;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 13px;
     padding: 10px 0px;
 }
 
@@ -39,12 +40,12 @@
 
 .ListActividad-table-name{
     display: grid;
-    grid-template-columns: 10% repeat(12, 6.12%) 15%;
+    grid-template-columns: 20% repeat(12, 6.12%);
     text-align: center;
     align-items: center;
     margin: 10px 0px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12.5px;
 }
 
 .ListActividad-table-options{

@@ -18,7 +18,6 @@ function LineasActividadList({ data, handlePost }) {
                 {mes.codigo_mes}
               </h4>
             ))}
-            <h4 className="Carga-listActividad-h">Promedio</h4>
           </div>
           <div className="ListActividad-table">
             {actividad.lineaActividad.map((linea, index1) => (
@@ -43,9 +42,6 @@ function LineasActividadList({ data, handlePost }) {
                       </div>
                     </React.Fragment>
                   ))}
-                  <div className="ListActividad-table-nota prom">
-                    {linea.promedio_nota}
-                  </div>
                 </div>
               </div>
             ))}

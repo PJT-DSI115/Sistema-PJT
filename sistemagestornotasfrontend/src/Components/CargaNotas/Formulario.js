@@ -10,6 +10,8 @@ function Formulario ({meses, mes, idCargaAcademica, idLinea, onClose, onStore, m
         nota: 0.00
     })
 
+    const [nomMes, setNomMes] = useState("");
+
     function handleClick(){
         onStore(dataForm);
     }
@@ -20,19 +22,25 @@ function Formulario ({meses, mes, idCargaAcademica, idLinea, onClose, onStore, m
             [e.target.name]: e.target.value
         })
     }
-    console.log(mes)
+
+    React.useEffect(() => {
+        meses && meses.map(mesInfo => (
+            mes.toString() === mesInfo.id_mes.toString() && setDataForm({...dataForm, "id_curso_nivel_mes": mesInfo.id})
+        ))
+        meses && meses.map(mesInfo => (
+            mes.toString() === mesInfo.id_mes.toString() && setNomMes(mesInfo.meses[0].nombre_mes)
+        ))
+    }, [])
+
     return(
         <form className="Form-notas">
             <h2 className="Form-title">Registro de nota</h2>
             <div className="Form-group">
-                <select className="Form-select" name="id_curso_nivel_mes" onChange={handleChange}>
-                    <option value="">Seleccione el mes</option>
-                    {meses?(
-                        meses.map(mesInfo => (
-                            mes.toString() === mesInfo.id_mes.toString() && <option key={mesInfo.id} value={mesInfo.id}>{mesInfo.meses[0].nombre_mes}</option>
-                        ))
-                    ):""}
-                </select>
+                <label className="Form-input block font-semibold">
+                    {
+                        nomMes != "" ? nomMes : ""
+                    }
+                </label>
             </div>
             <div className="Form-group">
                 <input type="text" className="Form-input" name="nota" onChange={handleChange} placeholder="Ingrese la nota"/>

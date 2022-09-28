@@ -16,7 +16,7 @@ const Actividad = () => {
   const navigate = useNavigate();
 
   const {
-    actividad,
+    infoGeneral,
     guardarActividad,
     borrarActividad,
     actualizarActividad,
@@ -71,6 +71,7 @@ const Actividad = () => {
     setShowModal(true);
   }
 
+
   return (
     <div className="Actividad-container">
       {showModal ? (
@@ -85,7 +86,7 @@ const Actividad = () => {
               onUpdate={handleUpdate}
               loading={loading}
               errorMessage={errorMessage}
-              dataUpdate={actividad[idDel]}
+              dataUpdate={infoGeneral.actividades[idDel]}
             />
           ) : (
             <AlertMessage
@@ -93,7 +94,7 @@ const Actividad = () => {
               descripction="¿Desea eliminar la actividad?"
               onClose={onClose}
               onEvent={borrarActividad}
-              dataUpdate={{ id: actividad[idDel].id }}
+              dataUpdate={{ id: infoGeneral.actividades[idDel].id }}
               loading={loading}
             />
           )}
@@ -101,13 +102,17 @@ const Actividad = () => {
       ) : (
         ""
       )}
-      <h1 className="Actividad-title">Gestión de Actividades</h1>
       <div className="Actividad-grid">
-        <button className="Actividad-btn" onClick={handlePost}>
-          Registrar nueva actividad
-        </button>
+        <div className="grid grid-cols-2 items-center">
+          <button className="Actividad-btn" onClick={handlePost}>
+            Registrar nueva actividad
+          </button>
+          <div className="font-bold text-sm border-b-4 border-b-teal-700 text-gray-800 py-1 px-5">
+            {infoGeneral.cursoInfo && infoGeneral.cursoInfo.nombre_curso} {infoGeneral.cursoInfo && infoGeneral.cursoInfo.nombre_nivel}
+          </div>
+        </div>
         <TablaActividad
-          actividades={actividad}
+          infoGeneral={infoGeneral}
           handleClickDelete={handleClickDelete}
           handleClickUpdate={handleClickUpdate}
         />
