@@ -157,10 +157,4 @@ Route::middleware('authJwt:Administrador')->group(function(){
 });
 
 
-Route::post('/prueba', function(Request $request) {
-
-    $imagen = $request->file('imagen');
-    Storage::disk('public')
-    ->put($imagen->getClientOriginalName(),  File::get($imagen));
-    return "pruebaa";
-});
+Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
