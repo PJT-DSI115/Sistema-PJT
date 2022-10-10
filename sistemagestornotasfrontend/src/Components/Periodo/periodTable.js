@@ -23,7 +23,7 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
             className= "table-custom text-sm text-left text-gray-500 dark:text-gray-400"
         >
         <thead
-            className = "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            className = "text-xs text-gray-100 uppercase bg-teal-800"
         >
             <tr>
                 <th scope = "col" className = "px-6 py-3">Codigo Periodo</th>
@@ -32,16 +32,16 @@ function PeriodTable({ periodo, handleClickDelete, handleClickUpdate }) {
                 <th scope = "col" className = "px-6 py-3">Accion</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className="text-gray-800">
             {
                 periodo.map( (periodo, index) => {
                     return (
                         <tr key = {periodo.id} 
-                            className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 py-10"
+                            className = "bg-gray-300 border-b dark:border-gray-700 py-10"
                         >
                             <th 
                                 scope = "row"
-                                className = "px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                                className = "px-6 py-4 font-medium text-gray-800 whitespace-nowrap"
                             >{periodo.codigo_periodo}</th>
                             <td className = "px-6 py-4">{periodo.fecha_inicio_periodo}</td>
                             <td className = "px-6 py-4">{periodo.fecha_fin_periodo}</td>

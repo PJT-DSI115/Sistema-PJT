@@ -11,6 +11,7 @@ use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\CategoriaAlumnoController;
+use App\Http\Controllers\ConsultaNotasController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
@@ -153,4 +154,9 @@ Route::middleware('authJwt:Administrador')->group(function(){
     Route::post('/registroAlumno', [AlumnoController::class, 'registerAlumnosByExcel']);
     Route::get('/alumno/{alumno}', [AlumnoController::class, 'show']);
     Route::post('/alumno/store', [AlumnoController::class, 'store']);
+});
+
+//Route for ConsultaNotasCursoNivelMesService
+Route::middleware('authJwt:Profesor')->group(function(){
+    Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
 });
