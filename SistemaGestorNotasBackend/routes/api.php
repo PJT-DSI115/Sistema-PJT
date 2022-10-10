@@ -17,6 +17,7 @@ use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -156,7 +157,11 @@ Route::middleware('authJwt:Administrador')->group(function(){
     Route::post('/alumno/store', [AlumnoController::class, 'store']);
 });
 
+
 //Route for ConsultaNotasCursoNivelMesService
 Route::middleware('authJwt:Profesor')->group(function(){
     Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
 });
+
+Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
+

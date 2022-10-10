@@ -1,4 +1,9 @@
+import { useState } from 'react';
+
+
 function FormRegister( { onClose, handleInsert } ) {
+
+    const [file, setFile] = useState(null);
 
     return (
         <div>
@@ -6,6 +11,7 @@ function FormRegister( { onClose, handleInsert } ) {
                 <label className='formCustom__label'>Foto</label>
                 <input 
                     onChange={(e) => {
+                        setFile(e.target.files[0]);
                     }}
                     type = "file" className='formCustom__input'
                 />
@@ -13,7 +19,7 @@ function FormRegister( { onClose, handleInsert } ) {
             <div className = "formCustom__container--button">
                 <button
 
-                    onClick={handleInsert}
+                    onClick={() => handleInsert({data: file})}
                     className = "formCustom__button"
                 >Aceptar</button>
                 <button

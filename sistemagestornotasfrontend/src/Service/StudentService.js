@@ -50,14 +50,17 @@ const deleteStudent = ({ jwt, id }) => {
     )
 }
 
-const insertStudents = ({jwt}) => {
+const insertStudents = ({jwt, data}) => {
+    const formData = new FormData();
+    console.log(data);
+    formData.append('prueba', data);
     return (
         fetch(`${ENDPOINT}/alumno/store`, {
             method: "POST",
             headers: {
-                'Authorization': jwt ? `Bearer ${jwt}` : '',
-                'Content-Type': 'application/json'
+                'Authorization': jwt ? `Bearer ${jwt}` : ''
             },
+            body: formData
 
         })
         .then(response => response)

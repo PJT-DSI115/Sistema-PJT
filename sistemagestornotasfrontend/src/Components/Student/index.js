@@ -45,10 +45,11 @@ function Student() {
     setShowModal(true);
   };
 
-  const insertStudentsHandle = () => {
-    insertStudents({ jwt })
+  const insertStudentsHandle = ({ data }) => {
+    insertStudents({ jwt, data })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.codeError === 0) {
           setSuccess(true);
           onClose();
