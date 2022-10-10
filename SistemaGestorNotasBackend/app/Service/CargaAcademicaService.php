@@ -3,11 +3,8 @@
 namespace App\Service;
 
 use App\Models\CargaAcademica;
-use App\Models\Alumno;
-use App\Models\Periodo;
 use App\Models\CursoNivel;
 use App\Models\RegistroNota;
-use Error;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

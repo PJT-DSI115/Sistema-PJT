@@ -5,7 +5,7 @@ function CursoTable({cursos, handleClickDelete, handleClickUpdate})
             className= "table-custom text-sm text-left text-gray-500 dark:text-gray-400"
         >
         <thead
-            className = "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            className = "text-xs text-gray-100 uppercase bg-teal-800"
         >
             <tr>
                 <th scope = "col" className = "px-6 py-3">Código de Curso</th>
@@ -14,16 +14,16 @@ function CursoTable({cursos, handleClickDelete, handleClickUpdate})
             </tr>
         </thead>
 
-        <tbody>
+        <tbody className="text-gray-800">
             {
                 cursos.map( (curso) => {
                     return (
                         <tr key = {curso.id} 
-                            className = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 py-10"
+                            className = "bg-gray-300 border-b py-10"
                         >
                             <th 
                                 scope = "row"
-                                className = "px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                                className = "px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                             >{curso.codigo_curso}</th>
                             <td className = "px-6 py-4">{curso.nombre_curso}</td>
                             <td className = "px-6 py-4">
