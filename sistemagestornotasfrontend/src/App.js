@@ -21,6 +21,8 @@ import { User } from "Components/User";
 import { CategoriaAlumno } from 'Components/CategoriaAlumno';
 import { Student  } from 'Components/Student';
 import { DetailsStudent } from 'Components/Student/DetailsStudent';
+import { DocenteIndex } from "Components/Docente";
+import { ConsultarNotasMensual } from "Components/ConsultaNotasMensual";
 
 function App() {
   return (
@@ -104,6 +106,20 @@ function App() {
                 <Route path = "/gestionCategoriasAlumno" element = {<CategoriaAlumno />} />
                 <Route path = '/gestionAlumnos' element = {<Student />} />
                 <Route path = '/gestionAlumnos/:idStudent' element = {<DetailsStudent />} />
+
+                {/* Routes for Docente */}
+                <Route path="/gestionarDocente" element={<DocenteIndex />}/>
+
+                 {/**
+								 Ruta para que profesor consulte notas mensuales
+								*/}
+                <Route path="/consultaNotas" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<ListadocursoDocente />}></Route>
+                  <Route path=":idPeriodo">
+                    <Route path=":idCursoNivel" element={<ConsultarNotasMensual />} />
+                  </Route>
+                </Route>
+
               </Routes>
             </div>
             <Footer />

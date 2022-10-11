@@ -37,8 +37,8 @@ function Student() {
   };
 
   const showRegisterModal = () => {
-    setHeigtC("200px");
-    setWidthC("400px");
+    setHeigtC("350px");
+    setWidthC("700px");
     setChildren(
       <FormRegister onClose={onClose} handleInsert={insertStudentsHandle} />
     );
@@ -59,7 +59,7 @@ function Student() {
 
   const showModalDetele = ({ id }) => {
     setHeigtC("250px");
-    setWidthC("600px");
+    setWidthC("650px");
     const dataUpdate = {
       id: id,
     };
