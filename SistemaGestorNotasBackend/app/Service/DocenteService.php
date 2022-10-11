@@ -21,13 +21,30 @@ class DocenteService{
         $profesor->apellido_profesor = $requestInfo["apellido_profesor"];
         $profesor->fecha_nacimiento_profesor = $requestInfo["fecha_nacimiento_profesor"];
         $profesor->dui_profesor = $requestInfo["dui_profesor"];
-        $profesor->codigo_profesor = $requestInfo["codigo_profesor"];
         $profesor->email_profesor = $requestInfo["email_profesor"];
         $profesor->created_at = Carbon::now();
 
+        $apel_str = explode(" ", $profesor->apellido_profesor);
+        $anio_nacimiento = substr($profesor->fecha_nacimiento_profesor, 0, 4);
+        
         try{
-            $responseBool = $profesor->save();
-            return MessageResponse::returnResponse($responseBool);
+           $codigo = "";
+           foreach($apel_str as $val){
+            $codigo = $codigo . $val[0];
+           }
+           $codigo = $codigo . substr($anio_nacimiento, 2, 4) . rand(100, 999);
+           $cant = Profesor::where('codigo_profesor', $codigo)->get();
+           
+           if(count($cant) > 0){
+            do{
+                $codigo = substr($codigo, 0, 4) . rand(100, 999);
+                $i = Profesor::where('codigo_profesor', $codigo)->get();
+            }
+            while(count($i) > 0);
+           }
+           $profesor->codigo_profesor = $codigo;
+           $responseBool = $profesor->save();
+           return MessageResponse::returnResponse($responseBool);
         }
         catch(Exception $ex){
             error_log($ex->getMessage());
