@@ -32,7 +32,7 @@ const TableConsultaNotasMes = React.forwardRef(({datos}, ref) => {
                     <tr className="bg-gray-300 border-b dark:border-gray-400 py-10"
                     key={cargaAcademica.id}>
                         <th scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                            className="px-6 py-4 font-bold text-gray-900 whitespace-nowrap"
                         >{cargaAcademica.codigo_alumno}</th>
                         <td className="px-6 py-4">{cargaAcademica.apellido_alumno}</td>
                         <td className="px-6 py-4">{cargaAcademica.nombre_alumno}</td>
