@@ -15,4 +15,18 @@ function getAllDocentes({ jwt }) {
     );
 }
 
-export { getAllDocentes };
+function storeDocente({ jwt, data }) {
+    return (
+        fetch(`${ENDPOINT}/docente`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': jwt ? `Bearer ${jwt}` : ""
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response)
+    )
+}
+
+export { getAllDocentes, storeDocente };

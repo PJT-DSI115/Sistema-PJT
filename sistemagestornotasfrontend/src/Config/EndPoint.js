@@ -4,5 +4,4 @@ const ENDPOINTIMAGELOCAL ="https://pjtapi.herokuapp.com";
 
 const ENDPOINTLOCAL = "https://pjtapi.herokuapp.com/api";
 
-
 export {ENDPOINT, ENDPOINTIMAGE}

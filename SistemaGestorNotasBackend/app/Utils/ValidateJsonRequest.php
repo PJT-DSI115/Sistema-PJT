@@ -198,11 +198,6 @@ class ValidateJsonRequest {
                 'La fecha de nacimiento del profesor es requerida');
         }
 
-        if(!isset($data['codigo_profesor'])) {
-            return MessageResponse::messageDescriptionError('Error',
-                'El código del profesor es requerido');
-        }
-
         if(!isset($data['email_profesor'])) {
             return MessageResponse::messageDescriptionError('Error',
                 'El email del profesor es requerido');

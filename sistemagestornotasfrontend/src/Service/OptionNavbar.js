@@ -38,6 +38,11 @@ const optionsAdministrador = [
         id: 8,
         nombre: 'Gestionar Alumnos',
         ruta: '/gestionAlumnos'
+    },
+    {
+        id: 9,
+        nombre: 'Gestionar Docente',
+        ruta: '/gestionarDocente'
     }
 ]
 const optionsMaestro = [
@@ -50,6 +55,11 @@ const optionsMaestro = [
         id: 2,
         nombre: 'Gestionar Notas',
         ruta: '/gestionarNotas'
+    },
+    {
+        id: 3,
+        nombre: 'Consultar Notas Mensuales',
+        ruta: '/consultaNotas'
     }
 ]
 const optionsCoordinador = [
