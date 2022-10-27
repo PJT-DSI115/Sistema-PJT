@@ -211,5 +211,27 @@ class ValidateJsonRequest {
         return [];
     }
 
+    public static function validateJsonRequestInscribirAlumnoCurso($data) {
+
+        if(!isset($data['id_alumno'])) {
+            return MessageResponse::messageDescriptionError('Error',
+            'El valor id_alumno es requerido');
+
+        }
+        if(!isset($data['id_periodo'])) {
+            return MessageResponse::messageDescriptionError('Error',
+            'El valor id_periodo es requerido');
+        }
+        if(!isset($data['id_curso_nivel'])) {
+            return MessageResponse::messageDescriptionError('Error',
+            'El valor id_curso_nivel es requerido');
+        }
+        if(!isset($data['id_carga_academica'])) {
+            return MessageResponse::messageDescriptionError('Error',
+            'El valor id_carga_academica es requerido');
+        }
+        return [];
+    }
+
 }
 
