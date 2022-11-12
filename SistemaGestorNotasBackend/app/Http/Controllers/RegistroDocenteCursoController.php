@@ -27,8 +27,7 @@ class RegistroDocenteCursoController extends Controller
      * @return Array $responseJson;
      */
     public function storeRegisterProfessor(Request $request) {
-        $responseJson = $this->registroDocenteCursosService
-                             ->registroDocente($request->json()->all());
+        $responseJson = $this->registroDocenteCursosService->registroDocente($request->json()->all());
         return $responseJson;
     }
 
@@ -59,7 +58,7 @@ class RegistroDocenteCursoController extends Controller
      */
     public function deleteRegisterDocenteCurso(RegistroDocenteCurso $registroDocenteCurso) {
         $boolResponse = $registroDocenteCurso->delete();
-
+        
         return MessageResponse::returnResponse($boolResponse);
 
     }
@@ -77,6 +76,26 @@ class RegistroDocenteCursoController extends Controller
         return $this->registroDocenteCursosService
                              ->updateRegisterDocenteCurso($jsonRequest, $registroDocenteCurso);
     }
+
+
+    public function updateDocenteCurso(RegistroDocenteCurso $registroDocenteCurso,Request $request) 
+    {
+        $jsonRequest = $request->json()->all();
+       
+        return $this->registroDocenteCursosService->updateDocentesAsignadosCurso($jsonRequest, $registroDocenteCurso);
+    }
+
+
+    //---------------------------Elimnar docente de un curso, este no debe poseer un rol del tipo mentor-------------
+
+
+    public function deleteDocenteCurso( $v1, $v2, $v3) 
+    {
+            return $this->registroDocenteCursosService->eliminarDocenteCursosAsignado($v1 , $v2 , $v3);
+    }
+
+    
+    //------------------------------------------------------------------------------------------------
 
     /**
      * @param \Illuminate\Http\Request $request
