@@ -18,6 +18,7 @@ use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use Illuminate\Contracts\Cache\Store;
+use App\Http\Controllers\IncribirAlumnoCursoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -165,3 +166,8 @@ Route::middleware('authJwt:Administrador')->group(function(){
 Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
 Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
 
+//Route de asignar alumnos a cursos
+Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
+Route::delete('/eliminarAlumnoCurso/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'deleteRegisterAlumnoCurso']);
+Route::put('/actualizarCursoAlumno/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'updateRegisterDocenteCurso']);
+Route::get('/obtenerAlumno/{idPeriodo}/{idCurso}', [IncribirAlumnoCursoController::class, 'getAllRegisterByAlumnoPeriodoCursoNivel'])->middleware('authJwt:Administrador');

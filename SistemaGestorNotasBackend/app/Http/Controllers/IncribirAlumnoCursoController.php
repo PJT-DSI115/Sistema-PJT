@@ -57,13 +57,13 @@ class IncribirAlumnoCursoController extends Controller
      */
 
     public function getRegisterByIdPeriodAndByIdNivelCurso(Request $request) {
-        $idNivelCurso = $request->get('id_nivel_curso');
+        $idNivelCurso = $request->get('id_curso_nivel');
         $idPeriodo = $request->get('id_periodo');
 
         $periodo = Periodo::find($idPeriodo);
         $periodoActivo = $periodo->activo_periodo;
 
-        $registers = CargaAcademica::where('id_nivel_curso', $idNivelCurso)
+        $registers = CargaAcademica::where('id_curso_nivel', $idNivelCurso)
             ->where('id_periodo', $idPeriodo)->with('alumno')->get();
 
         foreach($registers as $register) {
@@ -84,12 +84,13 @@ class IncribirAlumnoCursoController extends Controller
         CargaAcademica $registroAlumnoCurso,
         Request $request
     ) {
+        
         $jsonRequest = $request->json()->all();
         return $this->registroCargaAcademicaService
                              ->updateRegisterAlumnoCurso($jsonRequest, $registroAlumnoCurso);
     }
 
-    public function getAllRegisterByAlumnoPeriodoCursoNivel(Request $request) {
+    public function getAllRegisterByAlumnoPeriodoCursoNivel(Request $request, $idPeriodo,$idCurso) {
 
         $jwt = AuthJwtUtils::getSubStringHeaderAuthorization($request->header('Authorization'));
         $user = AuthJwtUtils::getUserForJWT($jwt);
@@ -97,7 +98,7 @@ class IncribirAlumnoCursoController extends Controller
         $idPeriodo = $request->get('id_periodo');
 
         $responseNivels = $this->registroCargaAcademicaService
-            ->getAllRegisterByDocente($alumno->id, $idPeriodo);
+            ->getAllCursoByAlumno($idCurso,$idPeriodo);
 
         return $responseNivels;
     }
