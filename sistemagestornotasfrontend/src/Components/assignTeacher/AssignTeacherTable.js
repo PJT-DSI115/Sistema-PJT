@@ -16,6 +16,7 @@ function AssignTeacheTable({ register, handleClickDelete, handleClickUpdate }) {
         <table 
             onClick = { handleClickTable }
             className= "table-custom text-sm text-left text-gray-500 dark:text-gray-400"
+            id = "table"
         >
         <thead
             className = "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"

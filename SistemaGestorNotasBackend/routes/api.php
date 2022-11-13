@@ -16,6 +16,7 @@ use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\TestsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
@@ -164,4 +165,6 @@ Route::middleware('authJwt:Administrador')->group(function(){
 }); */
 Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
 Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
+
+Route::post('/test/deleteRegisterDocentesCurso', [TestsController::class, 'deleteRegisterAssignTeacher']);
 
