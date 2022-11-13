@@ -35,6 +35,14 @@ class MessageResponse {
      * @return Array $responseMessage
      */
 
+    public static function returnResponse1($responseBool) {
+        if($responseBool) {
+            return MessageResponse::messageDescriptionError("Ok", "Registro borrado exitosamente");
+        } else {
+            return MessageResponse::messageDescriptionError("Error", "No se ha podido encontrar el registro");
+        }
+    }
+
     public static function returnResponse($responseBool) {
         if($responseBool) {
             return MessageResponse::messageDescriptionError("Ok", "Save Success");

@@ -9,15 +9,19 @@ use App\Http\Controllers\CursoNivelController;
 use App\Http\Controllers\CursoNivelMesController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\CategoriaAlumnoController;
 use App\Http\Controllers\ConsultaNotasController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\NominasNotasCursosController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\TestsController;
 use App\Http\Controllers\UserController;
+use App\Models\RegistroDocenteCurso;
+use App\Service\NominasNotasService;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -163,8 +167,27 @@ Route::middleware('authJwt:Administrador')->group(function(){
 /* Route::middleware('authJwt:Profesor')->group(function(){
     Route::get('/consultaNotas/id_periodo/id_curso_nivel/id_mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
 }); */
+
+
+//Nominas de notas de un curso de los estudiantes
+Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);
+Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumno']);
+
+// Editar docente asignado a un curso
+Route::put('/docenteCursoAsignado/update/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'updateDocenteCurso']);
+// Eliminar docente asignando a un curso
+//Se solicita el curso, el docente y el periodo para poder eliminar al docente asigando
+Route::delete('/docenteCursoAsignado/delete/{cursoNivel}/{docente}/{periodo}', [RegistroDocenteCursoController::class, 'deleteDocenteCurso']);
+//Consulta de promedio de notas
 Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
-Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
+
+
+//----------REPORTES------------------
+
+Route::get('/nominaPDF/{curso}', [NominasNotasCursosController::class, 'nominaPdf']);
+Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'notaAcumuladaPDF']);
+Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
+Route::get('/asistencia/{periodo}', [AsistenciaController::class, 'asistenciPeriodoPDF']);
 
 Route::post('/test/deleteRegisterDocentesCurso', [TestsController::class, 'deleteRegisterAssignTeacher']);
 
