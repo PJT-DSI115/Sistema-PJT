@@ -163,10 +163,10 @@ Route::middleware('authJwt:Administrador')->group(function(){
 
 
 //Route for ConsultaNotasCursoNivelMesService
-/* Route::middleware('authJwt:Profesor')->group(function(){
-    Route::get('/consultaNotas/id_periodo/id_curso_nivel/id_mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
-}); */
-
+Route::middleware('authJwt:Profesor,Coordinador')->group(function(){
+    Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
+});
+Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class, 'consultaBoletaSabatina']);
 
 //Nominas de notas de un curso de los estudiantes
 Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);

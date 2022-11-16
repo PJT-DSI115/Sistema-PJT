@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\Curso;
 use App\Models\CursoNivel;
 use App\Models\Mes;
@@ -25,6 +26,9 @@ class ConsultaNotasController extends Controller
         return $this->consultaNotasService->consultarNotasCursoNivelMesService($periodo, $curso_nivel, $mes);
     }
 
+    public function consultaBoletaSabatina (Periodo $periodo, Alumno $alumno){
+        return $this->consultaNotasService->consultaBoletaSabatinaService($periodo, $alumno);
+    }
 
     public function notaAcumuladaPDF(Periodo $periodo, CursoNivel $curso_nivel, Mes $mes){
         
