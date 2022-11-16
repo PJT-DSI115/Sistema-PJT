@@ -2,8 +2,10 @@
 
 namespace App\Service;
 
+use App\Models\CargaAcademica;
 use App\Models\Curso;
 use App\Models\CursoNivel;
+use App\Models\CursoNivelMes;
 use App\Models\Nivel;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -66,4 +68,85 @@ class ConsultaNotasService {
         return $respuesta;
     }
 
+    public function consultaBoletaSabatinaService($periodo, $alumno){
+        
+        $info = null;
+
+        $cargasAcademicas = CargaAcademica::select('id as id_carga_academica', 'id_curso_nivel')
+        ->where('id_periodo', $periodo->id)
+        ->where('id_alumno', $alumno->id)->get();
+
+        //comenzar a agregar la infor de la materia
+        foreach($cargasAcademicas as $carga){
+            
+            $curso_nivel = DB::table('curso_nivels')
+            ->select('cursos.nombre_curso', 'nivels.codigo_nivel')
+            ->join('cursos', 'cursos.id', '=', 'curso_nivels.id_curso')
+            ->join('nivels', 'nivels.id', '=', 'curso_nivels.id_nivel')
+            ->where('curso_nivels.id', $carga->id_curso_nivel)
+            ->first();
+
+            $carga['curso_nivel'] = $curso_nivel->nombre_curso . " " . $curso_nivel->codigo_nivel;
+
+            $actividades = CursoNivel::find($carga->id_curso_nivel)
+            ->actividades()
+            ->where('id_periodo', $periodo->id)
+            ->select('id', 'nombre_actividad', 'porcentaje_actividad')
+            ->get();
+
+            $meses_actividades = DB::table('curso_nivel_mes')
+            ->select('curso_nivel_mes.id', 'mes.nombre_mes')
+            ->join('curso_nivels', 'curso_nivels.id', '=', 'curso_nivel_mes.id_curso_nivel')
+            ->join('mes', 'mes.id', '=', 'curso_nivel_mes.id_mes')
+            ->where('curso_nivel_mes.id_curso_nivel', $carga->id_curso_nivel)
+            ->get();
+            
+            $promedioActual = [];
+            for($i=0; $i<count($meses_actividades); $i++){
+                $promedioActual[$meses_actividades[$i]->nombre_mes] = 0;
+            }
+
+            foreach($actividades as $actividad){
+                $lineasActividad = $actividad->lineaActividad()->select('id', 'nombre_linea_actividad')->get();
+                $notaAcumulada = [];
+
+                for($i=0; $i<count($meses_actividades); $i++){
+                    $notaAcumulada[$meses_actividades[$i]->nombre_mes] = 0;
+                }
+
+                foreach($lineasActividad as $linea){
+                    $notaLinea = DB::table('registro_notas')
+                    ->select('registro_notas.nota', 'mes.codigo_mes')
+                    ->join('curso_nivel_mes', 'curso_nivel_mes.id', '=', 'registro_notas.id_curso_nivel_mes')
+                    ->join('mes', 'mes.id', '=', 'curso_nivel_mes.id_mes')
+                    ->where('registro_notas.id_linea_actividad', $linea->id)
+                    ->get();
+                    
+                    for($i = 0; $i<count($notaLinea); $i++){
+                        $notaAcumulada[$meses_actividades[$i]->nombre_mes] += $notaLinea[$i]->nota;
+                    }
+                    
+                }
+                
+                for($i = 0; $i<count($notaAcumulada); $i++){
+                    $notaAcumulada[$meses_actividades[$i]->nombre_mes] = floatval(number_format($notaAcumulada[$meses_actividades[$i]->nombre_mes]/count($lineasActividad), 2));
+                }
+
+                for($i=0; $i<count($promedioActual); $i++){
+                    $promedioActual[$meses_actividades[$i]->nombre_mes] = $promedioActual[$meses_actividades[$i]->nombre_mes] + ($notaAcumulada[$meses_actividades[$i]->nombre_mes] * (floatval($actividad->porcentaje_actividad) / 100));
+
+                    $promedioActual[$meses_actividades[$i]->nombre_mes] = floatval(number_format($promedioActual[$meses_actividades[$i]->nombre_mes], 2));
+                }
+
+                $actividad['nota_acumulada'] = $notaAcumulada;
+            }
+            
+            $carga['actividades'] = $actividades;
+            $carga['calificacion_final'] = $promedioActual;
+        }
+
+        $info['info_carga_academica'] = $cargasAcademicas;
+
+        return $info;
+    }
 }
