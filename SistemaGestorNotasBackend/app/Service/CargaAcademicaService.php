@@ -22,6 +22,16 @@ class CargaAcademicaService
         return $cargaAcademica;
     }
 
+    public function getAllAlumnosForBoleta($periodo){
+        
+        return DB::table('carga_academicas')
+        ->select('alumnos.id', 'alumnos.codigo_alumno', 'alumnos.nombre_alumno', 'alumnos.apellido_alumno')
+        ->distinct()
+        ->join('alumnos', 'alumnos.id', '=', 'carga_academicas.id_alumno')
+        ->where('carga_academicas.id_periodo', $periodo->id)
+        ->get();
+    }
+
     public function getAllLineaActividadByCursoNivel(CargaAcademica $cargaAcademica)
     {
         $infoGeneral = DB::table('carga_academicas')

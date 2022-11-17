@@ -26,4 +26,13 @@ function getAllLineasActividadFromCurso({data, jwt}){
   )
 }
 
-export {getAllAlumnosFromCarga, getAllLineasActividadFromCurso}
+function getAllAlumnosForBoleta({idPeriodo}){
+  return(
+    fetch(`${ENDPOINT}/indexGetAlumnos/${idPeriodo}`, {
+      method: 'GET',
+    })
+    .then(response => response.json())
+  );
+}
+
+export {getAllAlumnosFromCarga, getAllLineasActividadFromCurso, getAllAlumnosForBoleta}
