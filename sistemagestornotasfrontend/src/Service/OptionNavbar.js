@@ -43,6 +43,11 @@ const optionsAdministrador = [
         id: 9,
         nombre: 'Gestionar Docente',
         ruta: '/gestionarDocente'
+    },
+    {
+        id: 10,
+        nombre: 'Boleta Sabatina',
+        ruta: '/boletaSabatina'
     }
 ]
 const optionsMaestro = [

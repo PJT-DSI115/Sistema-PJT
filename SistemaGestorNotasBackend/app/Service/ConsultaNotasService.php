@@ -103,7 +103,7 @@ class ConsultaNotasService {
             
             $promedioActual = [];
             for($i=0; $i<count($meses_actividades); $i++){
-                $promedioActual[$meses_actividades[$i]->nombre_mes] = 0;
+                $promedioActual[$i] = 0;
             }
 
             foreach($actividades as $actividad){
@@ -111,7 +111,7 @@ class ConsultaNotasService {
                 $notaAcumulada = [];
 
                 for($i=0; $i<count($meses_actividades); $i++){
-                    $notaAcumulada[$meses_actividades[$i]->nombre_mes] = 0;
+                    $notaAcumulada[$i] = 0;
                 }
 
                 foreach($lineasActividad as $linea){
@@ -123,19 +123,19 @@ class ConsultaNotasService {
                     ->get();
                     
                     for($i = 0; $i<count($notaLinea); $i++){
-                        $notaAcumulada[$meses_actividades[$i]->nombre_mes] += $notaLinea[$i]->nota;
+                        $notaAcumulada[$i] += $notaLinea[$i]->nota;
                     }
                     
                 }
                 
                 for($i = 0; $i<count($notaAcumulada); $i++){
-                    $notaAcumulada[$meses_actividades[$i]->nombre_mes] = floatval(number_format($notaAcumulada[$meses_actividades[$i]->nombre_mes]/count($lineasActividad), 2));
+                    $notaAcumulada[$i] = floatval(number_format($notaAcumulada[$i]/count($lineasActividad), 2));
                 }
 
                 for($i=0; $i<count($promedioActual); $i++){
-                    $promedioActual[$meses_actividades[$i]->nombre_mes] = $promedioActual[$meses_actividades[$i]->nombre_mes] + ($notaAcumulada[$meses_actividades[$i]->nombre_mes] * (floatval($actividad->porcentaje_actividad) / 100));
+                    $promedioActual[$i] = $promedioActual[$i] + ($notaAcumulada[$i] * (floatval($actividad->porcentaje_actividad) / 100));
 
-                    $promedioActual[$meses_actividades[$i]->nombre_mes] = floatval(number_format($promedioActual[$meses_actividades[$i]->nombre_mes], 2));
+                    $promedioActual[$i] = floatval(number_format($promedioActual[$i], 2));
                 }
 
                 $actividad['nota_acumulada'] = $notaAcumulada;
@@ -143,9 +143,12 @@ class ConsultaNotasService {
             
             $carga['actividades'] = $actividades;
             $carga['calificacion_final'] = $promedioActual;
+            $carga['meses'] = $meses_actividades;
         }
 
         $info['info_carga_academica'] = $cargasAcademicas;
+        $info['info_alumno'] = $alumno;
+        $info['info_periodo'] = $periodo;
 
         return $info;
     }
