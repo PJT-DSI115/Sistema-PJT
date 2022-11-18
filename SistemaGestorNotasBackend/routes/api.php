@@ -17,6 +17,7 @@ use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RecordNotasController;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -103,7 +104,7 @@ Route::put('/registroDocenteCurso/update/{registroDocenteCurso}', [RegistroDocen
 Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class, 'getAllRegisterByDocentePeriodoCursoNivel'])
     ->middleware('authJwt:Docente');
 
-//Routes Docente    
+//Routes Docente
 Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
 Route::post('/docente', [DocenteController::class, 'store']);
 
@@ -113,7 +114,7 @@ Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}/{mes}', [CargaAcade
 Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga'])
     ->middleware('authJwt:Docente');
 
-//Route CursoNivelMes    
+//Route CursoNivelMes
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
 
 //Route Notas
@@ -164,4 +165,6 @@ Route::middleware('authJwt:Administrador')->group(function(){
 }); */
 Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
 Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
+
+Route::get('alumno/record/{student}/', [RecordNotasController::class, 'recordGlobal']);
 
