@@ -115,8 +115,8 @@ Route::post('/docente', [DocenteController::class, 'store']);
 //Routes Carga Académica
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivel']);
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}/{mes}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivelMes']);
-Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga'])
-    ->middleware('authJwt:Docente');
+Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga']);
+Route::get('/indexGetAlumnos/{periodo}', [CargaAcademicaController::class, 'indexGetAllAlumnosForBoleta']);
 
 //Route CursoNivelMes    
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
@@ -164,10 +164,10 @@ Route::middleware('authJwt:Administrador')->group(function(){
 
 
 //Route for ConsultaNotasCursoNivelMesService
-/* Route::middleware('authJwt:Profesor')->group(function(){
-    Route::get('/consultaNotas/id_periodo/id_curso_nivel/id_mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
-}); */
-
+Route::middleware('authJwt:Profesor,Coordinador')->group(function(){
+    Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
+});
+Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class, 'consultaBoletaSabatina']);
 
 //Nominas de notas de un curso de los estudiantes
 Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);

@@ -36,8 +36,7 @@ class AsistenciaController extends Controller
             ->get();
         $resultado = $asistencia;
 
-        $pdf = PDF::loadView('pdf3', ['asistencias' => $resultado])->setPaper('a4', 'landscape')->setWarnings(false)->save('nomina.pdf');
-        return $pdf->stream();
+        return $resultado;
     }
 
     public function asistenciPeriodoPDF($periodo)
@@ -50,7 +49,6 @@ class AsistenciaController extends Controller
             ->get();
         $resultado = $asistencia;
 
-        $pdf = PDF::loadView('pdf4', ['asistenciasPeriodo' => $resultado])->setPaper('a4', 'landscape')->setWarnings(false)->save('nomina.pdf');
-        return $pdf->stream();
+        return $resultado;
     }
 }
