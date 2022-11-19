@@ -22,6 +22,7 @@ use App\Http\Controllers\UserController;
 use App\Models\RegistroDocenteCurso;
 use App\Service\NominasNotasService;
 use Illuminate\Contracts\Cache\Store;
+use App\Http\Controllers\IncribirAlumnoCursoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -188,3 +189,8 @@ Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasCont
 Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
 Route::get('/asistencia/{periodo}', [AsistenciaController::class, 'asistenciPeriodoPDF']);
 
+//Route de asignar alumnos a cursos
+Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
+Route::delete('/eliminarAlumnoCurso/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'deleteRegisterAlumnoCurso']);
+Route::put('/actualizarCursoAlumno/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'updateRegisterDocenteCurso']);
+Route::get('/obtenerAlumno/{idPeriodo}/{idCurso}', [IncribirAlumnoCursoController::class, 'getAllRegisterByAlumnoPeriodoCursoNivel'])->middleware('authJwt:Administrador');
