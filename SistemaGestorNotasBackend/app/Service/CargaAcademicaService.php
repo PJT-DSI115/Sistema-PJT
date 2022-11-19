@@ -5,6 +5,12 @@ namespace App\Service;
 use App\Models\CargaAcademica;
 use App\Models\CursoNivel;
 use App\Models\RegistroNota;
+use App\Models\Periodo;
+use App\Utils\ValidateJsonRequest;
+use App\Utils\MessageResponse;
+use Carbon\Carbon;
+use Error;
+
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -108,4 +114,132 @@ class CargaAcademicaService
     public function getAllLineaActividadByCursoNivelMes($cargaAcademica, $mes)
     {
     }
+
+    public function inscribirAlumno($data) {
+
+        $responseValidate = ValidateJsonRequest::validateJsonRequestInscribirAlumnoCurso($data);
+        if(count($responseValidate) > 0) {
+            return $responseValidate;
+        }
+
+        $idPeriodo = $data['id_periodo'];
+        //$rol = $data['rol'];
+        $idAlumno = $data['id_alumno'];
+        $idNivelCurso = $data['id_curso_nivel'];
+        
+
+        $responseValidateLogicRegister = $this->validateLogicRegisterAlumnoCurso($idPeriodo, $idNivelCurso,
+            $idAlumno,1);
+
+        if(count($responseValidateLogicRegister) > 0) {
+            return $responseValidateLogicRegister;
+        }
+
+        $periodoActivoBool = Periodo::find($idPeriodo);
+        if(!$periodoActivoBool->activo_periodo) {
+            return MessageResponse::messageDescriptionError("Error", "Error el periodo no esta activo");
+
+        }
+        
+        $registroAlumnoCurso = new CargaAcademica;
+        $registroAlumnoCurso->id_alumno = $idAlumno;
+        $registroAlumnoCurso->id_curso_nivel = $idNivelCurso;
+        $registroAlumnoCurso->id_periodo = $idPeriodo;
+        //$registroAlumnoCurso->rol = $rol;
+        $registroAlumnoCurso->created_at = Carbon::now();
+        $registroAlumnoCurso->fecha_inscripcion_carga = Carbon::now();
+        $responseBolean = $registroAlumnoCurso->save();
+
+        return MessageResponse::returnResponse($responseBolean);
+
+    }
+
+    private function validateLogicRegisterAlumnoCurso(
+        $idPeriodo, 
+        $idNivelCurso, 
+        $idAlumno,  
+        $countUpdateAlumno
+    ) {
+        
+        $searchRegistroAlumnoCurso = CargaAcademica::where('id_curso_nivel', $idNivelCurso)
+            ->where('id_periodo', $idPeriodo)->get();
+        /* if(count($searchRegistroAlumnoCurso) > 3 ) {
+            return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 3 docentes");
+        } */
+
+        /* if($rol == "mentor") {
+            $searchRegistroDocenteCursoMentor = RegistroDocenteCurso::where('id_nivel_curso', $idNivelCurso)
+                ->where('id_periodo', $idPeriodo)->where('rol', 'mentor')->get();
+
+            if(count($searchRegistroDocenteCursoMentor) >= $countUpdateRol ) {
+                return MessageResponse::messageDescriptionError("Error", "No puede registrar mas de 1 mentor");
+            }
+        } */
+
+        $searchAlumno = CargaAcademica::where('id_alumno', $idAlumno)
+            ->where('id_curso_nivel', $idNivelCurso)->where('id_periodo', $idPeriodo)->get();
+
+        if(count($searchAlumno) >= $countUpdateAlumno) {
+            return MessageResponse::messageDescriptionError("Error", "No se puede dos veces el mismo Alumno");
+        }
+
+        if(count($searchAlumno)>0){
+            return MessageResponse::messageDescriptionError("Error", "No puede registrar el mismo alumno a un mismo curso");
+        }
+        return [];
+        
+    }
+    //Función actualizar
+    public function updateRegisterAlumnoCurso($jsonRequest, $registroAlumnoCurso) {
+        $responseValidate = ValidateJsonRequest::validateJsonRequestInscribirAlumnoCurso($jsonRequest);
+        if(count($responseValidate) > 0) {
+            return $responseValidate;
+        }
+
+        $countUpdateAlumno = 1;
+        $countUpdateRol = 1;
+        if($registroAlumnoCurso->id_alumno == $jsonRequest['id_alumno']) {
+            $countUpdateDocente = 2;
+        }
+        /* if($jsonRequest['rol'] == "mentor") {
+            if($jsonRequest['rol'] == $registroDocenteCurso->rol) {
+                $countUpdateRol = 2;Preguntar
+            }
+        } */
+
+        $responseValidateLogic = $this->validateLogicRegisterAlumnoCurso(
+            $jsonRequest['id_periodo'],
+            $registroAlumnoCurso->id_nivel_curso,
+            $jsonRequest['id_alumno'],
+            //$jsonRequest['rol'],
+            $countUpdateAlumno,
+            $countUpdateRol
+        );
+        
+        if(count($responseValidateLogic) > 0) {
+            return $responseValidateLogic;
+        }
+
+        $registroAlumnoCurso->id_alumno = $jsonRequest['id_alumno'];
+        $registroAlumnoCurso->id_curso_nivel = $jsonRequest['id_curso_nivel'];
+        //$registroAlumnoCurso->rol = $jsonRequest['rol'];
+        $registroAlumnoCurso->updated_at = Carbon::now();
+        $responseBool = $registroAlumnoCurso->update();
+        return MessageResponse::returnResponse($responseBool);
+    }
+    //Función obtener alumnos
+    public function getAllCursoByAlumno($idCurso, $idPeriodo) {
+        error_log($idCurso);
+        error_log($idPeriodo);
+        // $cursoAlumno = CargaAcademica::where('id_curso_nivel', '=', $idCurso)
+        // ->where('id_periodo','=',$idPeriodo)
+        // ->with('alumno','periodo','cursoNivel','curso')
+        // ->get();
+        // error_log(print_r($cursoAlumno,true));
+        
+        $cursoAlumno = DB::table('carga_academicas as ca')->select('ca.id','al.nombre_alumno','cu.nombre_curso')->join('curso_nivels as cn', 'cn.id', '=','ca.id_curso_nivel')
+        ->join('cursos as cu','cu.id','=','cn.id_curso')->join('alumnos as al','al.id','=','ca.id_alumno')->where('ca.id_curso_nivel', '=', $idCurso)->where('ca.id_periodo','=',$idPeriodo)->get();
+        return $cursoAlumno;
+    }
+
 }

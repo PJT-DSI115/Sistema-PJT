@@ -23,8 +23,12 @@ import { Student  } from 'Components/Student';
 import { DetailsStudent } from 'Components/Student/DetailsStudent';
 import { DocenteIndex } from "Components/Docente";
 import { ConsultarNotasMensual } from "Components/ConsultaNotasMensual";
+
+import { AsignarCursoAlumno } from "Components/AsignarCursoAlumno";
+
 import { BoletaSabatina } from "Components/BoletaSabatina/BoletaSabatina";
 import { AlumnosBoletaTable } from "Components/BoletaSabatina/AlumnosBoletaTable";
+
 
 function App() {
   return (
@@ -122,6 +126,14 @@ function App() {
                   </Route>
                 </Route>
 
+
+                <Route path="/AsignarCursoAlumno" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<CursosNivel />}></Route>
+                  <Route path=":idPeriodo">
+                    <Route path=":idCursoNivel" element={<AsignarCursoAlumno />} />
+                  </Route>
+                </Route> 
+
                 {/**
 								 Ruta para que profesor consulte notas mensuales
 								*/}
@@ -141,6 +153,7 @@ function App() {
                     <Route path=":idAlumno" element={<BoletaSabatina />} />
                   </Route>
                 </Route>
+
 
               </Routes>
             </div>
