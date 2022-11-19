@@ -26,6 +26,7 @@ function getAllLineasActividadFromCurso({data, jwt}){
   )
 }
 
+
 //Funciones de asignar, actualizar, eliminar un curso a un alumno.
 //Función Store
 const storeAsignarCursoAlumno = ({data,jwt,idPeriodo,idCursoNivel}) =>{
@@ -106,8 +107,17 @@ const getAllStudentIncritos = ({jwt,data}) => {
   );
 }
 
+function getAllAlumnosForBoleta({idPeriodo}){
+  return(
+    fetch(`${ENDPOINT}/indexGetAlumnos/${idPeriodo}`, {
+      method: 'GET',
+    })
+    .then(response => response.json())
+  );
+}
+
 export {getAllAlumnosFromCarga, getAllLineasActividadFromCurso, 
         storeAsignarCursoAlumno, 
         updateAsignarCursoAlumno,
         deleteAsignarCursoAlumno,
-        getAsignarCursoAlumno}
+        getAsignarCursoAlumno,getAllAlumnosForBoleta}
