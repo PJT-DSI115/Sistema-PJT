@@ -219,11 +219,16 @@ class CargaAcademicaService
     }
     //Función obtener alumnos
     public function getAllCursoByAlumno($idCurso, $idPeriodo) {
-
-        $cursoAlumno = CargaAcademica::where('id_curso_nivel', '=', $idCurso)
-        ->where('id_periodo','=',$idPeriodo)
-        ->with('alumno','periodo','cursoNivel')
-        ->get();
+        error_log($idCurso);
+        error_log($idPeriodo);
+        // $cursoAlumno = CargaAcademica::where('id_curso_nivel', '=', $idCurso)
+        // ->where('id_periodo','=',$idPeriodo)
+        // ->with('alumno','periodo','cursoNivel','curso')
+        // ->get();
+        // error_log(print_r($cursoAlumno,true));
+        
+        $cursoAlumno = DB::table('carga_academicas as ca')->select('ca.id','al.nombre_alumno','cu.nombre_curso')->join('curso_nivels as cn', 'cn.id', '=','ca.id_curso_nivel')
+        ->join('cursos as cu','cu.id','=','cn.id_curso')->join('alumnos as al','al.id','=','ca.id_alumno')->where('ca.id_curso_nivel', '=', $idCurso)->where('ca.id_periodo','=',$idPeriodo)->get();
         return $cursoAlumno;
     }
 

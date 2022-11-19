@@ -23,6 +23,7 @@ import { Student  } from 'Components/Student';
 import { DetailsStudent } from 'Components/Student/DetailsStudent';
 import { DocenteIndex } from "Components/Docente";
 import { ConsultarNotasMensual } from "Components/ConsultaNotasMensual";
+import { AsignarCursoAlumno } from "Components/AsignarCursoAlumno";
 
 function App() {
   return (
@@ -120,6 +121,12 @@ function App() {
                   </Route>
                 </Route>
 
+                <Route path="/AsignarCursoAlumno" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<CursosNivel />}></Route>
+                  <Route path=":idPeriodo">
+                    <Route path=":idCursoNivel" element={<AsignarCursoAlumno />} />
+                  </Route>
+                </Route> 
               </Routes>
             </div>
             <Footer />
