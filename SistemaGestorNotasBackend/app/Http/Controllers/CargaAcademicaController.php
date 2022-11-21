@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CargaAcademica;
 use App\Models\Mes;
+use App\Models\Periodo;
 use App\Service\CargaAcademicaService;
 use Illuminate\Http\Request;
 
@@ -29,5 +30,9 @@ class CargaAcademicaController extends Controller
     public function indexLineaActividadByCursoNivelMes(CargaAcademica $cargaAcademica, Mes $mes){
         $response = $this->cargaAcademicaService->getAllLineaActividadByCursoNivelMes($cargaAcademica, $mes);
         return $response;
+    }
+
+    public function indexGetAllAlumnosForBoleta(Periodo $periodo){
+        return $this->cargaAcademicaService->getAllAlumnosForBoleta($periodo);
     }
 }

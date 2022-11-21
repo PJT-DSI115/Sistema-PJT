@@ -10,6 +10,7 @@ use App\Models\RegistroDocenteCurso;
 use Carbon\Carbon;
 use App\Utils\ValidateJsonRequest;
 use App\Utils\MessageResponse;
+use Exception;
 use Illuminate\Support\Facades\DB;
 class RegistroDocenteCursosService {
 
@@ -97,6 +98,71 @@ class RegistroDocenteCursosService {
         $registroDocenteCurso->updated_at = Carbon::now();
         $responseBool = $registroDocenteCurso->update();
         return MessageResponse::returnResponse($responseBool);
+    }
+
+
+    public function updateDocentesAsignadosCurso($jsonRequest, $registroDocenteCurso) {
+        $responseValidate = ValidateJsonRequest::validateJsonRequestRegistroDocenteCurso($jsonRequest);
+        if(count($responseValidate) > 0) {
+            return $responseValidate;
+        }
+
+        $countUpdateDocente = 1;
+        $countUpdateRol = 1;
+        if($registroDocenteCurso->id_docente == $jsonRequest['idDocente']) {
+            $countUpdateDocente = 2;
+        }
+        if($jsonRequest['rol'] == "mentor") {
+            if($jsonRequest['rol'] == $registroDocenteCurso->rol) {
+                $countUpdateRol = 2;
+            }
+        }
+
+        $responseValidateLogic = $this->validateLogicRegisterDocentes(
+            $jsonRequest['idPeriodo'],
+            $registroDocenteCurso->id_nivel_curso,
+            $jsonRequest['idDocente'],
+            $jsonRequest['rol'],
+            $countUpdateDocente,
+            $countUpdateRol
+        );
+        
+        if(count($responseValidateLogic) > 0) {
+            return $responseValidateLogic;
+        }
+
+        $registroDocenteCurso->id_docente = $jsonRequest['idDocente'];
+        $registroDocenteCurso->rol = $jsonRequest['rol'];
+        $registroDocenteCurso->updated_at = Carbon::now();
+        $responseBool = $registroDocenteCurso->update();
+        return MessageResponse::returnResponse($responseBool);
+    }
+
+    //Este servicio se encarga de la eliminacion de Docentes de un curso, seleecionando su periodo, el nivel del curso y el Docente
+    //que se eliminar
+
+    public function eliminarDocenteCursosAsignado($v1, $v2, $v3){
+
+        try{
+            // Se realiza el delete
+            if(!isset($v1)){
+                return MessageResponse::messageDescriptionError("Error"," ");
+           }else{
+            $deleted = DB::table('registro_docente_cursos')
+            ->where('id_nivel_curso', '=', $v1)
+            ->where('id_docente', '=', $v2)
+            ->where('id_periodo','=',$v3)->delete();
+            // $responseBool = DB::delete('delete registro_docente_cursos where id_nivel_curso = ? and id_periodo = ? and id_docente = ? and rol != "mentor', [$registroDocenteCurso['idNivelCurso']], [$registroDocenteCurso['idPeriodo']], [$registroDocenteCurso['idDocente']]);
+            return response(MessageResponse::returnResponse1($deleted) , 200 );
+           }
+           
+
+        }
+        catch(Exception $ex){
+            error_log($ex);
+        }
+
+
     }
 
 

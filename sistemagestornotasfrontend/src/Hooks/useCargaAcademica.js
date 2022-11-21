@@ -1,13 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import Context from "Context/UserContext"
 import { useParams } from "react-router-dom";
-import {getAllAlumnosFromCarga} from 'Service/CargaAcademicaService';
+import {getAllAlumnosFromCarga, getAllAlumnosForBoleta} from 'Service/CargaAcademicaService';
+import { data } from "autoprefixer";
 
 function useCargaAcademica () {
 
     const {jwt} = useContext(Context);
     const {idPeriodo, idCursoNivel} = useParams();
     const [listaAlumnos, setListaAlumnos] = useState([]);
+    const [alumnosBoleta, setAlumnosBoleta] = useState([]);
     const [loading, setLoading] = useState(null);
     const [errorPermission, setErrorPermission] = useState(null);
     const [errorLog, setErrorLog] = useState(null);
@@ -42,11 +44,29 @@ function useCargaAcademica () {
         })
     }, [jwt])
 
+    function consultarAlumnosForBoleta (){
+        setErrorLog(false);
+        setLoading(true);
+        getAllAlumnosForBoleta({idPeriodo})
+        .then(data => {
+            if(data.length > 0){
+                setAlumnosBoleta(data);
+                setLoading(false);
+            }
+            else{
+                setErrorLog(true);
+                setLoading(false);
+            }
+        })
+    }
+
     return{
         listaAlumnos,
+        alumnosBoleta,
         loading,
         errorLog,
-        errorPermission
+        errorPermission,
+        consultarAlumnosForBoleta
     }
 }
 

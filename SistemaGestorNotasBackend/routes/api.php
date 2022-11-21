@@ -9,14 +9,18 @@ use App\Http\Controllers\CursoNivelController;
 use App\Http\Controllers\CursoNivelMesController;
 use App\Http\Controllers\ActividadController;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AsistenciaController;
 use App\Http\Controllers\CargaAcademicaController;
 use App\Http\Controllers\CategoriaAlumnoController;
 use App\Http\Controllers\ConsultaNotasController;
 use App\Http\Controllers\LineaActividadController;
 use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\NominasNotasCursosController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use App\Models\RegistroDocenteCurso;
+use App\Service\NominasNotasService;
 use Illuminate\Contracts\Cache\Store;
 use App\Http\Controllers\IncribirAlumnoCursoController;
 use Illuminate\Http\Request;
@@ -111,8 +115,8 @@ Route::post('/docente', [DocenteController::class, 'store']);
 //Routes Carga Académica
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivel']);
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}/{mes}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivelMes']);
-Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga'])
-    ->middleware('authJwt:Docente');
+Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga']);
+Route::get('/indexGetAlumnos/{periodo}', [CargaAcademicaController::class, 'indexGetAllAlumnosForBoleta']);
 
 //Route CursoNivelMes    
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
@@ -160,11 +164,30 @@ Route::middleware('authJwt:Administrador')->group(function(){
 
 
 //Route for ConsultaNotasCursoNivelMesService
-/* Route::middleware('authJwt:Profesor')->group(function(){
-    Route::get('/consultaNotas/id_periodo/id_curso_nivel/id_mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
-}); */
+Route::middleware('authJwt:Profesor,Coordinador')->group(function(){
+    Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
+});
+Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class, 'consultaBoletaSabatina']);
+
+//Nominas de notas de un curso de los estudiantes
+Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);
+Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumno']);
+
+// Editar docente asignado a un curso
+Route::put('/docenteCursoAsignado/update/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'updateDocenteCurso']);
+// Eliminar docente asignando a un curso
+//Se solicita el curso, el docente y el periodo para poder eliminar al docente asigando
+Route::delete('/docenteCursoAsignado/delete/{cursoNivel}/{docente}/{periodo}', [RegistroDocenteCursoController::class, 'deleteDocenteCurso']);
+//Consulta de promedio de notas
 Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
-Route::post('/prueba', [AlumnoController::class, 'registrarAlumnoPrueba']);
+
+
+//----------REPORTES------------------
+
+Route::get('/nominaPDF/{curso}', [NominasNotasCursosController::class, 'nominaPdf']);
+Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'notaAcumuladaPDF']);
+Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
+Route::get('/asistencia/{periodo}', [AsistenciaController::class, 'asistenciPeriodoPDF']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
