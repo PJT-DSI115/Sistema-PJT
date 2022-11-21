@@ -19,12 +19,9 @@ use App\Http\Controllers\NominasNotasCursosController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
-<<<<<<< HEAD
 use App\Http\Controllers\RecordNotasController;
-=======
 use App\Models\RegistroDocenteCurso;
 use App\Service\NominasNotasService;
->>>>>>> 05e189413a484b0a5035d0605710a49b6ee229c5
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -114,6 +111,9 @@ Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class
 //Routes Docente
 Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
 Route::post('/docente', [DocenteController::class, 'store']);
+Route::get('/docente/{profesor}', [DocenteController::class, 'show']);
+Route::put('/docente/{profesor}', [DocenteController::class, 'update']);
+Route::delete('/docente/{profesor}', [DocenteController::class, 'destroy']);
 
 //Routes Carga Académica
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivel']);
