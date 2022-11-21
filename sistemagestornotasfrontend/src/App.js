@@ -24,6 +24,7 @@ import { DetailsStudent } from 'Components/Student/DetailsStudent';
 import { DocenteIndex } from "Components/Docente";
 import { ConsultarNotasMensual } from "Components/ConsultaNotasMensual";
 import { AsignarCursoAlumno } from "Components/AsignarCursoAlumno";
+import { AlumnoCate } from "Components/CategoriasAlumnos";
 
 function App() {
   return (
@@ -126,7 +127,10 @@ function App() {
                   <Route path=":idPeriodo">
                     <Route path=":idCursoNivel" element={<AsignarCursoAlumno />} />
                   </Route>
-                </Route> 
+                </Route>
+                
+                <Route path = '/CategoriasAlumnos' element = {<AlumnoCate/>} />
+
               </Routes>
             </div>
             <Footer />

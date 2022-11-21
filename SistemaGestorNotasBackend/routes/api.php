@@ -171,3 +171,8 @@ Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 
 Route::delete('/eliminarAlumnoCurso/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'deleteRegisterAlumnoCurso']);
 Route::put('/actualizarCursoAlumno/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'updateRegisterDocenteCurso']);
 Route::get('/obtenerAlumno/{idPeriodo}/{idCurso}', [IncribirAlumnoCursoController::class, 'getAllRegisterByAlumnoPeriodoCursoNivel'])->middleware('authJwt:Administrador');
+
+//Funcion de mostrar alumnos en base a la categoría.
+Route::get('/obtenerAlumnoCategoria', [AlumnoController::class, 'getAlumnosCategoria'])->middleware('authJwt:Administrador');
+
+//Funcion de mostrar usuarios existentes en el sistema de gestión de usuarios.

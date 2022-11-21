@@ -13,6 +13,7 @@ function useCargaAcademicaAlumno () {
     const [alumnosCursos,setAlumnosCursos] = useState([]);
     const [errorServer, setErrorServer] = useState(false);
     const [saveSuccess, setSaveSuccess] = useState(false);
+    const [updateDate, setUpdateData] = useState(false);
 
     const daPer2 = {
         id_periodo: idPeriodo,
@@ -60,7 +61,7 @@ function useCargaAcademicaAlumno () {
                     cu.index= index;
                     return data;
                 })
-                setCursos(data);
+                setAlumnosCursos(data);
                 setLoading(false);
             }
         });
@@ -144,15 +145,12 @@ function useCargaAcademicaAlumno () {
         .then( (data) => {
             setLoading(false);
             setSaveSuccess(true);
-            console.log(updateCurso);
             setUpdateData(!updateDate);
-            console.log(updateCurso);
             onClose()
         })
     }
 
     return{
-        listaAlumnos,
         loading,
         errorLog,
         errorPermission,
