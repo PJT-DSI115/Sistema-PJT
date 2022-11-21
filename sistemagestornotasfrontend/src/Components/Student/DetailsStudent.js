@@ -57,7 +57,7 @@ function DetailsStudent() {
     return (
         <div className='main'>
             <h1 className='text-lg font-bold mt-10 user__title'>
-                Detalles del estudiante {idStudent}
+                Detalles del estudiante {student.codigo_alumno}
             </h1>
             <div className='buttonRegisterContainer mt-5'>
                 <button 
@@ -164,7 +164,7 @@ function DetailsStudent() {
                     <label 
                         className='formCustom__label'
                     >
-                        Nombre Encargado
+                        Fecha de Nacimiento
                     </label>
                     <input 
                         onChange={(e) => {
