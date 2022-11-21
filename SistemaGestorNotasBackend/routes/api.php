@@ -171,7 +171,7 @@ Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class
 
 //Nominas de notas de un curso de los estudiantes
 Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);
-Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumno']);
+Route::get('/asistencia/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumno']);
 
 // Editar docente asignado a un curso
 Route::put('/docenteCursoAsignado/update/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'updateDocenteCurso']);
@@ -186,8 +186,7 @@ Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasControl
 
 Route::get('/nominaPDF/{curso}', [NominasNotasCursosController::class, 'nominaPdf']);
 Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'notaAcumuladaPDF']);
-Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
-Route::get('/asistencia/{periodo}', [AsistenciaController::class, 'asistenciPeriodoPDF']);
+Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
