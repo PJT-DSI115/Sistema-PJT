@@ -163,10 +163,9 @@ Route::middleware('authJwt:Administrador')->group(function(){
 });
 
 
-//Route for ConsultaNotasCursoNivelMesService
-Route::middleware('authJwt:Profesor,Coordinador')->group(function(){
-    Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultarNotasCursoNivelMes']);
-});
+//Route par la consulta de notas
+Route::get('/consultaRendimiento/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultaRendimientoAcademico']);
+Route::get('/consultaNomina/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultaNominaNotas']);
 Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class, 'consultaBoletaSabatina']);
 
 //Nominas de notas de un curso de los estudiantes

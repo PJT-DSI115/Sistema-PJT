@@ -1,17 +1,17 @@
 import React, { useRef } from "react";
 import { useConsultarNotas } from "Hooks/useConsultarNotas";
-import { TableNominaNotasMensual } from "./TableNominaNotasMensual";
+import { TableRendimientoAcademico } from "./TableRendimientoAcademico";
 import { Loader } from "Components/Loader";
 import { useReactToPrint } from 'react-to-print';
 
-const NominaNotasMensual = () => {
-  const { consultarNotas, datos, loading, error } = useConsultarNotas();
+const RendimientoAcademico = () => {
+  const { consultarRendimientoAcademico, datos, loading, error } = useConsultarNotas();
 
   const componentRef = useRef(null);
 
   const handleChange = e => {
     e.preventDefault();
-    consultarNotas({id_mes: e.target.value});
+    consultarRendimientoAcademico({id_mes: e.target.value});
     console.log(datos);
   }
 
@@ -35,11 +35,11 @@ const NominaNotasMensual = () => {
           <option value="5">Mes 5</option>
           <option value="6">Mes 6</option>
         </select>
-        <button className="w-fit bg-blue-500 text-white rounded px-5 mx-auto font-semibold" onClick={ handlePrint }>Generar Boleta</button>
+        <button className="w-fit bg-blue-500 text-white rounded px-5 mx-auto font-semibold" onClick={ handlePrint }>Generar Documento de Rendimiento</button>
       </div>
-      {Object.keys(datos).length !== 0 ? <TableNominaNotasMensual datos={datos} ref={componentRef}/> : ""}
+      {Object.keys(datos).length !== 0 ? <TableRendimientoAcademico datos={datos} ref={componentRef}/> : ""}
     </div>
   );
 };
 
-export { NominaNotasMensual };
+export { RendimientoAcademico };
