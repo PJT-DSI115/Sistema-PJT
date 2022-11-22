@@ -30,8 +30,4 @@ class ConsultaNotasController extends Controller
         return $this->consultaNotasService->consultaBoletaSabatinaService($periodo, $alumno);
     }
 
-    public function notaAcumuladaPDF(Periodo $periodo, CursoNivel $curso_nivel, Mes $mes){
-        return $this->consultaNotasService->consultarNotasCursoNivelMesServicePDF($periodo, $curso_nivel, $mes);
-    }
-
 }

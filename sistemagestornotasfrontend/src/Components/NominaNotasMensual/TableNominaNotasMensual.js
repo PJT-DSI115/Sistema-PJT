@@ -1,6 +1,6 @@
 import React from 'react'
 
-const TableConsultaNotasMes = React.forwardRef(({datos}, ref) => {
+const TableNominaNotasMensual = React.forwardRef(({datos}, ref) => {
 
   return (
     <div className='px-2' ref={ref}>
@@ -51,4 +51,4 @@ const TableConsultaNotasMes = React.forwardRef(({datos}, ref) => {
   )
 });
 
-export { TableConsultaNotasMes }
+export { TableNominaNotasMensual }

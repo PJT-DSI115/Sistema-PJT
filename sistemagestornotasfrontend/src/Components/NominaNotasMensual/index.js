@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { useConsultarNotas } from "Hooks/useConsultarNotas";
-import { TableConsultaNotasMes } from "./TableConsultaNotasMes";
+import { TableNominaNotasMensual } from "./TableNominaNotasMensual";
 import { Loader } from "Components/Loader";
 import { useReactToPrint } from 'react-to-print';
 
-const ConsultarNotasMensual = () => {
+const NominaNotasMensual = () => {
   const { consultarNotas, datos, loading, error } = useConsultarNotas();
 
   const componentRef = useRef(null);
@@ -37,9 +37,9 @@ const ConsultarNotasMensual = () => {
         </select>
         <button className="w-fit bg-blue-500 text-white rounded px-5 mx-auto font-semibold" onClick={ handlePrint }>Generar Boleta</button>
       </div>
-      {Object.keys(datos).length !== 0 ? <TableConsultaNotasMes datos={datos} ref={componentRef}/> : ""}
+      {Object.keys(datos).length !== 0 ? <TableNominaNotasMensual datos={datos} ref={componentRef}/> : ""}
     </div>
   );
 };
 
-export { ConsultarNotasMensual };
+export { NominaNotasMensual };
