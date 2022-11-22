@@ -9,6 +9,7 @@ use App\Service\AlumnoService;
 use App\Utils\MessageResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class AlumnoController extends Controller
@@ -81,4 +82,13 @@ class AlumnoController extends Controller
     }
 
     //public function boletaNotas(Periodo $periodo, CursoNivel $cursoNivel)
+
+    //Función Get Alumno.
+    public function getAlumnosCategoria(){
+        $alumnoCategoria = DB::table('alumnos as al')
+        ->select('al.id','al.nombre_alumno','al.apellido_alumno','ca.nombre_categoria_alumno')
+        ->join('categoria_alumnos as ca','ca.id','=','al.id_categoria_alumno')->get();
+
+        return $alumnoCategoria;
+    }
 }

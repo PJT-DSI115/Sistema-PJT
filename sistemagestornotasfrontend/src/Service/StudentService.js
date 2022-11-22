@@ -67,10 +67,24 @@ const insertStudents = ({jwt, data}) => {
     )
 }
 
+//Funcion de visualizar alumnos con la catgoría que pertenece. @Andrés
+function getAlumnoCategoria({ jwt }) {
+    return(
+        fetch(`${ENDPOINT}/obtenerAlumnoCategoria`, {
+            method: 'GET',
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}`: ""
+            }
+        })
+        .then(response =>  response)
+    );
+}
+
 export {
     getAllStudent,
     getStudentById,
     updateStudent,
     deleteStudent,
-    insertStudents
+    insertStudents,
+    getAlumnoCategoria,
 }
