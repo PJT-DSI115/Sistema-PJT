@@ -71,8 +71,13 @@ const optionsMaestro = [
     },
     {
         id: 3,
-        nombre: 'Consultar Notas Mensuales',
-        ruta: '/consultaNotas'
+        nombre: 'Rendimiento académico',
+        ruta: '/consultarRendimientoAcademico'
+    },
+    {
+        id: 4,
+        nombre: 'Nómina de Notas',
+        ruta: '/consultarNomina'
     }
 ]
 const optionsCoordinador = [

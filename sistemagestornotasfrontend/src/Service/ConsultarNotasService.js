@@ -1,8 +1,8 @@
 import { ENDPOINT } from "Config/EndPoint";
 
-const consultarNotasCursoNivelMesPeriodo = ({ jwt, dataParams, id_mes }) => {
+const consultarRendimientoAcademicoService = ({ jwt, dataParams, id_mes }) => {
     return(
-        fetch(`${ENDPOINT}/consultaNotas/${dataParams.idPeriodo}/${dataParams.idCursoNivel}/${id_mes}`, {
+        fetch(`${ENDPOINT}/consultaRendimiento/${dataParams.idPeriodo}/${dataParams.idCursoNivel}/${id_mes}`, {
             method: 'GET',
             headers: {
                 'Authorization': jwt ? `Bearer ${jwt}` : ""
@@ -13,4 +13,17 @@ const consultarNotasCursoNivelMesPeriodo = ({ jwt, dataParams, id_mes }) => {
     );
 }
 
-export { consultarNotasCursoNivelMesPeriodo }
+const consultarNominaNotasService = ({ jwt, dataParams, id_mes }) => {
+    return(
+        fetch(`${ENDPOINT}/consultaNomina/${dataParams.idPeriodo}/${dataParams.idCursoNivel}/${id_mes}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}` : ""
+            }
+        })
+        .then(response => response.json())
+        .then(data => data)
+    );
+}
+
+export { consultarRendimientoAcademicoService, consultarNominaNotasService }

@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import {
-  consultarNotasCursoNivelMesPeriodo
+  consultarRendimientoAcademicoService,
+  consultarNominaNotasService
 } from "../Service/ConsultarNotasService";
 import Context from "Context/UserContext";
 import { useParams } from "react-router-dom";
@@ -18,9 +19,19 @@ function useConsultarNotas() {
   }
 
   //Select
-  const consultarNotas = ({id_mes}) => {
+  const consultarRendimientoAcademico = ({id_mes}) => {
     setLoading(true);
-    consultarNotasCursoNivelMesPeriodo({jwt, dataParams, id_mes})
+    consultarRendimientoAcademicoService({jwt, dataParams, id_mes})
+    .then(res => {
+        setDatos(res);
+        setLoading(false);
+        setError(false);
+    })
+  };
+
+  const consultarNominaNotas = ({id_mes}) => {
+    setLoading(true);
+    consultarNominaNotasService({jwt, dataParams, id_mes})
     .then(res => {
         setDatos(res);
         setLoading(false);
@@ -29,7 +40,8 @@ function useConsultarNotas() {
   };
 
   return {
-    consultarNotas,
+    consultarRendimientoAcademico,
+    consultarNominaNotas,
     datos,
     loading,
     error
