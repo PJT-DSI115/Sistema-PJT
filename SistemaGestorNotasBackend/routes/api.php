@@ -23,6 +23,7 @@ use App\Http\Controllers\RecordNotasController;
 use App\Models\RegistroDocenteCurso;
 use App\Service\NominasNotasService;
 use Illuminate\Contracts\Cache\Store;
+use App\Http\Controllers\IncribirAlumnoCursoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -174,7 +175,7 @@ Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class
 
 //Nominas de notas de un curso de los estudiantes
 Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);
-Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumno']);
+Route::get('/asistencia/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumno']);
 
 // Editar docente asignado a un curso
 Route::put('/docenteCursoAsignado/update/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'updateDocenteCurso']);
@@ -189,8 +190,18 @@ Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasControl
 
 Route::get('/nominaPDF/{curso}', [NominasNotasCursosController::class, 'nominaPdf']);
 Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'notaAcumuladaPDF']);
-Route::get('/asistencia/{alumno}/{periodo}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
-Route::get('/asistencia/{periodo}', [AsistenciaController::class, 'asistenciPeriodoPDF']);
+Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
 
+//Record de notas del alumno
 Route::get('alumno/record/{student}/', [RecordNotasController::class, 'recordGlobal']);
 
+//Route de asignar alumnos a cursos
+Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
+Route::delete('/eliminarAlumnoCurso/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'deleteRegisterAlumnoCurso']);
+Route::put('/actualizarCursoAlumno/{registroAlumnoCurso}', [IncribirAlumnoCursoController::class, 'updateRegisterDocenteCurso']);
+Route::get('/obtenerAlumno/{idPeriodo}/{idCurso}', [IncribirAlumnoCursoController::class, 'getAllRegisterByAlumnoPeriodoCursoNivel'])->middleware('authJwt:Administrador');
+
+//Funcion de mostrar alumnos en base a la categoría.
+Route::get('/obtenerAlumnoCategoria', [AlumnoController::class, 'getAlumnosCategoria'])->middleware('authJwt:Administrador');
+
+//Funcion de mostrar usuarios existentes en el sistema de gestión de usuarios.

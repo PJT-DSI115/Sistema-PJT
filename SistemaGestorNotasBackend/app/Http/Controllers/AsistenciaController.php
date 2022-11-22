@@ -20,35 +20,16 @@ class AsistenciaController extends Controller
         $this->asistencia = $asistencia;
     }
 
-    public function asistenciaAlumno($alumno, $periodo)
+    public function asistenciaAlumno($alumno, $periodo, $curso)
     {
-        return $this->asistencia->asistenciaAlumnoService($alumno, $periodo);
+        return $this->asistencia->asistenciaAlumnoService($alumno, $periodo, $curso);
     }
 
-    public function asistenciaAlumnoPDF($alumno, $periodo)
+    public function asistenciaAlumnoPDF($alumno, $periodo, $curso)
     {
-        $asistencia = DB::table('asistencias')
-            ->select('alumnos.nombre_alumno', 'periodos.codigo_periodo', 'asistencias.fechaAsistencias', 'asistencias.asistencia')
-            ->join('alumnos', 'asistencias.id_alumno', '=', 'alumnos.id')
-            ->join('periodos', 'asistencias.id_periodo', '=', 'periodos.id')
-            ->where('asistencias.id_alumno', $alumno)
-            ->where('asistencias.id_periodo', $periodo)
-            ->get();
-        $resultado = $asistencia;
+        return $this->asistencia->asistenciaAlumnoServicePDF($alumno, $periodo, $curso);
 
-        return $resultado;
     }
 
-    public function asistenciPeriodoPDF($periodo)
-    {
-        $asistencia = DB::table('asistencias')
-            ->select('alumnos.nombre_alumno', 'periodos.codigo_periodo', 'asistencias.fechaAsistencias', 'asistencias.asistencia')
-            ->join('alumnos', 'asistencias.id_alumno', '=', 'alumnos.id')
-            ->join('periodos', 'asistencias.id_periodo', '=', 'periodos.id')
-            ->where('asistencias.id_periodo', $periodo)
-            ->get();
-        $resultado = $asistencia;
-
-        return $resultado;
-    }
 }
+?>

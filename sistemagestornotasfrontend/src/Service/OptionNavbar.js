@@ -44,10 +44,18 @@ const optionsAdministrador = [
         nombre: 'Gestionar Docente',
         ruta: '/gestionarDocente'
     },
+
+
     {
         id: 10,
+        nombre: 'Asignación Alumnos',
+        ruta: '/AsignarCursoAlumno'
+    },
+    {
+        id: 11,
         nombre: 'Boleta Sabatina',
         ruta: '/boletaSabatina'
+
     }
 ]
 const optionsMaestro = [

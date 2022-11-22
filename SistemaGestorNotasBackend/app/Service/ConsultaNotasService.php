@@ -152,4 +152,5 @@ class ConsultaNotasService {
 
         return $info;
     }
+
 }

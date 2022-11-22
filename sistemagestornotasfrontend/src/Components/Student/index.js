@@ -3,12 +3,14 @@ import {
   getAllStudent,
   deleteStudent,
   insertStudents,
+  getAlumnoCategoria,
 } from "Service/StudentService";
 import Context from "Context/UserContext";
 import { StudentTable } from "./StudentTable";
 import Modal from "Components/Modal";
 import { AlertMessage } from "Components/AlertMessage/alertMessage";
 import { FormRegister } from "./FormRegister";
+import { Link } from 'react-router-dom'
 
 function Student() {
   const { jwt } = useContext(Context);
@@ -99,6 +101,13 @@ function Student() {
           >
             Registrar Estudiante
           </button>
+          {/* Boton Mostrar Estudiante */}
+          <Link to = { `/CategoriasAlumnos` }
+                                        className="formCustom__button mx-2"
+                                    >
+                                        Mostrar Estudiantes
+                                    </Link>
+          {/* Fin de boton */}
         </div>
       </div>
       {<StudentTable students={students} handleDelete={showModalDetele} />}
