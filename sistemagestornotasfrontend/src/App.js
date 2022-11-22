@@ -25,6 +25,7 @@ import { DocenteIndex } from "Components/Docente";
 import { ConsultarNotasMensual } from "Components/ConsultaNotasMensual";
 
 import { AsignarCursoAlumno } from "Components/AsignarCursoAlumno";
+import { AlumnoCate } from "Components/CategoriasAlumnos";
 
 import { BoletaSabatina } from "Components/BoletaSabatina/BoletaSabatina";
 import { AlumnosBoletaTable } from "Components/BoletaSabatina/AlumnosBoletaTable";
@@ -132,7 +133,10 @@ function App() {
                   <Route path=":idPeriodo">
                     <Route path=":idCursoNivel" element={<AsignarCursoAlumno />} />
                   </Route>
-                </Route> 
+                </Route>
+                
+                <Route path = '/CategoriasAlumnos' element = {<AlumnoCate/>} />
+                
 
                 {/**
 								 Ruta para que profesor consulte notas mensuales

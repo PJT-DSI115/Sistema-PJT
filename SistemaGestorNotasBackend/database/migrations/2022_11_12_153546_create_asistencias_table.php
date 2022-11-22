@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('asistencias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_periodo')->references('id')->on('periodos');
+            $table->foreignId('id_carga_academicas')->references('id')->on('carga_academicas');
             $table->boolean('asistencia');
             $table->date('fechaAsistencias');
-            $table->foreignId('id_alumno')->references('id')->on('alumnos');
+            $table->foreignId('id_curso_nivel_mes')->references('id')->on('curso_nivel_mes');
             $table->timestamps();
         });
     }
