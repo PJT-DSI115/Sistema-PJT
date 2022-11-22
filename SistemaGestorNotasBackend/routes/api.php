@@ -19,6 +19,7 @@ use App\Http\Controllers\NominasNotasCursosController;
 use App\Http\Controllers\RegistroNotasController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RecordNotasController;
 use App\Models\RegistroDocenteCurso;
 use App\Service\NominasNotasService;
 use Illuminate\Contracts\Cache\Store;
@@ -108,9 +109,12 @@ Route::put('/registroDocenteCurso/update/{registroDocenteCurso}', [RegistroDocen
 Route::get('/getAllCursosNivelByDocente', [RegistroDocenteCursoController::class, 'getAllRegisterByDocentePeriodoCursoNivel'])
     ->middleware('authJwt:Docente');
 
-//Routes Docente    
+//Routes Docente
 Route::get('/docente/getAll', [DocenteController::class, 'getAllDocentes']);
 Route::post('/docente', [DocenteController::class, 'store']);
+Route::get('/docente/{profesor}', [DocenteController::class, 'show']);
+Route::put('/docente/{profesor}', [DocenteController::class, 'update']);
+Route::delete('/docente/{profesor}', [DocenteController::class, 'destroy']);
 
 //Routes Carga Académica
 Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}', [CargaAcademicaController::class, 'indexLineaActividadByCursoNivel']);
@@ -118,7 +122,7 @@ Route::get('/cargaAcademica/lineasActividad/{cargaAcademica}/{mes}', [CargaAcade
 Route::get('/cargaAcademica/{id_periodo}/{id_curso_nivel}', [CargaAcademicaController::class, 'indexAlumnosByCarga']);
 Route::get('/indexGetAlumnos/{periodo}', [CargaAcademicaController::class, 'indexGetAllAlumnosForBoleta']);
 
-//Route CursoNivelMes    
+//Route CursoNivelMes
 Route::get('/cursoNivelMes/mes/{cargaAcademica}', [CursoNivelMesController::class, 'indexMesesByCursoNivel']);
 
 //Route Notas
@@ -187,6 +191,9 @@ Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasControl
 Route::get('/nominaPDF/{curso}', [NominasNotasCursosController::class, 'nominaPdf']);
 Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'notaAcumuladaPDF']);
 Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
+
+//Record de notas del alumno
+Route::get('alumno/record/{student}/', [RecordNotasController::class, 'recordGlobal']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
