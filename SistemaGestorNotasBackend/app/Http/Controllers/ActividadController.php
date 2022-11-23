@@ -38,7 +38,7 @@ class ActividadController extends Controller
     
     public function updateActividad(Request $request, Actividad $actividad)
     {
-        Actividad::find();
+        
         $response = $this->actividadService->actualizarActividad($request->json()->all(), $actividad);
         return $response;
     }
