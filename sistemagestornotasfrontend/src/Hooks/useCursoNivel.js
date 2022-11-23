@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { getCursosByNivel } from "Service/CursoNivelService";
 import Context from "Context/UserContext";
 
@@ -8,11 +8,9 @@ function useCursoNivel() {
   const [cursoNivel, setCusroNivel] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorPermission, setErrorPermission] = useState(false);
-  const [errorSave, setErrorSave] = useState(false);
-  const [saveSuccess, setSaveSuccess] = useState(false);
 
   const getCursosNivel = ({ id }) => {
-    if (id != undefined || id != 0) {
+    if (id !== undefined || id !== 0) {
       setLoading(true);
       getCursosByNivel({ jwt, id }).then((data) => {
         if (data.status) {

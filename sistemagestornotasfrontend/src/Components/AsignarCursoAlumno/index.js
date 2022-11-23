@@ -1,9 +1,10 @@
 /**
  * @author RO Andrés
  */
- import { useState, useEffect, useContext } from 'react';
+ import { useState, useEffect, useContext, useRef } from 'react';
+ import { useReactToPrint } from 'react-to-print';
+
  import { useParams } from 'react-router-dom';
- import { useNavigate } from 'react-router-dom';
  
  import Context from 'Context/UserContext';
  import ContextPeriodo from 'Context/PeriodoContext';//Preguntar
@@ -13,27 +14,43 @@
  import  Modal  from 'Components/Modal';
  import { getAsignarCursoAlumno,storeAsignarCursoAlumno,updateAsignarCursoAlumno,deleteAsignarCursoAlumno
  } from 'Service/CargaAcademicaService';
+ import {AsignarCursoAlumnoPdf} from './AsignarCursoAlumnoPdf';
  import { Loader } from 'Components/Loader';
+ import {getCursoNivel} from 'Service/CursoNivelService';
  
  
  function AsignarCursoAlumno() {
-     const  { idPeriodo, idCursoNivel,idAlumno }  = useParams();
+
+    const componentRef = useRef(null);
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+
+    });
+
+     const  { idPeriodo, idCursoNivel }  = useParams();
  
-     const navigate = useNavigate();
      const [showModal, setShowModal] = useState(false);
      const [register, setRegister] = useState([]);
+     const [cursoNivel, setCursoNivel] = useState({});
      const { jwt } = useContext(Context);
      const { periodo } = useContext(ContextPeriodo);
-     const [errorLogic, setErrorLogic] = useState(false);
-     const [messageErrorLogic, setMessageErrorLogic] = useState("");
-     const [buttonActive, setButtonActive] = useState(false);
+     const [, setButtonActive] = useState(false);
      const [loading, setLoading] = useState(false);
-     const [success, setSuccess] = useState(false);
+     const [, setSuccess] = useState(false);
  
      const [heightC, setHeigtC] = useState("");
      const [widthC, setWidthC] = useState("");
      const [children, setChildren] = useState("");
     
+     const getCursoNivelById = () => {
+        getCursoNivel({id: idCursoNivel, jwt})
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setCursoNivel(data);
+        });
+     };
+
      const getData = () => {
         const data = {
             id_periodo: idPeriodo,
@@ -58,45 +75,9 @@
     }
      useEffect(() => {
          getData();
- 
+         getCursoNivelById();
      },[] )
  
- 
-     const updateAsignarCursoAlu = ({ data }) => {
-         return (updateAsignarCursoAlumno({data, jwt})
-             .then(response => {
-                 if( response.status === 500) {
-                     setErrorLogic(true);
-                     return
-                 }
-                 if(response.status === 401) {
-                     navigate('/login');
-                 }
-                 if(response.status === 403) {
-                     navigate('/error403');
-                 }
-                 return response.json();
-             })
-             .then(data => {
-                 if(data.message === "Error") {
-                     return {
-                         "type" : data.message,
-                         "descripcion": data.descripcionMessage
-                     }
-                 }
-                 if(data.message === "Ok") {
-                     getData();
-                     onClose();
-                     return {
-                         "type": data.message,
-                         "descripcion": data.descripcionMessage
-                     };
-                 }
-             })
-         );
-         
- 
-     }
  
      const storeAsignarCursoAlu = ({ data }) => {
         storeAsignarCursoAlumno({ data, jwt,idPeriodo,idCursoNivel })
@@ -109,31 +90,9 @@
             getData();
             }
       });
-         /* return (storeAsignarCursoAlumno({data, jwt})
-         .then(response => response.json())
-             .then(dataResponse => {
-                 if(dataResponse.message === "Error") {
-                     setErrorLogic(true);
-                     setMessageErrorLogic(dataResponse.descripcionMessage);
-                     return {
-                         "type": dataResponse.message,
-                         "descripcion": dataResponse.descripcionMessage
-                     }
-                 }
-                 if(dataResponse.message === 'Ok') {
-                     getData();
-                     onClose();
-                     return {
-                         "type": data.message,
-                         "descripcion": data.descripcionMessage
-                     }
-                 }
-             })) */
      };//Fin de storeAsignarCursoAlu
  
      const deleteAsignarCursoAlu = ( { data } ) => {
-         const id = data.id
-         console.log("Se ejecuta");
          return (deleteAsignarCursoAlumno({ data , jwt })
          .then(response => {
              if(response.status === 401 || response.status === 403 || response.status === 500) {
@@ -159,13 +118,6 @@
          }));
      }
  
-     const verifiedButton = () => {
-         if(register.length >= 3) {
-             return true;
-         } else {
-             return false;
-         }
-     }
  
      const onClose = () => {
          setShowModal(false);
@@ -237,28 +189,34 @@
      }
  
      return (
-         <div className= "main">
+         <div className= "main mt-10" >
+            <div class = "grid grid-cols-3 mb-10">
              <h1 
-                 className= "text-lg font-bold text-center mt-10"
+                 className= "text-3xl font-bold text-center"
              >Asignación de Alumnos</h1>
-             <div className="buttonRegisterContainer">
-                 {
-                     
-                         <button 
-                             className="rounded-lg bg-lime-600 px-10 py-1 
-                             text-gray-100 cursor-pointer hover:bg-line-800
-                             mt-10"
-                             onClick={handleClickRegister}
-                         >
-                             Asignar
-                         </button>
-                         
-                 }
+                <button 
+                    className="w-fit bg-teal-700 text-white m-auto px-2 py-3 rounded hover:bg-teal-900 transition"
+                    onClick={handleClickRegister}
+                >
+                    Asignar
+                </button>
+                <button 
+                className="w-fit bg-teal-700 text-white m-auto px-2 py-3 rounded hover:bg-teal-900 transition"
+                onClick={handlePrint}>
+                    Descargar PDF
+                </button>
              </div>
              <AsignarCursoTable register={ register }  handleClickDelete = { handleClickDelete} handleClickUpdate = { handleClickUpdate} />
  
              { showModal && <Modal heightC = {heightC} widthC = { widthC } children = {children} />}
              
+
+             <div hidden>
+                <AsignarCursoAlumnoPdf 
+                    asignarCursoAlumno={ register }  
+                    cursoNivel = { cursoNivel }
+                    ref = {componentRef}/>
+             </div>
          </div>
      );
  }

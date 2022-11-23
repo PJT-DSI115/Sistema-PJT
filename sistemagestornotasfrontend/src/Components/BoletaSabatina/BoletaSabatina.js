@@ -5,7 +5,7 @@ import { useReactToPrint } from 'react-to-print';
 import { BoletaSabatinaPDF } from "./BoletaSabatinaPDF";
 
 const BoletaSabatina = () => {
-  const { boleta, error, loading, getBoletaSabatina } = useBoletaSabatina();
+  const { boleta, loading, getBoletaSabatina } = useBoletaSabatina();
   
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({

@@ -201,3 +201,6 @@ Route::get('/obtenerAlumno/{idPeriodo}/{idCurso}', [IncribirAlumnoCursoControlle
 Route::get('/obtenerAlumnoCategoria', [AlumnoController::class, 'getAlumnosCategoria'])->middleware('authJwt:Administrador');
 
 //Funcion de mostrar usuarios existentes en el sistema de gestión de usuarios.
+
+Route::get('/getCursoNivel/{cursoNivel}', [CursoNivelController::class, 'getCursoNivel'])
+->middleware('authJwt:Administrador');

@@ -17,4 +17,15 @@ const getCursosByNivel = ({jwt, id}) =>{
     );
 }
 
-export {getCursosByNivel};
+const getCursoNivel = ({id, jwt}) => {
+    return (
+        fetch(`${ENDPOINT}/getCursoNivel/${id}`,{
+            method: 'GET',
+            headers:{
+                'Authorization': jwt ? `Bearer ${jwt}` : ""
+            }
+        })
+    );
+};
+
+export {getCursosByNivel, getCursoNivel};
