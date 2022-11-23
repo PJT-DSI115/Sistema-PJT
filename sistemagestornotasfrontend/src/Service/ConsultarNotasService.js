@@ -26,4 +26,17 @@ const consultarNominaNotasService = ({ jwt, dataParams, id_mes }) => {
     );
 }
 
-export { consultarRendimientoAcademicoService, consultarNominaNotasService }
+const consultaNotasAcumuladasService = ({ jwt, dataParams }) => {
+    return(
+        fetch(`${ENDPOINT}/consultaAcumulada/${dataParams.idPeriodo}/${dataParams.idCursoNivel}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': jwt ? `Bearer ${jwt}` : ""
+            }
+        })
+        .then(response => response.json())
+        .then(data => data)
+    );
+}
+
+export { consultarRendimientoAcademicoService, consultarNominaNotasService, consultaNotasAcumuladasService }

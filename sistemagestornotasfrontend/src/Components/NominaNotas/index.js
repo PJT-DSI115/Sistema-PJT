@@ -12,7 +12,6 @@ const NominaNotas = () => {
   const handleChange = e => {
     e.preventDefault();
     consultarNominaNotas({id_mes: e.target.value});
-    console.log(datos);
   }
 
   const handlePrint = useReactToPrint({

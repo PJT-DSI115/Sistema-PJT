@@ -30,6 +30,7 @@ import { AlumnoCate } from "Components/CategoriasAlumnos";
 import { BoletaSabatina } from "Components/BoletaSabatina/BoletaSabatina";
 import { AlumnosBoletaTable } from "Components/BoletaSabatina/AlumnosBoletaTable";
 import { NominaNotas } from "Components/NominaNotas";
+import { NotasAcumuladas } from "Components/NotasAcumuladas";
 
 
 function App() {
@@ -144,6 +145,16 @@ function App() {
                   <Route path=":idPeriodo" element={<CursosNivel />}></Route>
                   <Route path=":idPeriodo">
                     <Route path=":idCursoNivel" element={<AsignarCursoAlumno />} />
+                  </Route>
+                </Route>
+
+                {/*
+								   Ruta para que profesor consulte la notas acumuladas
+								 */}
+                <Route path="/consultarAcumulada" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<ListadocursoDocente />}></Route>
+                  <Route path=":idPeriodo">
+                    <Route path=":idCursoNivel" element={<NotasAcumuladas />} />
                   </Route>
                 </Route>
                 

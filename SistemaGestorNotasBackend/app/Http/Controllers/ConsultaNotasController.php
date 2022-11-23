@@ -30,6 +30,10 @@ class ConsultaNotasController extends Controller
         return $this->consultaNotasService->consultaNominaNotasService($periodo, $curso_nivel, $mes);
     }
 
+    public function consultaNotasAcumuladas(Periodo $periodo, CursoNivel $curso_nivel){
+        return $this->consultaNotasService->consultaNotasAcumuladasService($periodo, $curso_nivel);
+    }
+
     public function consultaBoletaSabatina (Periodo $periodo, Alumno $alumno){
         return $this->consultaNotasService->consultaBoletaSabatinaService($periodo, $alumno);
     }
