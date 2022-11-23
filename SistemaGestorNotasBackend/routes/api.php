@@ -192,7 +192,7 @@ Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasCont
 Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
 
 //Record de notas del alumno
-Route::get('alumno/record/{student}/', [RecordNotasController::class, 'recordGlobal']);
+Route::get('/consultarRecordNotas/{periodo}/{usuario}', [RecordNotasController::class, 'consultarRecordNotas']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);

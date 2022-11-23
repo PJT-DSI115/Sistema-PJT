@@ -97,7 +97,18 @@ const optionsCoordinador = [
         ruta: '/asignacionDocentes'
     }
 ]
-
+const optionsAlumno = [
+    {
+        id: 1,
+        nombre: 'Récord de Notas',
+        ruta: '/consultarRecordNotas',
+    },
+    {
+        id: 2,
+        nombre: 'Notas Actividades',
+        ruta: '/consultarNotasActividades'
+    }
+]
 const optionsFilter = [
     {
         id: 1,
@@ -122,6 +133,9 @@ function selectOption({ value }) {
     }
     if(value === 'Coordinador'){
         return optionsCoordinador;;
+    }
+    if(value === 'Alumno'){
+        return optionsAlumno;
     }
     if(value === 'userFilter') {
         return optionsFilter;
