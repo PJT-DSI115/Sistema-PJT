@@ -22,13 +22,14 @@ import { CategoriaAlumno } from 'Components/CategoriaAlumno';
 import { Student  } from 'Components/Student';
 import { DetailsStudent } from 'Components/Student/DetailsStudent';
 import { DocenteIndex } from "Components/Docente";
-import { ConsultarNotasMensual } from "Components/ConsultaNotasMensual";
+import { RendimientoAcademico } from "Components/RendimientoAcademico";
 
 import { AsignarCursoAlumno } from "Components/AsignarCursoAlumno";
 import { AlumnoCate } from "Components/CategoriasAlumnos";
 
 import { BoletaSabatina } from "Components/BoletaSabatina/BoletaSabatina";
 import { AlumnosBoletaTable } from "Components/BoletaSabatina/AlumnosBoletaTable";
+import { NominaNotas } from "Components/NominaNotas";
 
 
 function App() {
@@ -87,7 +88,6 @@ function App() {
                       <Route path=":idCargaAcademica" element={<CargaNotas />} />
                     </Route>
                   </Route>
-                  
                 </Route>
 
                 {/**
@@ -117,17 +117,29 @@ function App() {
                 {/* Routes for Docente */}
                 <Route path="/gestionarDocente" element={<DocenteIndex />}/>
 
-                 {/**
-								 Ruta para que profesor consulte notas mensuales
-								*/}
-                <Route path="/consultaNotas" element={<ListPeriodos />}>
+                 {/*
+								   Ruta para que profesor consulte el rendimiento académico
+								 */}
+                <Route path="/consultarRendimientoAcademico" element={<ListPeriodos />}>
                   <Route path=":idPeriodo" element={<ListadocursoDocente />}></Route>
                   <Route path=":idPeriodo">
-                    <Route path=":idCursoNivel" element={<ConsultarNotasMensual />} />
+                    <Route path=":idCursoNivel" element={<RendimientoAcademico />} />
                   </Route>
                 </Route>
 
+                  {/*
+								   Ruta para que profesor consulte la nómina de notas
+								 */}
+                <Route path="/consultarNomina" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<ListadocursoDocente />}></Route>
+                  <Route path=":idPeriodo">
+                    <Route path=":idCursoNivel" element={<NominaNotas />} />
+                  </Route>
+                </Route>
 
+                {/*
+                  Ruta para inscribir a los alumnos a un curso
+                */}
                 <Route path="/AsignarCursoAlumno" element={<ListPeriodos />}>
                   <Route path=":idPeriodo" element={<CursosNivel />}></Route>
                   <Route path=":idPeriodo">
@@ -136,17 +148,6 @@ function App() {
                 </Route>
                 
                 <Route path = '/CategoriasAlumnos' element = {<AlumnoCate/>} />
-                
-
-                {/**
-								 Ruta para que profesor consulte notas mensuales
-								*/}
-                <Route path="/consultaNotas" element={<ListPeriodos />}>
-                  <Route path=":idPeriodo" element={<ListadocursoDocente />}></Route>
-                  <Route path=":idPeriodo">
-                    <Route path=":idCursoNivel" element={<ConsultarNotasMensual />} />
-                  </Route>
-                </Route>
 
                 {/**
 								 Ruta para que admin consulte boleta sabatina
