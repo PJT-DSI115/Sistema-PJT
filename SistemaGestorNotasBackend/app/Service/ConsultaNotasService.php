@@ -176,7 +176,7 @@ class ConsultaNotasService {
                     ->get();
 
                     for($j=0; $j<count($meses); $j++){
-                        $promedioMensualActividad[$j] += ($notaLinea[$j]->nota / count($meses));
+                        $promedioMensualActividad[$j] += ($notaLinea[$j]->nota / count($lineasActividad));
                     }
                 }
 
