@@ -10,7 +10,7 @@ import { loginService } from 'Service/loginService';
 import { searchPeriodoActivo } from 'Service/periodoService';
 
 function useUser() {
-    const { jwt, setJWT, nombreRol, setNombreRol, idRol, setIdRol } = useContext(Context);
+    const { jwt, setJWT, nombreRol, setNombreRol, idRol, setIdRol, setIdUser } = useContext(Context);
     const { setPeriodo } = useContext(ContextPeriodo);
     const [state, setState] = useState({loading: false, error: false});
     const [messageError, setMessageError] = useState("");
@@ -28,14 +28,16 @@ function useUser() {
                 window.sessionStorage.setItem('jwt', data.jwt);
                 window.sessionStorage.setItem('nombreRol', data.nombreRol);
                 window.sessionStorage.setItem('idRol', data.idRol);
+                window.sessionStorage.setItem('id', data.id);
                 setJWT(data.jwt);
                 setIdRol(data.idRol);
                 setNombreRol(data.nombreRol);
+                setIdUser(data.id);
                 setState({loading: false, error: false});
                 //searchPeriodo({jwt})
             }
         })
-    }, [setJWT, setIdRol, setNombreRol]);
+    }, [setJWT, setIdRol, setNombreRol, setIdUser]);
 
     const searchPeriodo = () => {
         searchPeriodoActivo({jwt})
@@ -68,11 +70,13 @@ function useUser() {
         setJWT(null);
         setIdRol(null);
         setNombreRol(null);
+        setIdUser(null)
         window.sessionStorage.removeItem('jwt');
         window.sessionStorage.removeItem('nombreRol');
         window.sessionStorage.removeItem('idRol');
+        window.sessionStorage.removeItem('id');
         navigate('/login');
-    }, [setJWT, setIdRol, setNombreRol]);
+    }, [setJWT, setIdRol, setNombreRol, setIdUser]);
 
     return {
         logout,

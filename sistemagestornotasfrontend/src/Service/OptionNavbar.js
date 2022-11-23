@@ -71,13 +71,18 @@ const optionsMaestro = [
     },
     {
         id: 3,
-        nombre: 'Rendimiento académico',
+        nombre: 'Rendimiento Académico',
         ruta: '/consultarRendimientoAcademico'
     },
     {
         id: 4,
         nombre: 'Nómina de Notas',
         ruta: '/consultarNomina'
+    },
+    {
+        id: 5,
+        nombre: 'Consulta de Notas Acumuladas',
+        ruta: '/consultarAcumulada'
     }
 ]
 const optionsCoordinador = [
@@ -92,7 +97,18 @@ const optionsCoordinador = [
         ruta: '/asignacionDocentes'
     }
 ]
-
+const optionsAlumno = [
+    {
+        id: 1,
+        nombre: 'Récord de Notas',
+        ruta: '/consultarRecordNotas',
+    },
+    {
+        id: 2,
+        nombre: 'Notas Actividades',
+        ruta: '/consultarNotasActividades'
+    }
+]
 const optionsFilter = [
     {
         id: 1,
@@ -117,6 +133,9 @@ function selectOption({ value }) {
     }
     if(value === 'Coordinador'){
         return optionsCoordinador;;
+    }
+    if(value === 'Alumno'){
+        return optionsAlumno;
     }
     if(value === 'userFilter') {
         return optionsFilter;

@@ -21,7 +21,7 @@ const BoletaSabatina = () => {
   }
 
   return (
-    <div className="w-3/4">
+    <div className="w-3/4 text-sm">
 
       {/* Información del periodo y el alumno */}
       <div className="w-3/4 m-auto my-5">

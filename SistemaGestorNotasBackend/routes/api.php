@@ -167,11 +167,11 @@ Route::middleware('authJwt:Administrador')->group(function(){
     Route::post('/alumno/store', [AlumnoController::class, 'store']);
 });
 
-
 //Route par la consulta de notas
 Route::get('/consultaRendimiento/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultaRendimientoAcademico']);
 Route::get('/consultaNomina/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'consultaNominaNotas']);
 Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class, 'consultaBoletaSabatina']);
+Route::get('/consultaAcumulada/{periodo}/{curso_nivel}', [ConsultaNotasController::class, 'consultaNotasAcumuladas']);
 
 //Nominas de notas de un curso de los estudiantes
 Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);
@@ -194,7 +194,7 @@ Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::c
 
 Route::post('/test/deleteRegisterDocentesCurso', [TestsController::class, 'deleteRegisterAssignTeacher']);
 //Record de notas del alumno
-Route::get('alumno/record/{student}/', [RecordNotasController::class, 'recordGlobal']);
+Route::get('/consultarRecordNotas/{periodo}/{usuario}', [RecordNotasController::class, 'consultarRecordNotas']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);

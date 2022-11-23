@@ -1,13 +1,15 @@
 import { useState, useContext } from "react";
 import {
   consultarRendimientoAcademicoService,
-  consultarNominaNotasService
+  consultarNominaNotasService,
+  consultaNotasAcumuladasService,
+  consultaRecordNotasService
 } from "../Service/ConsultarNotasService";
 import Context from "Context/UserContext";
 import { useParams } from "react-router-dom";
 
 function useConsultarNotas() {
-  const { jwt } = useContext(Context);
+  const { jwt, idUser } = useContext(Context);
   const [datos, setDatos] = useState({});
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
@@ -39,9 +41,31 @@ function useConsultarNotas() {
     })
   };
 
+  const consultaNotasAcumuladas = () => {
+    setLoading(true);
+    consultaNotasAcumuladasService({jwt, dataParams})
+    .then(res => {
+        setDatos(res);
+        setLoading(false);
+        setError(false);
+    })
+  };
+
+  const consultaRecordNotas = () => {
+    setLoading(true);
+    consultaRecordNotasService({jwt, idPeriodo, idUser})
+    .then(res => {
+        setDatos(res);
+        setLoading(false);
+        setError(false);
+    })
+  };
+
   return {
     consultarRendimientoAcademico,
     consultarNominaNotas,
+    consultaNotasAcumuladas,
+    consultaRecordNotas,
     datos,
     loading,
     error

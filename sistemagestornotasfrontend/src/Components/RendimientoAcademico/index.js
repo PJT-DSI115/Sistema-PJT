@@ -12,7 +12,6 @@ const RendimientoAcademico = () => {
   const handleChange = e => {
     e.preventDefault();
     consultarRendimientoAcademico({id_mes: e.target.value});
-    console.log(datos);
   }
 
   const handlePrint = useReactToPrint({
