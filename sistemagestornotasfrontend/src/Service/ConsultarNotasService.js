@@ -53,9 +53,21 @@ const consultaRecordNotasService = ({ jwt, idPeriodo, idUser }) => {
     .then((data) => data);
 };
 
+const consultaNotasActividadesService = ({ jwt, idPeriodo, idUser }) => {
+  return fetch(`${ENDPOINT}/consultarNotasActividades/${idPeriodo}/${idUser}`, {
+    method: "GET",
+    headers: {
+      Authorization: jwt ? `Bearer ${jwt}` : "",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => data);
+};
+
 export {
   consultarRendimientoAcademicoService,
   consultarNominaNotasService,
   consultaNotasAcumuladasService,
   consultaRecordNotasService,
+  consultaNotasActividadesService,
 };

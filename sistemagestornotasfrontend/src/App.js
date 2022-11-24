@@ -32,6 +32,7 @@ import { AlumnosBoletaTable } from "Components/BoletaSabatina/AlumnosBoletaTable
 import { NominaNotas } from "Components/NominaNotas";
 import { NotasAcumuladas } from "Components/NotasAcumuladas";
 import { RecordNotas } from "Components/RecordNotas";
+import { NotasActividades } from "Components/NotasActividades";
 
 
 function App() {
@@ -176,6 +177,13 @@ function App() {
 								 */}
                 <Route path="/consultarRecordNotas" element={<ListPeriodos />}>
                   <Route path=":idPeriodo" element={<RecordNotas />} />
+                </Route>
+
+                {/*
+								   Ruta para que estudiante consulte record de notas
+								 */}
+                <Route path="/consultarNotasActividades" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<NotasActividades />} />
                 </Route>
 
               </Routes>

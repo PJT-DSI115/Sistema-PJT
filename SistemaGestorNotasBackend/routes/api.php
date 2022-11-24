@@ -195,6 +195,7 @@ Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::c
 Route::post('/test/deleteRegisterDocentesCurso', [TestsController::class, 'deleteRegisterAssignTeacher']);
 //Record de notas del alumno
 Route::get('/consultarRecordNotas/{periodo}/{usuario}', [RecordNotasController::class, 'consultarRecordNotas']);
+Route::get('/consultarNotasActividades/{periodo}/{usuario}', [RecordNotasController::class, 'consultarNotasActividades']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);
