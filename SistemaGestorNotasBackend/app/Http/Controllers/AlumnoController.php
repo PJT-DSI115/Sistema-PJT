@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
-use App\Models\CursoNivel;
-use App\Models\Periodo;
 use App\Service\AlumnoService;
 use App\Utils\MessageResponse;
 use Carbon\Carbon;
@@ -42,12 +40,26 @@ class AlumnoController extends Controller
                 for($contadorName = 0; $contadorName < sizeof($nameColumns); $contadorName++) {
                     if($nameColumns[$contadorName] == "fecha_nacimiento_alumno") {
 
-                        $arrayDate = explode("-", $arrayFile[$contador][$contadorName]);
-                        $date = Carbon::createFromDate(
-                            $arrayDate[2],
-                            $arrayDate[1],
-                            $arrayDate[0],
-                         'America/El_Salvador');
+                        if(str_contains($arrayFile[$contador][$contadorName],"/")) {
+                            $arrayDate = explode("/", $arrayFile[$contador][$contadorName]);
+                            $date = Carbon::createFromDate(
+                                $arrayDate[2], 
+                                $arrayDate[1], 
+                                $arrayDate[0],
+                                'America/El_Salvador'
+                            );
+                        }
+                        error_log($arrayFile[$contador][$contadorName]);
+                        error_log(str_contains("-", $arrayFile[$contador][$contadorName]));
+                        if(str_contains($arrayFile[$contador][$contadorName],"-")) {
+                            error_log("Entra aqui");
+                            $arrayDate = explode("-", $arrayFile[$contador][$contadorName]);
+                            $date = Carbon::createFromDate(
+                                $arrayDate[2],
+                                $arrayDate[1],
+                                $arrayDate[0],
+                            'America/El_Salvador');
+                        }
                     $arrayTemp[$nameColumns[$contadorName]] = $date;
                     } else {
                         $arrayTemp[$nameColumns[$contadorName]] = $arrayFile[$contador][$contadorName];
