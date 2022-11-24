@@ -164,7 +164,7 @@ function DetailsStudent() {
                     <label 
                         className='formCustom__label'
                     >
-                        Nombre Encargado
+                        Fecha de Nacimiento
                     </label>
                     <input 
                         onChange={(e) => {
