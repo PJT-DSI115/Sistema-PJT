@@ -82,7 +82,7 @@ function FormRegisterCategoriaAlumno({onClose, onEvent, dataUpdate}) {
                     onClick={ onClose }
                     className = 'formCustom__button formCustom__button--red'
                     >
-                        Eliminar
+                        Cancelar
                 </button>
             </div>
         </form>
