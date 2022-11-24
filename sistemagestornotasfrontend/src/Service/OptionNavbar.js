@@ -83,6 +83,11 @@ const optionsMaestro = [
         id: 5,
         nombre: 'Consulta de Notas Acumuladas',
         ruta: '/consultarAcumulada'
+    },
+    {
+        id: 6,
+        nombre: 'Gestionar Asistencias',
+        ruta: '/gestionAsistencia'
     }
 ]
 const optionsCoordinador = [
