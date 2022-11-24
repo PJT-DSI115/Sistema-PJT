@@ -197,6 +197,16 @@ function App() {
                   </Route>
                 </Route>
 
+                {/**
+								 Ruta para que admin gestione actividades de todos los cursos
+								*/}
+                <Route path="/consultarNotas" element={<ListPeriodos />}>
+                  <Route path=":idPeriodo" element={<CursosNivel />}></Route>
+                  <Route path=":idPeriodo">
+                    <Route path=":idCursoNivel" element={<NominaNotas />} />
+                  </Route>
+                </Route>
+
               </Routes>
             </div>
             <Footer />
