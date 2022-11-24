@@ -5,7 +5,7 @@ import { Loader } from "Components/Loader";
 
 function AlumnosBoletaTable() {
   
-  const {alumnosBoleta, errorLog, loading, consultarAlumnosForBoleta} = useCargaAcademica();
+  const {alumnosBoleta, loading, consultarAlumnosForBoleta} = useCargaAcademica();
   
   useEffect(() => {
     consultarAlumnosForBoleta();

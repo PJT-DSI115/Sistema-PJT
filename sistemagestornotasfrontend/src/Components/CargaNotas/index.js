@@ -9,10 +9,10 @@ import './index.css';
 import { InfoGeneral } from "./InfoGeneral";
 
 function CargaNotas() {
-  const { lineasActividad, registrerNota, loading, loadingForm, errorPermission, errorLog, messageLog, saveSucces } =
+  const { lineasActividad, registrerNota, loading, loadingForm, messageLog, saveSucces } =
     useRegistroNota();
 
-  const { meses, load, errorPer, errorL, idCargaAcademica } =
+  const { meses, idCargaAcademica } =
     useCursoNivelMes();
 
   const [showModal, setShowModal] = useState(false);
