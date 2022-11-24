@@ -139,4 +139,94 @@ class RecordNotasController extends Controller
 
         return $info;
     }
+
+    public function consultarNotasActividades (Periodo $periodo, User $usuario){
+
+        $alumno = DB::table('alumnos')
+        ->select("alumnos.id", 'alumnos.nombre_alumno', 'alumnos.apellido_alumno', 'alumnos.codigo_alumno')
+        ->where('alumnos.id_user', $usuario->id)
+        ->first();
+
+        $cargasAcademicas = CargaAcademica::select('id as id_carga_academica', 'id_curso_nivel')
+        ->where('id_periodo', $periodo->id)
+        ->where('id_alumno', $alumno->id)->get();    
+
+        foreach($cargasAcademicas as $cargaActual){
+
+            $curso_nivel = DB::table('curso_nivels')
+            ->select('cursos.nombre_curso', 'nivels.codigo_nivel', 'cursos.codigo_curso')
+            ->join('cursos', 'cursos.id', '=', 'curso_nivels.id_curso')
+            ->join('nivels', 'nivels.id', '=', 'curso_nivels.id_nivel')
+            ->where('curso_nivels.id', $cargaActual->id_curso_nivel)
+            ->first();
+
+            $cargaActual['nombre_curso'] = $curso_nivel->nombre_curso;
+            $cargaActual['codigo_curso'] = $curso_nivel->codigo_curso;
+            $cargaActual['nivel_curso'] = $curso_nivel->codigo_nivel;
+            
+            $actividades = CursoNivel::find($cargaActual->id_curso_nivel)
+            ->actividades()
+            ->where('id_periodo', $periodo->id)
+            ->select('id', 'codigo_actividad', 'porcentaje_actividad')
+            ->get();
+
+            $meses = DB::table('curso_nivel_mes')
+            ->select('curso_nivel_mes.id', 'mes.nombre_mes')
+            ->join('curso_nivels', 'curso_nivels.id', '=', 'curso_nivel_mes.id_curso_nivel')
+            ->join('mes', 'mes.id', '=', 'curso_nivel_mes.id_mes')
+            ->where('curso_nivel_mes.id_curso_nivel', $cargaActual->id_curso_nivel)
+            ->get();
+
+            $cargaActual['meses'] = $meses;
+
+            $promedioMensualTotal = [];
+            for($i=0; $i<count($meses); $i++){
+                $promedioMensualTotal[$i] = 0;
+            }   
+
+            $promedioActual = 0.0;
+
+            foreach($actividades as $actividad){
+
+                $promedioMensualActividad = [];
+                for($i=0; $i<count($meses); $i++){
+                    $promedioMensualActividad[$i] = 0;
+                }
+
+                $lineasActividad = $actividad->lineaActividad()->select('id', 'codigo_linea_actividad')->get();
+
+                foreach($lineasActividad as $linea){
+                    $notaLinea = DB::table('registro_notas')
+                    ->select('registro_notas.nota', 'mes.nombre_mes')
+                    ->join('curso_nivel_mes', 'curso_nivel_mes.id', '=', 'registro_notas.id_curso_nivel_mes')
+                    ->join('mes', 'mes.id', '=', 'curso_nivel_mes.id_mes')
+                    ->where('registro_notas.id_linea_actividad', $linea->id)
+                    ->get();
+
+                    for($j=0; $j<count($meses); $j++){
+                        $promedioMensualActividad[$j] += ($notaLinea[$j]->nota / count($lineasActividad));
+                    }
+                }
+
+                for($j=0; $j<count($meses); $j++){
+                    $promedioMensualActividad[$j] = number_format($promedioMensualActividad[$j], 2);
+                    $promedioMensualTotal[$j] = number_format($promedioMensualTotal[$j] + ($promedioMensualActividad[$j] * ($actividad->porcentaje_actividad / 100)), 2); 
+                }
+            }
+
+            for($j=0; $j<count($meses); $j++){
+                $promedioActual += number_format($promedioMensualTotal[$j], 2);
+            }
+
+            $cargaActual['promedio_mensual'] = $promedioMensualTotal;
+            $cargaActual['promedio_actual'] = number_format($promedioActual / count($meses), 2);
+        }
+
+        $respuesta = null;
+        $respuesta['cargas_academicas'] = $cargasAcademicas;
+        $respuesta['info_periodo'] = $periodo;
+        $respuesta['info_alumno'] = $alumno;
+
+        return $respuesta;
+    }
 }

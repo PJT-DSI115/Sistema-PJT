@@ -173,10 +173,6 @@ Route::get('/consultaNomina/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasContro
 Route::get('/boletaSabatina/{periodo}/{alumno}', [ConsultaNotasController::class, 'consultaBoletaSabatina']);
 Route::get('/consultaAcumulada/{periodo}/{curso_nivel}', [ConsultaNotasController::class, 'consultaNotasAcumuladas']);
 
-//Nominas de notas de un curso de los estudiantes
-Route::get('/nominas/{curso}', [NominasNotasCursosController::class, 'nominaNotaCurso']);
-Route::get('/asistencia/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumno']);
-
 // Editar docente asignado a un curso
 Route::put('/docenteCursoAsignado/update/{registroDocenteCurso}', [RegistroDocenteCursoController::class, 'updateDocenteCurso']);
 // Eliminar docente asignando a un curso
@@ -187,14 +183,14 @@ Route::get('/consultaNotas/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasControl
 
 
 //----------REPORTES------------------
-
-Route::get('/nominaPDF/{curso}', [NominasNotasCursosController::class, 'nominaPdf']);
-Route::get('/notaAcumuladaPDF/{periodo}/{curso_nivel}/{mes}', [ConsultaNotasController::class, 'notaAcumuladaPDF']);
-Route::get('/asistenciaPDF/{alumno}/{periodo}/{curso}', [AsistenciaController::class, 'asistenciaAlumnoPDF']);
+Route::post('/storeAsistencia', [AsistenciaController::class, 'storeAsistenciaAlumno']);
+Route::put('/updateAsistencia/{asistencia}', [AsistenciaController::class, 'updateAsistenciaAlumno']);
+Route::get('/consultarAsistencias/{periodo}/{curso_nivel}', [AsistenciaController::class, 'asistenciaAlumno']);
 
 Route::post('/test/deleteRegisterDocentesCurso', [TestsController::class, 'deleteRegisterAssignTeacher']);
 //Record de notas del alumno
 Route::get('/consultarRecordNotas/{periodo}/{usuario}', [RecordNotasController::class, 'consultarRecordNotas']);
+Route::get('/consultarNotasActividades/{periodo}/{usuario}', [RecordNotasController::class, 'consultarNotasActividades']);
 
 //Route de asignar alumnos a cursos
 Route::post('/asignarCursoAlumno/store', [IncribirAlumnoCursoController::class, 'storeInscribirAlumno']);

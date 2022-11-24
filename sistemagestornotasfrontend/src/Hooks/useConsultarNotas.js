@@ -3,7 +3,8 @@ import {
   consultarRendimientoAcademicoService,
   consultarNominaNotasService,
   consultaNotasAcumuladasService,
-  consultaRecordNotasService
+  consultaRecordNotasService,
+  consultaNotasActividadesService
 } from "../Service/ConsultarNotasService";
 import Context from "Context/UserContext";
 import { useParams } from "react-router-dom";
@@ -61,11 +62,22 @@ function useConsultarNotas() {
     })
   };
 
+  const consultaNotasActividades = () => {
+    setLoading(true);
+    consultaNotasActividadesService({jwt, idPeriodo, idUser})
+    .then(res => {
+        setDatos(res);
+        setLoading(false);
+        setError(false);
+    })
+  };
+
   return {
     consultarRendimientoAcademico,
     consultarNominaNotas,
     consultaNotasAcumuladas,
     consultaRecordNotas,
+    consultaNotasActividades,
     datos,
     loading,
     error
