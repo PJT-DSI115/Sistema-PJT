@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('id_carga_academicas')->references('id')->on('carga_academicas');
             $table->boolean('asistencia');
             $table->date('fechaAsistencias');
-            $table->foreignId('id_curso_nivel_mes')->references('id')->on('curso_nivel_mes');
             $table->timestamps();
         });
     }
