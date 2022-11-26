@@ -4,6 +4,9 @@ function AlertMessage({ title, descripction, onClose, onEvent, dataUpdate, loadi
     const handleDelete = () =>{
         onEvent({ data: dataUpdate, onClose });
     }
+    if(onEvent){
+        console.log("no hay evento");
+    }
 
     return (
         <div className='Alert-message-container'>

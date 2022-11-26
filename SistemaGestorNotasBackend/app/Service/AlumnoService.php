@@ -6,7 +6,6 @@ use App\Models\Alumno;
 use App\Utils\ValidateJsonRequest;
 use App\Utils\MessageResponse;
 use Carbon\Carbon;
-use Error;
 use Exception;
 
 class AlumnoService
@@ -53,7 +52,7 @@ class AlumnoService
             return MessageResponse::returnResponse($responseBool);
         }
         catch(Exception $ex){
-            error_log($ex);
+            return MessageResponse::returnResponse(false);
         }
     }
 }

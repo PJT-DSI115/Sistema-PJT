@@ -26,8 +26,12 @@ function AlumnoCate()
       });
   };
     return(
-
+      <div className="main">
+        <div className=" items-center">
+          <h1 className="font-bold mt-10 user__title" >Estudiantes - Categoria</h1>
+        </div>
         <AlumnoCTable alumnosCategorias={alumnosCa}/>
+      </div>
     )
     
 }

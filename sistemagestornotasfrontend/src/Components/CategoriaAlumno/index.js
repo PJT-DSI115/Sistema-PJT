@@ -24,7 +24,7 @@ function CategoriaAlumno() {
     const [heightC, setHeigtC] = useState("");
     const [widthC, setWidthC] = useState("");
     const [childrenModal, setChildrenModal] = useState(null);
-    const [success, setSuccess] = useState(false);
+    const [setSuccess] = useState(false);
 
 
     useEffect(() => {

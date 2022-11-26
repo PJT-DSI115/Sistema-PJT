@@ -81,11 +81,36 @@ function Student() {
 
   const deleteStudentHandle = ({ data: dataUpdate }) => {
     deleteStudent({ jwt, id: dataUpdate.id })
-      .then((response) => response.json())
+      .then((response) => {
+        return response.json();
+      })
       .then((data) => {
+        console.log(data);
         if (data.codeError === 0) {
           setSuccess(true);
           setShowModal(false);
+        }
+        if(data.codeError === 1) {
+          setSuccess(false);
+          setShowModal(true);
+          setWidthC("500px");
+          setHeigtC("200px");
+          setChildren(
+            <div className='Alert-message-container'>
+                <h2 className = "Alert-message-title">Error</h2>
+                <p className = "Alert-message-description">No se puede eliminar el alumno, esta en uso</p>
+                
+                <div className = "Alert-message-btns">
+                    <button 
+                        className = "Alert-message-btn Alert-message-btn-red"
+                        onClick = { onClose }
+                    >
+                        Cerrar
+                    </button>
+                </div>
+
+            </div>
+          )
         }
       });
   };
